@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>EIKEN Level Pre-2 Smart Learner Pro</title>
+    <!-- プレミアムアイコン用 FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #08090c;
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        /* iPhoneの画面にぴったりとフィットさせるレスポンシブコンテナ */
+        #container {
+            position: relative;
+            width: 100vw;
+            height: 100dvh;
+            max-width: 480px;
+            max-height: 850px;
+            background-color: #0d1117;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        @media (min-width: 480px) and (min-height: 850px) {
+            #container {
+                border: 1px solid #1f2937;
+                border-radius: 24px;
+            }
+        }
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            background-color: #0b0c10;
+        }
+        #ui-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .header-buttons {
+            position: absolute;
+            top: calc(15px + env(safe-area-inset-top, 0px));
+            right: 15px;
+            display: flex;
+            gap: 8px;
+            pointer-events: auto;
+            z-index: 10;
+        }
+        .btn-ui {
+            background: rgba(31, 41, 55, 0.85);
+            border: 1px solid #374151;
+            color: #9ca3af;
+            font-size: 11px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .btn-ui:hover, .btn-ui:active {
+            border-color: #00FF66;
+            color: #00FF66;
+            background: rgba(0, 255, 102, 0.1);
+        }
+        .btn-reset-danger:hover, .btn-reset-danger:active {
+            border-color: #ff3366;
+            color: #ff3366;
+            background: rgba(255, 51, 102, 0.1);
+        }
+        /* インポート＆エクスポートモーダル */
+        #modal {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(5, 7, 10, 0.9);
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        #modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .modal-content {
+            background: #111622;
+            border: 1px solid #374151;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 400px;
+            max-height: 90%;
+            overflow-y: auto;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .modal-title {
+            color: #00E5FF;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 0;
+            border-bottom: 1px solid #1f2937;
+            padding-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .modal-close {
+            color: #9ca3af;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .modal-close:hover {
+            color: #ff3366;
+        }
+        .modal-desc {
+            color: #9ca3af;
+            font-size: 11px;
+            line-height: 1.4;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            background: #080a0f;
+            border: 1px solid #1f2937;
+            border-radius: 8px;
+            color: #ffffff;
+            font-family: monospace;
+            font-size: 11px;
+            padding: 10px;
+            resize: none;
+            outline: none;
+        }
+        textarea:focus {
+            border-color: #00E5FF;
+        }
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .btn-modal-action {
+            flex: 1;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 12px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background: #00FF66;
+            color: #05070a;
+        }
+        .btn-primary:hover {
+            background: #33ff88;
+            box-shadow: 0 0 10px rgba(0,255,102,0.4);
+        }
+        .btn-secondary {
+            background: #1f2937;
+            color: #ffffff;
+            border: 1px solid #374151;
+        }
+        .btn-secondary:hover {
+            background: #374151;
+        }
+        /* インゲームトースト通知 */
+        #toast {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 229, 255, 0.95);
+            color: #05070a;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 8px 16px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0, 229, 255, 0.4);
+            z-index: 30;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s, transform 0.3s;
+        }
+        #toast.active {
+            opacity: 1;
+            transform: translate(-50%, -10px);
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <div class="header-buttons">
+        <button class="btn-ui" onclick="openModal()"><i class="fa-solid fa-file-import"></i> 拡張・保存</button>
+        <button class="btn-ui btn-reset-danger" onclick="resetProgress()"><i class="fa-solid fa-rotate-right"></i> リセット</button>
+    </div>
+    
+    <canvas id="gameCanvas"></canvas>
+    <div id="ui-overlay"></div>
+
+    <!-- 拡張インポート/エクスポートモーダル -->
+    <div id="modal">
+        <div class="modal-content">
+            <h3 class="modal-title">
+                <span><i class="fa-solid fa-database"></i> 単語帳の拡張・保存</span>
+                <span class="modal-close" onclick="closeModal()">&times;</span>
+            </h3>
+            <p class="modal-desc">
+                Excelやスプレッドシートから、以下のフォーマットでデータを貼り付けて追加できます。<br>
+                <b>形式 (カンマまたはタブ区切り):</b><br>
+                <code>単語/英語, 日本語解説, タイプ(wordまたはgrammar)</code>
+            </p>
+            <textarea id="importArea" placeholder="例:&#10;abandon,〜をあきらめる、捨てる,word&#10;I am used to getting up early.,私は早起きすることに慣れている。,grammar"></textarea>
+            <div class="modal-actions">
+                <button class="btn-modal-action btn-secondary" onclick="exportData()">バックアップ出力</button>
+                <button class="btn-modal-action btn-primary" onclick="importData()">インポート追加</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="toast">保存しました！</div>
+</div>
+
+<script>
+// ==========================================
+// 【初期学習データ設定：英検準2級用（全75件）】
+// ==========================================
+const INITIAL_DATA_SOURCE = [
+    // --- 単語（Word）: 50件 ---
+    { id: "w1", type: "word", question: "achieve", answer: "〜を達成する、成し遂げる\n[類義語] accomplish" },
+    { id: "w2", type: "word", question: "admire", answer: "〜に感嘆する、〜を称賛する\n[例文] I admire his courage." },
+    { id: "w3", type: "word", question: "allow", answer: "〜を許可する、許す\n[熟語] allow A to do (Aが〜するのを許可する)" },
+    { id: "w4", type: "word", question: "announce", answer: "〜を発表する、告知する\n[名詞] announcement" },
+    { id: "w5", type: "word", question: "apologize", answer: "謝る、お詫びする\n[熟語] apologize to A for B (AにBのことで謝る)" },
+    { id: "w6", type: "word", question: "avoid", answer: "〜を避ける、(〜するのを)回避する\n[語法] avoidの後ろは動名詞(ing)を伴う" },
+    { id: "w7", type: "word", question: "behavior", answer: "ふるまい、行動、態度\n[動詞] behave (振る舞う)" },
+    { id: "w8", type: "word", question: "benefit", answer: "利益、恩恵、〜の利益になる\n[形容詞] beneficial (有益な)" },
+    { id: "w9", type: "word", question: "complain", answer: "不平を言う、苦情を言う\n[熟語] complain about A (Aについて不満を言う)" },
+    { id: "w10", type: "word", question: "convenient", answer: "都合が良い、便利な\n[名詞] convenience (便利さ)" },
+    { id: "w11", type: "word", question: "decrease", answer: "減少する、〜を減らす\n[対義語] increase (増加する)" },
+    { id: "w12", type: "word", question: "delay", answer: "〜を遅らせる、延期する、遅れ\n[例文] The flight was delayed." },
+    { id: "w13", type: "word", question: "demand", answer: "〜を要求する、需要\n[対義語] supply (供給)" },
+    { id: "w14", type: "word", question: "encourage", answer: "〜を勇気づける、励ます\n[熟語] encourage A to do" },
+    { id: "w15", type: "word", question: "environment", answer: "環境\n[形容詞] environmental (環境の)" },
+    { id: "w16", type: "word", question: "frequently", answer: "頻繁に、しばしば\n[形容詞] frequent" },
+    { id: "w17", type: "word", question: "government", answer: "政府、政治\n[動詞] govern (統治する)" },
+    { id: "w18", type: "word", question: "gradually", answer: "徐々に、だんだんと\n[意味] bit by bit, step by step" },
+    { id: "w19", type: "word", question: "ignore", answer: "〜を無視する、知らないふりをする\n[形容詞] ignorant (無知の)" },
+    { id: "w20", type: "word", question: "improve", answer: "〜を改善する、上達させる\n[名詞] improvement" },
+    { id: "w21", type: "word", question: "increase", answer: "増加する、〜を増やす\n[名詞] 増加" },
+    { id: "w22", type: "word", question: "industry", answer: "産業、工業、勤勉\n[形容詞] industrial (産業の)" },
+    { id: "w23", type: "word", question: "influence", answer: "〜に影響を及ぼす、影響（力）\n[形容詞] influential" },
+    { id: "w24", type: "word", question: "opportunity", answer: "機会、チャンス\n[意味] a chance to do something" },
+    { id: "w25", type: "word", question: "prevent", answer: "〜を防ぐ、妨げる\n[熟語] prevent A from doing" },
+    { id: "w26", type: "word", question: "reduce", answer: "〜を減らす、縮小する\n[意味] make smaller or less" },
+    { id: "w27", type: "word", question: "require", answer: "〜を必要とする、要求する\n[名詞] requirement" },
+    { id: "w28", type: "word", question: "similar", answer: "似ている、同様の\n[熟語] be similar to A" },
+    { id: "w29", type: "word", question: "technology", answer: "科学技術、テクノロジー" },
+    { id: "w30", type: "word", question: "waste", answer: "〜を無駄にする、浪費、廃棄物" },
+    { id: "w31", type: "word", question: "accept", answer: "〜を受け入れる、承諾する\n[対義語] refuse (拒絶する)" },
+    { id: "w32", type: "word", question: "affect", answer: "〜に影響を与える、作用する\n[名詞] effect (効果・影響)" },
+    { id: "w33", type: "word", question: "agree", answer: "賛成する、意見が一致する\n[熟語] agree with A" },
+    { id: "w34", type: "word", question: "appear", answer: "現れる、〜のように見える\n[対義語] disappear (消える)" },
+    { id: "w35", type: "word", question: "attend", answer: "〜に出席する、(学校などに)通う" },
+    { id: "w36", type: "word", question: "cancel", answer: "〜を中止する、取り消す\n[名詞] cancellation" },
+    { id: "w37", type: "word", question: "century", answer: "1世紀、100年間" },
+    { id: "w38", type: "word", question: "climate", answer: "（長期的・地域的な）気候\n[参考] weatherは一時的な天気" },
+    { id: "w39", type: "word", question: "compare", answer: "〜を比較する、比べる\n[熟語] compare A with B" },
+    { id: "w40", type: "word", question: "confirm", answer: "〜を確認する、裏付ける" },
+    { id: "w41", type: "word", question: "consume", answer: "〜を消費する、使い果たす" },
+    { id: "w42", type: "word", question: "damage", answer: "〜に損害を与える、被害、傷" },
+    { id: "w43", type: "word", question: "decide", answer: "〜を決心する、決定する\n[名詞] decision" },
+    { id: "w44", type: "word", question: "deliver", answer: "〜を配達する、(スピーチを)する" },
+    { id: "w45", type: "word", question: "discover", answer: "〜を発見する、知る" },
+    { id: "w46", type: "word", question: "divide", answer: "〜を分割する、分ける\n[熟語] divide A into B" },
+    { id: "w47", type: "word", question: "educate", answer: "〜を教育する、指導する" },
+    { id: "w48", type: "word", question: "expect", answer: "〜を予期する、期待する" },
+    { id: "w49", type: "word", question: "explain", answer: "〜を説明する、明らかにする" },
+    { id: "w50", type: "word", question: "express", answer: "〜を表現する、急行" },
+
+    // --- 文法・重要例文（Grammar）: 25件 ---
+    { id: "g1", type: "grammar", question: "If I were a bird, I would fly to you.", answer: "仮定法過去：現在のことに対する妄想\n「もし私が鳥なら、君のもとへ飛んでいくのに」" },
+    { id: "g2", type: "grammar", question: "The book written in English is easy.", answer: "分詞の後置修飾：過去分詞\n「英語で書かれたその本は簡単です」" },
+    { id: "g3", type: "grammar", question: "I have been reading this book for two hours.", answer: "現在完了進行形：ずっと〜し続けている\n「私は2時間ずっとこの本を読み続けています」" },
+    { id: "g4", type: "grammar", question: "This is the city where I was born.", answer: "関係副詞：場所を表す先行詞修飾\n「ここは私が生まれた街です」" },
+    { id: "g5", type: "grammar", question: "He is rich enough to buy the car.", answer: "形容詞 + enough to do：〜するのに十分…だ\n「彼はその車を買うのに十分なお金持ちだ」" },
+    { id: "g6", type: "grammar", question: "You don't have to pay for the ticket.", answer: "don't have to：〜する必要はない\n「あなたはチケット代を支払う必要はありません」" },
+    { id: "g7", type: "grammar", question: "We look forward to seeing you.", answer: "look forward to -ing：〜するのを心待ちにする\n「あなたにお会いできるのを楽しみにしております」" },
+    { id: "g8", type: "grammar", question: "I saw a boy playing soccer in the park.", answer: "知覚動詞 + 目的語 + -ing：Oが〜しているのを見る\n「私は男の子が公園でサッカーをしているのを見た」" },
+    { id: "g9", type: "grammar", question: "This computer is as expensive as that one.", answer: "同等比較：as ... as 〜 (〜と同じくらい…)\n「このコンピュータはあのコンピュータと同じくらい高い」" },
+    { id: "g10", type: "grammar", question: "English is spoken all over the world.", answer: "受動態（受け身）：be動詞 + 過去分詞\n「英語は世界中で話されています」" },
+    { id: "g11", type: "grammar", question: "I asked him to help me with my homework.", answer: "ask A to do：Aに〜するように頼む\n「私は彼に宿題を手伝ってくれるよう頼んだ」" },
+    { id: "g12", type: "grammar", question: "It is difficult for me to understand his lecture.", answer: "It is ... for A to do：Aにとって〜することは…だ\n「私にとって彼の講義を理解することは難しい」" },
+    { id: "g13", type: "grammar", question: "The movie made me cry.", answer: "使役動詞 make + O + 原形不定詞：Oを〜させる\n「その映画は私を泣かせた（泣くようにさせた）」" },
+    { id: "g14", type: "grammar", question: "Would you mind closing the window?", answer: "Would you mind -ing?：〜していただけますか\n「窓を閉めていただけますでしょうか？」" },
+    { id: "g15", type: "grammar", question: "She decided not to go to the party.", answer: "不定詞の否定：not to do\n「彼女はそのパーティーに行かないことに決めた」" },
+    { id: "g16", type: "grammar", question: "He used to play tennis after school.", answer: "used to do：かつてはよく〜したものだ（現在はしていない）\n「彼は放課後よくテニスをしたものだった」" },
+    { id: "g17", type: "grammar", question: "Instead of going out, we watched Netflix.", answer: "instead of -ing：〜する代わりに\n「外出する代わりに、私たちはネットフリックスを見た」" },
+    { id: "g18", type: "grammar", question: "The news was so surprising that I couldn't speak.", answer: "so ... that 〜：とても…なので〜だ\n「そのニュースはとても驚くべきものだったので、私は言葉が出なかった」" },
+    { id: "g19", type: "grammar", question: "I want to know how to solve this problem.", answer: "疑問詞 + to do：どのように〜すべきか / 〜の仕方\n「私はこの問題の解き方を知りたい」" },
+    { id: "g20", type: "grammar", question: "This is the most exciting game I've ever played.", answer: "最上級 + have ever 過去分詞：これまでで最も…な〜\n「これは私が今までにプレイした中で最もエキサイティングなゲームだ」" },
+    { id: "g21", type: "grammar", question: "You had better see a doctor.", answer: "had better + 動詞の原形：〜した方がよい\n「あなたは医者に診てもらった方がよい（そうしないとマズい）」" },
+    { id: "g22", type: "grammar", question: "I haven't finished my homework yet.", answer: "現在完了（完了用法）否定：まだ〜していない\n「私はまだ宿題を終えていません」" },
+    { id: "g23", type: "grammar", question: "He is lazy, while his sister is very hard-working.", answer: "接続詞 while：〜である一方で（対比）\n「彼は怠け者だが、一方でお姉さんはてきぱき働く（勤勉だ）」" },
+    { id: "g24", type: "grammar", question: "We have to protect the planet by recycling.", answer: "by + -ing：〜することによって（手段）\n「私たちはリサイクルすることによって地球を守らなければならない」" },
+    { id: "g25", type: "grammar", question: "Although it was raining, they played baseball.", answer: "接続詞 although：〜だけれども\n「雨が降っていたけれど、彼らは野球をした」" }
+];
+
+// 論理解像度
+const VIEW_WIDTH = 480;
+const VIEW_HEIGHT = 850;
+
+// 動的レイアウト計算用
+let layout = {
+    scale: 1,
+    height: VIEW_HEIGHT,
+    safeAreaTop: 15,
+    safeAreaBottom: 15,
+    headerBottom: 155,
+    cardCenterY: 342,
+    cardH: 220,
+    startY: 529, 
+    btnY: 750,   
+    resultY: 615 
+};
+
+let isInitialized = false;
+
+// 選択肢ボタン内の自動改行 & センタリング
+function drawButtonText(context, text, startX, centerY, maxWidth, baseLineHeight) {
+    const isJapanese = !!text.match(/[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uff9f\u4e00-\u9faf]/);
+    let lines = [];
+    
+    if (isJapanese) {
+        let chars = text.split('');
+        let currentLine = '';
+        for (let i = 0; i < chars.length; i++) {
+            let testLine = currentLine + chars[i];
+            let metrics = context.measureText(testLine);
+            if (metrics.width > maxWidth && i > 0) {
+                lines.push(currentLine);
+                currentLine = chars[i];
+            } else {
+                currentLine = testLine;
+            }
+        }
+        lines.push(currentLine);
+    } else {
+        let words = text.split(' ');
+        let currentLine = '';
+        for (let i = 0; i < words.length; i++) {
+            let testLine = currentLine + (currentLine ? ' ' : '') + words[i];
+            let metrics = context.measureText(testLine);
+            if (metrics.width > maxWidth && i > 0) {
+                lines.push(currentLine);
+                currentLine = words[i];
+            } else {
+                currentLine = testLine;
+            }
+        }
+        lines.push(currentLine);
+    }
+
+    const totalHeight = lines.length * baseLineHeight;
+    let startY = centerY - (totalHeight / 2) + (baseLineHeight / 2) + 3;
+
+    for (let i = 0; i < lines.length; i++) {
+        context.fillText(lines[i], startX, startY + i * baseLineHeight);
+    }
+}
+
+// ==========================================
+// 【アプリケーション状態管理】
+// ==========================================
+class AppState {
+    constructor() {
+        this.items = [];
+        this.currentItem = null;
+        this.direction = 'en_to_ja'; 
+        this.choices = [];      
+        this.isAnswered = false; 
+        this.selectedChoice = null; 
+        
+        this.isFlipped = false; 
+        this.flipProgress = 0;  
+        this.flipDirection = 1; 
+        this.isTransitioning = false; 
+        this.cardOffsetPercent = 0;  
+
+        this.particles = [];    
+        this.learningRate = 0;  
+        this.targetLearningRate = 0; 
+        
+        this.stats = {
+            total: 0,
+            mastered: 0,
+            words: 0,
+            grammars: 0,
+            streakMax: 3
+        };
+
+        this.init();
+    }
+
+    init() {
+        const savedData = localStorage.getItem('eiken_pre2_progress_v3');
+        if (savedData) {
+            try {
+                const parsed = JSON.parse(savedData);
+                this.items = parsed.map(item => ({
+                    ...item,
+                    correctStreakEnJa: Math.max(0, parseInt(item.correctStreakEnJa) || 0),
+                    correctStreakJaEn: Math.max(0, parseInt(item.correctStreakJaEn) || 0)
+                }));
+            } catch (e) {
+                this.loadDefaultData();
+            }
+        } else {
+            this.loadDefaultData();
+        }
+
+        this.calculateStats();
+        this.learningRate = this.targetLearningRate;
+        this.pickNextItem(true);
+    }
+
+    loadDefaultData() {
+        this.items = INITIAL_DATA_SOURCE.map(item => ({
+            ...item,
+            correctStreakEnJa: 0,
+            correctStreakJaEn: 0
+        }));
+    }
+
+    save() {
+        localStorage.setItem('eiken_pre2_progress_v3', JSON.stringify(this.items));
+    }
+
+    reset() {
+        this.items.forEach(item => {
+            item.correctStreakEnJa = 0;
+            item.correctStreakJaEn = 0;
+        });
+        this.save();
+        this.calculateStats();
+        this.isFlipped = false;
+        this.flipProgress = 0;
+        this.isAnswered = false;
+        this.selectedChoice = null;
+        this.pickNextItem(true);
+    }
+
+    calculateStats() {
+        this.stats.total = this.items.length;
+        this.stats.mastered = this.items.filter(item => 
+            item.correctStreakEnJa >= this.stats.streakMax && 
+            item.correctStreakJaEn >= this.stats.streakMax
+        ).length;
+        
+        this.stats.words = this.items.filter(item => item.type === 'word').length;
+        this.stats.grammars = this.items.filter(item => item.type === 'grammar').length;
+        
+        let totalProgressPoints = 0;
+        this.items.forEach(item => {
+            totalProgressPoints += Math.min(this.stats.streakMax, item.correctStreakEnJa);
+            totalProgressPoints += Math.min(this.stats.streakMax, item.correctStreakJaEn);
+        });
+        
+        const maxPoints = this.stats.total * this.stats.streakMax * 2;
+        this.targetLearningRate = maxPoints > 0 ? (totalProgressPoints / maxPoints) * 100 : 0;
+    }
+
+    getShortAnswer(item) {
+        return item.answer.split('\n')[0];
+    }
+
+    pickNextItem(isInitial = false) {
+        if (this.items.length === 0) return;
+
+        const unmasteredItems = this.items.filter(item => 
+            item.correctStreakEnJa < this.stats.streakMax || 
+            item.correctStreakJaEn < this.stats.streakMax
+        );
+        const masteredItems = this.items.filter(item => 
+            item.correctStreakEnJa >= this.stats.streakMax && 
+            item.correctStreakJaEn >= this.stats.streakMax
+        );
+
+        if (unmasteredItems.length > 0) {
+            if (masteredItems.length > 0 && Math.random() < 0.05) {
+                const idx = Math.floor(Math.random() * masteredItems.length);
+                this.currentItem = masteredItems[idx];
+            } else {
+                let pool = [];
+                unmasteredItems.forEach(item => {
+                    const avgStreak = (item.correctStreakEnJa + item.correctStreakJaEn) / 2;
+                    let weight = 3;
+                    if (avgStreak >= 1 && avgStreak < 2) weight = 2;
+                    if (avgStreak >= 2) weight = 1.2;
+
+                    for (let i = 0; i < weight * 10; i++) {
+                        pool.push(item);
+                    }
+                });
+                const idx = Math.floor(Math.random() * pool.length);
+                this.currentItem = pool[idx];
+            }
+        } else {
+            const idx = Math.floor(Math.random() * this.items.length);
+            this.currentItem = this.items[idx];
+        }
+
+        const needEnJa = this.currentItem.correctStreakEnJa < this.stats.streakMax;
+        const needJaEn = this.currentItem.correctStreakJaEn < this.stats.streakMax;
+
+        if (needEnJa && !needJaEn) {
+            this.direction = 'en_to_ja';
+        } else if (!needEnJa && needJaEn) {
+            this.direction = 'ja_to_en';
+        } else {
+            this.direction = Math.random() < 0.5 ? 'en_to_ja' : 'ja_to_en';
+        }
+
+        this.choices = [];
+
+        if (this.direction === 'en_to_ja') {
+            const correctText = this.getShortAnswer(this.currentItem);
+            this.choices.push({ text: correctText, isCorrect: true, id: this.currentItem.id });
+
+            let candidates = this.items.filter(item => item.id !== this.currentItem.id && item.type === this.currentItem.type);
+            if (candidates.length < 4) {
+                candidates = this.items.filter(item => item.id !== this.currentItem.id);
+            }
+            candidates.sort(() => Math.random() - 0.5);
+
+            for (let i = 0; i < Math.min(4, candidates.length); i++) {
+                this.choices.push({
+                    text: this.getShortAnswer(candidates[i]),
+                    isCorrect: false,
+                    id: candidates[i].id
+                });
+            }
+        } else {
+            const correctText = this.currentItem.question;
+            this.choices.push({ text: correctText, isCorrect: true, id: this.currentItem.id });
+
+            let candidates = this.items.filter(item => item.id !== this.currentItem.id && item.type === this.currentItem.type);
+            if (candidates.length < 4) {
+                candidates = this.items.filter(item => item.id !== this.currentItem.id);
+            }
+            candidates.sort(() => Math.random() - 0.5);
+
+            for (let i = 0; i < Math.min(4, candidates.length); i++) {
+                this.choices.push({
+                    text: candidates[i].question,
+                    isCorrect: false,
+                    id: candidates[i].id
+                });
+            }
+        }
+
+        while (this.choices.length < 5) {
+            this.choices.push({ text: "--- (データ不足) ---", isCorrect: false, id: "dummy" });
+        }
+
+        this.choices.sort(() => Math.random() - 0.5);
+
+        this.isFlipped = false;
+        this.flipProgress = 0;
+        this.isAnswered = false;
+        this.selectedChoice = null;
+        this.cardOffsetPercent = isInitial ? 0 : 100; 
+    }
+
+    selectChoice(choice) {
+        if (this.isAnswered || this.isTransitioning) return;
+
+        this.isAnswered = true;
+        this.selectedChoice = choice;
+
+        if (choice.isCorrect) {
+            if (this.direction === 'en_to_ja') {
+                this.currentItem.correctStreakEnJa += 1;
+            } else {
+                this.currentItem.correctStreakJaEn += 1;
+            }
+            createConfetti(VIEW_WIDTH / 2, layout.cardCenterY, '#00FF66', 25);
+        } else {
+            if (this.direction === 'en_to_ja') {
+                this.currentItem.correctStreakEnJa = 0;
+            } else {
+                this.currentItem.correctStreakJaEn = 0;
+            }
+            createConfetti(VIEW_WIDTH / 2, layout.cardCenterY, '#ff3366', 20);
+        }
+
+        this.save();
+        this.calculateStats();
+
+        this.flipDirection = 1;
+        let flipTimer = 0;
+        const flipDuration = 10;
+        const self = this;
+        
+        function animateFlip() {
+            flipTimer++;
+            self.flipProgress = flipTimer / flipDuration;
+
+            if (flipTimer === Math.floor(flipDuration / 2)) {
+                self.isFlipped = true;
+            }
+
+            if (flipTimer < flipDuration) {
+                requestAnimationFrame(animateFlip);
+            } else {
+                self.flipProgress = 1;
+            }
+        }
+        animateFlip();
+    }
+
+    nextQuestion() {
+        if (this.isTransitioning) return;
+        this.isTransitioning = true;
+        
+        let slideTimer = 0;
+        const slideDuration = 12;
+        const self = this;
+
+        function animateTransition() {
+            slideTimer++;
+            self.cardOffsetPercent = -(slideTimer / slideDuration) * 100;
+
+            if (slideTimer >= slideDuration) {
+                self.pickNextItem(false); 
+                self.isTransitioning = false;
+                
+                let slideInTimer = 0;
+                const slideInDuration = 10;
+                function animateSlideIn() {
+                    slideInTimer++;
+                    self.cardOffsetPercent = 100 - (slideInTimer / slideInDuration) * 100;
+                    if (slideInTimer < slideInDuration) {
+                        requestAnimationFrame(animateSlideIn);
+                    } else {
+                        self.cardOffsetPercent = 0;
+                    }
+                }
+                animateSlideIn();
+            } else {
+                requestAnimationFrame(animateTransition);
+            }
+        }
+        animateTransition();
+    }
+}
+
+// ==========================================
+// 【Canvas 初期セットアップ】
+// ==========================================
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+const app = new AppState();
+
+function resizeCanvas() {
+    const container = document.getElementById('container');
+    const rect = container.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    ctx.scale(dpr, dpr);
+}
+
+// Y座標・セーフエリアをデバイスごとに最適調整（エラー防止機能付き）
+function updateLayout() {
+    const container = document.getElementById('container');
+    const rect = container.getBoundingClientRect();
+    if (rect.width === 0 || rect.height === 0) return false;
+
+    const scale = rect.width / VIEW_WIDTH;
+    const computedHeight = rect.height / scale;
+
+    // 非 finite 値（NaN / Infinity）の場合は処理を中断
+    if (isNaN(scale) || !isFinite(scale) || isNaN(computedHeight) || !isFinite(computedHeight)) {
+        return false;
+    }
+
+    layout.scale = scale;
+    layout.height = computedHeight;
+    isInitialized = true;
+    
+    const aspectRatio = rect.height / rect.width;
+    const hasNotch = aspectRatio > 1.8;
+    layout.safeAreaTop = hasNotch ? 45 : 15;
+    layout.safeAreaBottom = hasNotch ? 35 : 15;
+    
+    layout.headerBottom = layout.safeAreaTop + 140;
+    
+    const btnH = 54;
+    const spacing = 9;
+    const totalButtonsHeight = 5 * btnH + 4 * spacing; 
+    layout.startY = layout.height - layout.safeAreaBottom - totalButtonsHeight;
+    
+    layout.btnY = layout.height - layout.safeAreaBottom - 15 - 65; 
+    layout.resultY = layout.btnY - 15 - 110; 
+    
+    if (!app.isAnswered) {
+        const availableSpace = layout.startY - layout.headerBottom;
+        layout.cardCenterY = layout.headerBottom + availableSpace / 2;
+        layout.cardH = Math.min(220, availableSpace - 20);
+    } else {
+        const availableSpace = layout.resultY - layout.headerBottom;
+        layout.cardCenterY = layout.headerBottom + availableSpace / 2;
+        layout.cardH = Math.min(220, availableSpace - 20);
+    }
+    return true;
+}
+
+window.addEventListener('resize', resizeCanvas);
+window.addEventListener('load', () => {
+    resizeCanvas();
+    gameLoop();
+});
+
+function getRelativeCoords(event) {
+    const rect = canvas.getBoundingClientRect();
+    const clientX = event.touches ? event.touches[0].clientX : event.clientX;
+    const clientY = event.touches ? event.touches[0].clientY : event.clientY;
+    
+    const touchX = clientX - rect.left;
+    const touchY = clientY - rect.top;
+    
+    return {
+        x: touchX / layout.scale,
+        y: touchY / layout.scale
+    };
+}
+
+// ==========================================
+// 【アニメーション & パーティクル】
+// ==========================================
+class Particle {
+    constructor(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.size = Math.random() * 4 + 2;
+        this.speedX = (Math.random() - 0.5) * 8;
+        this.speedY = (Math.random() - 0.8) * 10 - 2;
+        this.gravity = 0.25;
+        this.alpha = 1;
+        this.life = Math.random() * 20 + 20;
+    }
+
+    update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.speedY += this.gravity;
+        this.alpha -= 1 / this.life;
+        if (this.alpha < 0) this.alpha = 0;
+    }
+
+    draw(context) {
+        context.save();
+        context.globalAlpha = this.alpha;
+        context.fillStyle = this.color;
+        context.shadowBlur = 8;
+        context.shadowColor = this.color;
+        context.beginPath();
+        context.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        context.fill();
+        context.restore();
+    }
+}
+
+function createConfetti(x, y, color, count = 20) {
+    for (let i = 0; i < count; i++) {
+        app.particles.push(new Particle(x, y, color));
+    }
+}
+
+// ==========================================
+// 【インタラクション制御】
+// ==========================================
+function handleInteraction(coords) {
+    if (app.isTransitioning || !isInitialized) return;
+
+    const { x, y } = coords;
+
+    if (!app.isAnswered) {
+        const btnX = 30;
+        const btnW = VIEW_WIDTH - 60; 
+        const btnH = 54;
+        const startY = layout.startY;
+        const spacing = 9;
+
+        for (let i = 0; i < 5; i++) {
+            const currentBtnY = startY + i * (btnH + spacing);
+            if (x >= btnX && x <= btnX + btnW && y >= currentBtnY && y <= currentBtnY + btnH) {
+                app.selectChoice(app.choices[i]);
+                return;
+            }
+        }
+    }
+
+    if (app.isAnswered && app.isFlipped && app.flipProgress === 1) {
+        const btnY = layout.btnY;
+        const btnW = VIEW_WIDTH - 80;
+        const btnH = 65;
+        const btnX = 40;
+        if (y >= btnY && y <= btnY + btnH && x >= btnX && x <= btnX + btnW) {
+            app.nextQuestion();
+        }
+    }
+}
+
+function resetProgress() {
+    showToast("学習状況をリセットしました");
+    app.reset();
+    createConfetti(VIEW_WIDTH / 2, layout.cardCenterY, '#ff3366', 30);
+}
+
+canvas.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    const coords = getRelativeCoords(e);
+    handleInteraction(coords);
+}, { passive: false });
+
+canvas.addEventListener('mousedown', (e) => {
+    const coords = getRelativeCoords(e);
+    handleInteraction(coords);
+});
+
+// ==========================================
+// 【描画処理】
+// ==========================================
+function drawApp() {
+    if (!updateLayout() || !isInitialized) return;
+
+    ctx.save();
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.restore();
+
+    ctx.save();
+    ctx.scale(layout.scale, layout.scale);
+    
+    drawBackground();
+    drawHeader();
+    drawCard();
+    drawInteractiveArea();
+    updateAndDrawParticles();
+    
+    ctx.restore();
+}
+
+function drawBackground() {
+    if (!isInitialized || isNaN(layout.height) || !isFinite(layout.height)) {
+        ctx.fillStyle = '#0a0d14';
+        ctx.fillRect(0, 0, VIEW_WIDTH, VIEW_HEIGHT);
+        return;
+    }
+    
+    let bgGrad = ctx.createLinearGradient(0, 0, 0, layout.height);
+    bgGrad.addColorStop(0, '#0a0d14');
+    bgGrad.addColorStop(1, '#05070a');
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(0, 0, VIEW_WIDTH, layout.height);
+
+    ctx.strokeStyle = 'rgba(0, 255, 102, 0.015)';
+    ctx.lineWidth = 1;
+    for (let i = 0; i < VIEW_WIDTH; i += 30) {
+        ctx.beginPath();
+        ctx.moveTo(i, 0);
+        ctx.lineTo(i, layout.height);
+        ctx.stroke();
+    }
+    for (let j = 0; j < layout.height; j += 30) {
+        ctx.beginPath();
+        ctx.moveTo(0, j);
+        ctx.lineTo(VIEW_WIDTH, j);
+        ctx.stroke();
+    }
+
+    ctx.strokeStyle = 'rgba(0, 229, 255, 0.08)';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(20, layout.safeAreaTop + 35);
+    ctx.lineTo(VIEW_WIDTH - 20, layout.safeAreaTop + 35);
+    ctx.stroke();
+}
+
+function drawHeader() {
+    const top = layout.safeAreaTop;
+    
+    ctx.fillStyle = '#00FF66';
+    ctx.font = 'bold 11px "Courier New", monospace';
+    ctx.fillText('EIKEN LEVEL PRE-2 : MASTER SYSTEM PRO', 30, top + 15);
+
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 21px Helvetica, Arial, sans-serif';
+    ctx.fillText('LEARNING RATE', 30, top + 65);
+
+    const diff = app.targetLearningRate - app.learningRate;
+    app.learningRate += diff * 0.1;
+    const displayRate = app.learningRate.toFixed(1);
+
+    ctx.textAlign = 'right';
+    ctx.fillStyle = '#00E5FF';
+    ctx.font = 'italic bold 30px "Courier New", monospace';
+    ctx.fillText(`${displayRate}%`, VIEW_WIDTH - 30, top + 65);
+    ctx.textAlign = 'left';
+
+    const barX = 30;
+    const barY = top + 85;
+    const barW = VIEW_WIDTH - 60;
+    const barH = 10;
+
+    ctx.fillStyle = '#111827';
+    ctx.beginPath();
+    ctx.roundRect(barX, barY, barW, barH, 5);
+    ctx.fill();
+
+    const fillW = (app.learningRate / 100) * barW;
+    if (fillW > 0) {
+        let grad = ctx.createLinearGradient(barX, barY, barX + barW, barY);
+        grad.addColorStop(0, '#00FF66');
+        grad.addColorStop(1, '#00E5FF');
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.roundRect(barX, barY, fillW, barH, 5);
+        ctx.fill();
+
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = '#00E5FF';
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.arc(barX + fillW, barY + barH/2, 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+    }
+
+    ctx.fillStyle = '#4b5563';
+    ctx.font = '12px Helvetica, sans-serif';
+    ctx.fillText(`MASTERED: ${app.stats.mastered} / ${app.stats.total} items`, 32, top + 115);
+
+    ctx.textAlign = 'right';
+    ctx.fillText(`WORDS: ${app.stats.words}  GRAMMAR: ${app.stats.grammars}`, VIEW_WIDTH - 32, top + 115);
+    ctx.textAlign = 'left';
+}
+
+function drawCard() {
+    if (!app.currentItem) return;
+
+    ctx.save();
+
+    const cardX = VIEW_WIDTH / 2;
+    const cardY = layout.cardCenterY; 
+    const cardW = 420;
+    const cardH = layout.cardH; 
+
+    const slideOffset = (app.cardOffsetPercent / 100) * VIEW_WIDTH;
+    ctx.translate(cardX + slideOffset, cardY);
+
+    const scaleX = Math.abs(Math.cos(app.flipProgress * Math.PI));
+    ctx.scale(scaleX, 1);
+
+    let cardGrad = ctx.createLinearGradient(0, -cardH/2, 0, cardH/2);
+    if (app.isFlipped) {
+        cardGrad.addColorStop(0, '#151c28');
+        cardGrad.addColorStop(1, '#0a0d14');
+    } else {
+        cardGrad.addColorStop(0, '#111827');
+        cardGrad.addColorStop(1, '#0d1117');
+    }
+    ctx.fillStyle = cardGrad;
+
+    const accentColor = app.currentItem.type === 'word' ? '#00FF66' : '#00E5FF';
+    ctx.strokeStyle = accentColor;
+    ctx.lineWidth = 2;
+
+    if (app.isFlipped) {
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = accentColor;
+    } else {
+        ctx.shadowBlur = 6;
+        ctx.shadowColor = 'rgba(0, 255, 102, 0.15)';
+    }
+
+    ctx.beginPath();
+    ctx.roundRect(-cardW / 2, -cardH / 2, cardW, cardH, 16);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+    ctx.stroke();
+
+    ctx.fillStyle = accentColor;
+    ctx.font = 'bold 11px "Courier New", monospace';
+    const tagText = app.currentItem.type.toUpperCase();
+    const dirText = app.direction === 'en_to_ja' ? 'EN ➔ JA' : 'JA ➔ EN';
+    ctx.fillText(`[ ${tagText} ]  ${dirText}`, -cardW/2 + 20, -cardH/2 + 30);
+
+    ctx.textAlign = 'right';
+    const streakEnJa = app.currentItem.correctStreakEnJa || 0;
+    const streakJaEn = app.currentItem.correctStreakJaEn || 0;
+    
+    ctx.fillStyle = '#9ca3af';
+    ctx.font = '11px Helvetica, sans-serif';
+    ctx.fillText(`英日:${'★'.repeat(streakEnJa)}${'☆'.repeat(3 - streakEnJa)}  日英:${'★'.repeat(streakJaEn)}${'☆'.repeat(3 - streakJaEn)}`, cardW/2 - 20, -cardH/2 + 30);
+    ctx.textAlign = 'left';
+
+    if (!app.isFlipped) {
+        ctx.fillStyle = '#ffffff';
+        if (app.direction === 'en_to_ja') {
+            const text = app.currentItem.question;
+            if (app.currentItem.type === 'grammar') {
+                ctx.font = 'bold 17px Helvetica, Arial, sans-serif';
+                ctx.textAlign = 'center';
+                wrapText(ctx, text, 0, -10, cardW - 40, 24);
+            } else {
+                ctx.font = 'bold 34px Helvetica, Arial, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText(text, 0, 15);
+            }
+        } else {
+            const text = app.getShortAnswer(app.currentItem);
+            ctx.font = 'bold 18px "Hiragino Kaku Gothic ProN", Meiryo, sans-serif';
+            ctx.textAlign = 'center';
+            wrapText(ctx, text, 0, -10, cardW - 40, 26);
+        }
+    } else {
+        ctx.fillStyle = '#ffffff';
+        ctx.textAlign = 'center';
+
+        const topTextY = -cardH/2 + (cardH > 200 ? 65 : 45);
+        ctx.font = 'bold 15px Helvetica, sans-serif';
+        ctx.fillStyle = accentColor;
+        ctx.fillText(app.currentItem.question, 0, topTextY);
+
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        const lineY = topTextY + 17;
+        ctx.moveTo(-cardW/2 + 30, lineY);
+        ctx.lineTo(cardW/2 - 30, lineY);
+        ctx.stroke();
+
+        ctx.fillStyle = '#f3f4f6';
+        const lines = app.currentItem.answer.split('\n');
+        let startY = lineY + (cardH > 200 ? 30 : 20);
+        
+        lines.forEach((line) => {
+            if (line.startsWith('[') || line.startsWith('(')) {
+                ctx.fillStyle = '#9ca3af';
+                ctx.font = '12px "Hiragino Kaku Gothic ProN", Meiryo, sans-serif';
+                wrapText(ctx, line, 0, startY, cardW - 40, 18);
+                startY += (cardH > 200 ? 28 : 22);
+            } else {
+                ctx.fillStyle = '#ffffff';
+                ctx.font = 'bold 15px "Hiragino Kaku Gothic ProN", Meiryo, sans-serif';
+                wrapText(ctx, line, 0, startY, cardW - 40, 22);
+                startY += (cardH > 200 ? 34 : 26);
+            }
+        });
+    }
+
+    ctx.restore();
+}
+
+function drawInteractiveArea() {
+    if (app.isTransitioning) return;
+
+    if (!app.isAnswered) {
+        const btnX = 30;
+        const btnW = VIEW_WIDTH - 60; 
+        const btnH = 54;
+        const startY = layout.startY;
+        const spacing = 9;
+
+        ctx.textAlign = 'center';
+        for (let i = 0; i < 5; i++) {
+            const currentBtnY = startY + i * (btnH + spacing);
+            const choice = app.choices[i];
+
+            let btnGrad = ctx.createLinearGradient(btnX, currentBtnY, btnX, currentBtnY + btnH);
+            btnGrad.addColorStop(0, '#111622');
+            btnGrad.addColorStop(1, '#0b0e16');
+            ctx.fillStyle = btnGrad;
+            
+            ctx.strokeStyle = 'rgba(0, 229, 255, 0.2)';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.roundRect(btnX, currentBtnY, btnW, btnH, 8);
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.fillStyle = '#00E5FF';
+            ctx.font = 'bold 13px "Courier New", monospace';
+            ctx.fillText(`${i + 1}`, btnX + 22, currentBtnY + btnH / 2 + 5);
+
+            ctx.strokeStyle = 'rgba(0, 229, 255, 0.15)';
+            ctx.beginPath();
+            ctx.moveTo(btnX + 40, currentBtnY + 12);
+            ctx.lineTo(btnX + 40, currentBtnY + 36);
+            ctx.stroke();
+
+            ctx.fillStyle = '#ffffff';
+            ctx.textAlign = 'left';
+            if (app.direction === 'en_to_ja') {
+                ctx.font = 'bold 13.5px "Hiragino Kaku Gothic ProN", Meiryo, sans-serif';
+                drawButtonText(ctx, choice.text, btnX + 52, currentBtnY + btnH / 2, btnW - 65, 15);
+            } else {
+                ctx.font = 'bold 12.5px Helvetica, sans-serif';
+                drawButtonText(ctx, choice.text, btnX + 52, currentBtnY + btnH / 2, btnW - 65, 13);
+            }
+        }
+        ctx.textAlign = 'left';
+    } 
+    else if (app.isFlipped && app.flipProgress === 1) {
+        const resultY = layout.resultY;
+        const boxW = VIEW_WIDTH - 60;
+
+        ctx.fillStyle = app.selectedChoice.isCorrect ? 'rgba(0, 255, 102, 0.08)' : 'rgba(255, 51, 102, 0.08)';
+        ctx.strokeStyle = app.selectedChoice.isCorrect ? '#00FF66' : '#ff3366';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.roundRect(30, resultY, boxW, 110, 12);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.textAlign = 'center';
+        if (app.selectedChoice.isCorrect) {
+            ctx.fillStyle = '#00FF66';
+            ctx.font = 'bold 24px "Hiragino Kaku Gothic ProN", sans-serif';
+            ctx.fillText('正 解 ！', VIEW_WIDTH / 2, resultY + 45);
+
+            ctx.fillStyle = '#ffffff';
+            ctx.font = '14px "Hiragino Kaku Gothic ProN", sans-serif';
+            ctx.fillText('正しいペアをマスターしています！', VIEW_WIDTH / 2, resultY + 80);
+        } else {
+            ctx.fillStyle = '#ff3366';
+            ctx.font = 'bold 24px "Hiragino Kaku Gothic ProN", sans-serif';
+            ctx.fillText('不 正 解', VIEW_WIDTH / 2, resultY + 45);
+
+            ctx.fillStyle = '#ffffff';
+            const correctOne = app.choices.find(c => c.isCorrect);
+            if (app.direction === 'en_to_ja') {
+                ctx.font = 'bold 14px "Hiragino Kaku Gothic ProN", sans-serif';
+                ctx.fillText(`正解: ${correctOne.text}`, VIEW_WIDTH / 2, resultY + 80);
+            } else {
+                ctx.font = 'bold 13px Helvetica, sans-serif';
+                ctx.fillText(`正解: ${correctOne.text}`, VIEW_WIDTH / 2, resultY + 80);
+            }
+        }
+
+        const btnY = layout.btnY;
+        const btnW = VIEW_WIDTH - 80; 
+        const btnH = 65;
+        const btnX = 40;
+
+        let nextGrad = ctx.createLinearGradient(btnX, btnY, btnX, btnY + btnH);
+        nextGrad.addColorStop(0, '#0e2b19');
+        nextGrad.addColorStop(1, '#091c10');
+        ctx.fillStyle = nextGrad;
+        ctx.strokeStyle = '#00FF66';
+        ctx.lineWidth = 2.5;
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = 'rgba(0, 255, 102, 0.4)';
+        ctx.beginPath();
+        ctx.roundRect(btnX, btnY, btnW, btnH, 14);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.shadowBlur = 0;
+        ctx.fillStyle = '#33ff88';
+        ctx.font = 'bold 18px "Hiragino Kaku Gothic ProN", sans-serif';
+        ctx.fillText('次の問題に進む  ▶', VIEW_WIDTH / 2, btnY + 38);
+        
+        ctx.textAlign = 'left';
+    }
+}
+
+function updateAndDrawParticles() {
+    for (let i = app.particles.length - 1; i >= 0; i--) {
+        const p = app.particles[i];
+        p.update();
+        p.draw(ctx);
+        if (p.alpha <= 0) {
+            app.particles.splice(i, 1);
+        }
+    }
+}
+
+// ==========================================
+// 【モーダル & 拡張システム】
+// ==========================================
+function openModal() {
+    document.getElementById('modal').classList.add('active');
+    document.getElementById('importArea').value = "";
+}
+
+function closeModal() {
+    document.getElementById('modal').classList.remove('active');
+}
+
+function showToast(message) {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.classList.add('active');
+    setTimeout(() => {
+        toast.classList.remove('active');
+    }, 2000);
+}
+
+function exportData() {
+    const dataStr = JSON.stringify(app.items, null, 2);
+    document.getElementById('importArea').value = dataStr;
+    document.getElementById('importArea').select();
+    document.execCommand('copy');
+    showToast("進捗JSONをコピーしました！保管してください");
+}
+
+function importData() {
+    const text = document.getElementById('importArea').value.trim();
+    if (!text) {
+        showToast("入力欄が空です");
+        return;
+    }
+
+    try {
+        if (text.startsWith('[')) {
+            const parsed = JSON.parse(text);
+            if (Array.isArray(parsed)) {
+                app.items = parsed.map((item, idx) => ({
+                    id: item.id || `custom_${Date.now()}_${idx}`,
+                    type: item.type === 'grammar' ? 'grammar' : 'word',
+                    question: item.question || 'Empty',
+                    answer: item.answer || '解説なし',
+                    correctStreakEnJa: Math.max(0, parseInt(item.correctStreakEnJa) || 0),
+                    correctStreakJaEn: Math.max(0, parseInt(item.correctStreakJaEn) || 0)
+                }));
+                showToast(`JSONから ${app.items.length} 件を取り込みました`);
+            } else {
+                throw new Error("Invalid structure");
+            }
+        } else {
+            const lines = text.split('\n');
+            const newItems = [];
+            lines.forEach((line, idx) => {
+                const parts = line.split(/[\t,]/);
+                if (parts.length >= 2) {
+                    const question = parts[0].trim();
+                    const answer = parts[1].trim();
+                    const type = (parts[2] && parts[2].trim() === 'grammar') ? 'grammar' : 'word';
+                    newItems.push({
+                        id: `custom_${Date.now()}_${idx}`,
+                        type: type,
+                        question: question,
+                        answer: answer,
+                        correctStreakEnJa: 0,
+                        correctStreakJaEn: 0
+                    });
+                }
+            });
+
+            if (newItems.length > 0) {
+                app.items = [...app.items, ...newItems];
+                showToast(`${newItems.length} 件を追加しました！`);
+            } else {
+                showToast("有効なデータが見つかりませんでした");
+                return;
+            }
+        }
+
+        app.save();
+        app.calculateStats();
+        app.pickNextItem(true);
+        closeModal();
+    } catch (e) {
+        showToast("形式エラー：正しく読み込めませんでした");
+    }
+}
+
+function wrapText(context, text, x, y, maxWidth, lineHeight) {
+    const words = text.split(' ');
+    let line = '';
+    let currentY = y;
+
+    if (text.match(/[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uff9f\u4e00-\u9faf]/)) {
+        let chars = text.split('');
+        for (let n = 0; n < chars.length; n++) {
+            let testLine = line + chars[n];
+            let metrics = context.measureText(testLine);
+            let testWidth = metrics.width;
+            if (testWidth > maxWidth && n > 0) {
+                context.fillText(line, x, currentY);
+                line = chars[n];
+                currentY += lineHeight;
+            } else {
+                line = testLine;
+            }
+        }
+        context.fillText(line, x, currentY);
+        return;
+    }
+
+    for (let n = 0; n < words.length; n++) {
+        let testLine = line + words[n] + ' ';
+        let metrics = context.measureText(testLine);
+        let testWidth = metrics.width;
+        if (testWidth > maxWidth && n > 0) {
+            context.fillText(line, x, currentY);
+            line = words[n] + ' ';
+            currentY += lineHeight;
+        } else {
+            line = testLine;
+        }
+    }
+    context.fillText(line, x, currentY);
+}
+
+function gameLoop() {
+    drawApp();
+    requestAnimationFrame(gameLoop);
+}
+</script>
+
+</body>
+</html>
