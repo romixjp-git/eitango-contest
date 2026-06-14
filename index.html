@@ -414,7 +414,9 @@ class AppState {
         try {
             const response = await fetch('words.csv');
             if (response.ok) {
-                const csvText = await response.text();
+                let csvText = await response.text();
+                // UTF-8 BOM（\uFEFF）を念のためクリア
+                csvText = csvText.replace(/^\uFEFF/, '');
                 dataSource = this.parseCSV(csvText);
                 showToast("CSVデータを読み込みました");
             } else {
@@ -565,7 +567,8 @@ class AppState {
         }
 
         const needEnJa = this.currentItem.correctStreakEnJa < this.stats.streakMax;
-        const needJaEn = this.currentItem.correctStreakJaEn < this.stats.stats;
+        // 日英判定バグ(this.stats.stats -> this.stats.streakMax)を解決して正しい日英トグルを実現
+        const needJaEn = this.currentItem.correctStreakJaEn < this.stats.streakMax;
 
         if (needEnJa && !needJaEn) {
             this.direction = 'en_to_ja';
@@ -1007,6 +1010,7 @@ function drawHeader() {
 
     ctx.fillStyle = '#4b5563';
     ctx.font = '11px Helvetica, sans-serif';
+    // CSVから読み込まれた単語数が app.stats.total に動的にバインドされ表示されます
     ctx.fillText(`MASTERED: ${app.stats.mastered} / ${app.stats.total} words`, 32, top + 98);
 
     ctx.textAlign = 'right';
