@@ -1221,13 +1221,10 @@ function drawInteractiveArea() {
             ctx.fillStyle = '#00FF66';
             ctx.font = 'bold 24px "Hiragino Kaku Gothic ProN", sans-serif';
             
-            // コンボ数を正解タイトル横に表示！
-            const comboNote = app.comboCount >= 2 ? ` (${app.comboCount}連打!)` : '';
-            ctx.fillText(`正 解 ！${comboNote}`, VIEW_WIDTH / 2, resultY + 45);
-
-            ctx.fillStyle = '#ffffff';
-            ctx.font = '14px "Hiragino Kaku Gothic ProN", sans-serif';
-            ctx.fillText('正しい単語の組み合わせです！', VIEW_WIDTH / 2, resultY + 80);
+            // コンボ数を正解タイトル横に英語で表示（x連打! -> x Combo!!）
+            const comboNote = app.comboCount >= 2 ? ` (${app.comboCount} Combo!!)` : '';
+            // 補助テキストがなくなるため、ボックスのほぼ中央（resultY + 65）に配置
+            ctx.fillText(`正 解 ！${comboNote}`, VIEW_WIDTH / 2, resultY + 65);
         } else {
             ctx.fillStyle = '#ff3366';
             ctx.font = 'bold 24px "Hiragino Kaku Gothic ProN", sans-serif';
