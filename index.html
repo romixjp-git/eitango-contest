@@ -543,7 +543,8 @@ class AppState {
 
         this.enabledRanges = [];
         for (let i = 0; i < numRanges; i++) {
-            const isEnabled = savedRanges ? !!savedRanges[i] : true;
+            // 初期状態はNo1〜100（インデックス0）のみ選択。全選択を初期としない。
+            const isEnabled = savedRanges ? !!savedRanges[i] : (i === 0);
             this.enabledRanges.push(isEnabled);
         }
 
@@ -828,14 +829,16 @@ class AppState {
                 this.currentItem.correctStreakJaEn += 1;
             }
             
-            this.comboCount += 1;
+            this.comboCount += 1; // コンボ数は無制限にカウントアップ
             
-            // コンボに応じたエフェクト調整 (1〜5段階)
-            const power = Math.min(5, this.comboCount);
-            const particleCount = 15 + power * 15; 
-            const speedMultiplier = 1 + power * 0.3; 
+            // コンボに応じたエフェクト調整 (最大10段階で打ち止め)
+            const power = Math.min(10, this.comboCount);
             
-            createConfetti(VIEW_WIDTH / 2, layout.cardCenterY, '#00FF66', particleCount, speedMultiplier);
+            // パーティクルの数とパワーに応じた派手さを劇的に強化
+            const particleCount = 15 + power * 18; 
+            const speedMultiplier = 1 + power * 0.4; 
+            
+            createConfetti(VIEW_WIDTH / 2, layout.cardCenterY, '#00FF66', particleCount, speedMultiplier, power);
 
             if (this.comboCount >= 2) {
                 this.comboTextScale = 0.4;
@@ -847,8 +850,8 @@ class AppState {
             } else {
                 this.currentItem.correctStreakJaEn = 0;
             }
-            this.comboCount = 0; 
-            createConfetti(VIEW_WIDTH / 2, layout.cardCenterY, '#ff3366', 20, 1.0);
+            this.comboCount = 0; // 不正解でコンボは0にリセット
+            createConfetti(VIEW_WIDTH / 2, layout.cardCenterY, '#ff3366', 25, 1.0, 1);
         }
 
         this.save();
@@ -1000,16 +1003,29 @@ function getRelativeCoords(event) {
 // 【アニメーション & パーティクル】
 // ==========================================
 class Particle {
-    constructor(x, y, color, speedMultiplier = 1) {
+    constructor(x, y, color, speedMultiplier = 1, power = 1) {
         this.x = x;
         this.y = y;
-        this.color = color;
-        this.size = Math.random() * 5 + 2;
-        this.speedX = (Math.random() - 0.5) * 10 * speedMultiplier;
-        this.speedY = (Math.random() - 0.8) * 12 * speedMultiplier - 2;
-        this.gravity = 0.22;
+        
+        // パワーが高くなると、基本ネオン(緑)に加え、シアン、ネオンイエローの火花を混ぜ合わせて派手にする
+        if (power >= 5 && Math.random() < 0.45) {
+            this.color = Math.random() < 0.5 ? '#00E5FF' : '#FFFF00';
+        } else {
+            this.color = color;
+        }
+        
+        // パワーに応じてサイズを拡大 (よりリッチではじける演出)
+        this.size = (Math.random() * 5 + 2) * (1 + power * 0.15);
+        
+        // 10段階エフェクトに応じて飛び散る初期スピードと角度
+        const angle = Math.random() * Math.PI * 2;
+        const speed = (Math.random() * 7 + 4) * speedMultiplier;
+        this.speedX = Math.cos(angle) * speed;
+        this.speedY = Math.sin(angle) * speed - (power * 0.5); // コンボが高いほど上方向への噴出力をアップ
+        
+        this.gravity = 0.20; 
         this.alpha = 1;
-        this.life = Math.random() * 25 + 25;
+        this.life = (Math.random() * 22 + 22) * (1 + power * 0.08); // 寿命も徐々に拡大して派手に
     }
 
     update() {
@@ -1024,7 +1040,8 @@ class Particle {
         context.save();
         context.globalAlpha = this.alpha;
         context.fillStyle = this.color;
-        context.shadowBlur = 10;
+        // パワーが高いほど強烈にグロー発光させる
+        context.shadowBlur = this.size * 1.5;
         context.shadowColor = this.color;
         context.beginPath();
         context.arc(this.x, this.y, this.size, 0, Math.PI * 2);
@@ -1033,9 +1050,9 @@ class Particle {
     }
 }
 
-function createConfetti(x, y, color, count = 20, speedMultiplier = 1) {
+function createConfetti(x, y, color, count = 20, speedMultiplier = 1, power = 1) {
     for (let i = 0; i < count; i++) {
-        app.particles.push(new Particle(x, y, color, speedMultiplier));
+        app.particles.push(new Particle(x, y, color, speedMultiplier, power));
     }
 }
 
@@ -1353,24 +1370,39 @@ function drawCard() {
     ctx.restore();
 }
 
+// コリジョン後等のコンボテキストの描画 (コンボが高いほど巨大・振動・レインボー調に)
 function drawComboAnimation() {
     if (app.comboTextAlpha > 0) {
         ctx.save();
         ctx.textAlign = 'center';
+        
+        const power = Math.min(10, app.comboCount);
+        
+        // パワーが高くなると激しく振動（シェイク）する演出
+        let shakeX = 0;
+        let shakeY = 0;
+        if (power >= 5) {
+            shakeX = (Math.random() - 0.5) * (power * 0.9);
+            shakeY = (Math.random() - 0.5) * (power * 0.9);
+        }
+
         ctx.fillStyle = `rgba(0, 255, 102, ${app.comboTextAlpha})`;
         
-        const fontSize = Math.floor(26 * app.comboTextScale);
+        // パワーに応じてフォントサイズを動的に拡大化
+        const fontSize = Math.floor((26 + power * 2.8) * app.comboTextScale);
         ctx.font = `italic bold ${fontSize}px "Courier New", monospace`;
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = '#00FF66';
         
-        const textY = layout.cardCenterY - (layout.cardH / 2) - 25;
-        ctx.fillText(`x${app.comboCount} Combo!!`, VIEW_WIDTH / 2, textY);
+        // 激しいネオングロー効果
+        ctx.shadowBlur = 10 + power * 2.5;
+        ctx.shadowColor = power >= 7 ? '#00E5FF' : '#00FF66';
+        
+        const textY = layout.cardCenterY - (layout.cardH / 2) - 30;
+        ctx.fillText(`x${app.comboCount} Combo!!`, VIEW_WIDTH / 2 + shakeX, textY + shakeY);
         
         ctx.restore();
 
         app.comboTextScale += (1.0 - app.comboTextScale) * 0.15;
-        app.comboTextAlpha -= 0.015;
+        app.comboTextAlpha -= 0.012; // 派手な演出がしっかり目認できるようやや遅延減衰
     }
 }
 
@@ -1520,7 +1552,7 @@ function resetProgressWithConfirm() {
     if (confirm("これまでの学習進捗率（★の数）がすべて0にリセットされます。本当によろしいですか？")) {
         app.reset();
         showToast("すべての学習状況をリセットしました");
-        createConfetti(VIEW_WIDTH / 2, layout.cardCenterY, '#ff3366', 30);
+        createConfetti(VIEW_WIDTH / 2, layout.cardCenterY, '#ff3366', 30, 1.0, 1);
         const menu = document.getElementById('sideMenu');
         menu.classList.remove('active');
     }
