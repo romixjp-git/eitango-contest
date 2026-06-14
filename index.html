@@ -240,10 +240,10 @@
             </h3>
             <p class="modal-desc">
                 Excelやスプレッドシートから、以下のフォーマットでデータを貼り付けて追加できます。<br>
-                <b>形式 (カンマまたはタブ区切り):</b><br>
-                <code>単語/英語, 日本語解説</code>
+                <b>形式 (カンマまたはタブ区切り、改行コード\nで複数情報登録可):</b><br>
+                <code>単語/英語, 日本語意味\n英語例文\n例文日本語訳\n[対義語]単語</code>
             </p>
-            <textarea id="importArea" placeholder="例:&#10;abandon,〜をあきらめる、捨てる&#10;accomplish,〜を成し遂げる、達成する"></textarea>
+            <textarea id="importArea" placeholder="例:&#10;abandon,〜をあきらめる、捨てる\nHe decided to abandon the plan.\n彼はその計画をあきらめることに決めた。\n[対義語] maintain&#10;accomplish,〜を成し遂げる、達成する\nWe accomplished our mission.\n私たちは任務を成し遂げた。"></textarea>
             <div class="modal-actions">
                 <button class="btn-modal-action btn-secondary" onclick="exportData()">バックアップ出力</button>
                 <button class="btn-modal-action btn-primary" onclick="importData()">インポート追加</button>
@@ -259,72 +259,72 @@
 // 【初期学習データ設定：英単語コンテスト（フォールバック用）】
 // ==========================================
 const INITIAL_DATA_SOURCE = [
-    { id: "w1", type: "word", question: "achieve", answer: "〜を達成する、成し遂げる\n[類義語] accomplish" },
-    { id: "w2", type: "word", question: "admire", answer: "〜に感嘆する、〜を称賛する\n[例文] I admire his courage." },
-    { id: "w3", type: "word", question: "allow", answer: "〜を許可する、許す\n[熟語] allow A to do (Aが〜するのを許可する)" },
-    { id: "w4", type: "word", question: "announce", answer: "〜を発表する、告知する\n[名詞] announcement" },
-    { id: "w5", type: "word", question: "apologize", answer: "謝る、お詫びする\n[熟語] apologize to A for B (AにBのことで謝る)" },
-    { id: "w6", type: "word", question: "avoid", answer: "〜を避ける、(〜するのを)回避する\n[語法] avoidの後ろは動名詞(ing)を伴う" },
-    { id: "w7", type: "word", question: "behavior", answer: "ふるまい、行動、態度\n[動詞] behave (振る舞う)" },
-    { id: "w8", type: "word", question: "benefit", answer: "利益、恩恵、〜の利益になる\n[形容詞] beneficial (有益な)" },
-    { id: "w9", type: "word", question: "complain", answer: "不平を言う、苦情を言う\n[熟語] complain about A (Aについて不満を言う)" },
-    { id: "w10", type: "word", question: "convenient", answer: "都合が良い、便利な\n[名詞] convenience (便利さ)" },
-    { id: "w11", type: "word", question: "decrease", answer: "減少する、〜を減らす\n[対義語] increase (増加する)" },
-    { id: "w12", type: "word", question: "delay", answer: "〜を遅らせる、延期する、遅れ\n[例文] The flight was delayed." },
-    { id: "w13", type: "word", question: "demand", answer: "〜を要求する、需要\n[対義語] supply (供給)" },
-    { id: "w14", type: "word", question: "encourage", answer: "〜を勇気づける、励ます\n[熟語] encourage A to do" },
-    { id: "w15", type: "word", question: "environment", answer: "環境\n[形容詞] environmental (環境の)" },
-    { id: "w16", type: "word", question: "frequently", answer: "頻繁に、しばしば\n[形容詞] frequent" },
-    { id: "w17", type: "word", question: "government", answer: "政府、政治\n[動詞] govern (統治する)" },
-    { id: "w18", type: "word", question: "gradually", answer: "徐々に、だんだんと\n[意味] bit by bit, step by step" },
-    { id: "w19", type: "word", question: "ignore", answer: "〜を無視する、知らないふりをする\n[形容詞] ignorant (無知の)" },
-    { id: "w20", type: "word", question: "improve", answer: "〜を改善する、上達させる\n[名詞] improvement" },
-    { id: "w21", type: "word", question: "increase", answer: "増加する、〜を増やす\n[名詞] 増加" },
-    { id: "w22", type: "word", question: "industry", answer: "産業、工業、勤勉\n[形容詞] industrial (産業の)" },
-    { id: "w23", type: "word", question: "influence", answer: "〜に影響を及ぼす、影響（力）\n[形容詞] influential" },
-    { id: "w24", type: "word", question: "opportunity", answer: "機会、チャンス\n[意味] a chance to do something" },
-    { id: "w25", type: "word", question: "prevent", answer: "〜を防ぐ、妨げる\n[熟語] prevent A from doing" },
-    { id: "w26", type: "word", question: "reduce", answer: "〜を減らす、縮小する\n[意味] make smaller or less" },
-    { id: "w27", type: "word", question: "require", answer: "〜を必要とする、要求する\n[名詞] requirement" },
-    { id: "w28", type: "word", question: "similar", answer: "似ている、同様の\n[熟語] be similar to A" },
-    { id: "w29", type: "word", question: "technology", answer: "科学技術、テクノロジー" },
-    { id: "w30", type: "word", question: "waste", answer: "〜を無駄にする、浪費、廃棄物" },
-    { id: "w31", type: "word", question: "accept", answer: "〜を受け入れる、承諾する\n[対義語] refuse (拒絶する)" },
-    { id: "w32", type: "word", question: "affect", answer: "〜に影響を与える、作用する\n[名詞] effect (効果・影響)" },
-    { id: "w33", type: "word", question: "agree", answer: "賛成する、意見が一致する\n[熟語] agree with A" },
-    { id: "w34", type: "word", question: "appear", answer: "現れる、〜のように見える\n[対義語] disappear (消える)" },
-    { id: "w35", type: "word", question: "attend", answer: "〜に出席する、(学校などに)通う" },
-    { id: "w36", type: "word", question: "cancel", answer: "〜を中止する、取り消す\n[名詞] cancellation" },
-    { id: "w37", type: "word", question: "century", answer: "1世紀、100年間" },
-    { id: "w38", type: "word", question: "climate", answer: "（長期的・地域的な）気候\n[参考] weatherは一時的な天気" },
-    { id: "w39", type: "word", question: "compare", answer: "〜を比較する、比べる\n[熟語] compare A with B" },
-    { id: "w40", type: "word", question: "confirm", answer: "〜を確認する、裏付ける" },
-    { id: "w41", type: "word", question: "consume", answer: "〜を消費する、使い果たす" },
-    { id: "w42", type: "word", question: "damage", answer: "〜に損害を与える、被害、傷" },
-    { id: "w43", type: "word", question: "decide", answer: "〜を決心する、決定する\n[名詞] decision" },
-    { id: "w44", type: "word", question: "deliver", answer: "〜を配達する、(スピーチを)する" },
-    { id: "w45", type: "word", question: "discover", answer: "〜を発見する、知る" },
-    { id: "w46", type: "word", question: "divide", answer: "〜を分割する、分ける\n[熟語] divide A into B" },
-    { id: "w47", type: "word", question: "educate", answer: "〜を教育する、指導する" },
-    { id: "w48", type: "word", question: "expect", answer: "〜を予期する、期待する" },
-    { id: "w49", type: "word", question: "explain", answer: "〜を説明する、明らかにする" },
-    { id: "w50", type: "word", question: "express", answer: "〜を表現する、急行" }
+    { id: "w1", type: "word", question: "achieve", answer: "〜を達成する、成し遂げる\nShe achieved her goal of becoming a doctor.\n彼女は医師になるという目標を達成した。" },
+    { id: "w2", type: "word", question: "admire", answer: "〜に感嘆する、〜を称賛する\nI admire his courage to speak the truth.\n私は真実を話す彼の勇気に感心する。" },
+    { id: "w3", type: "word", question: "allow", answer: "〜を許可する、許す\nMy parents allowed me to study abroad.\n両親は私が留学することを許してくれた。" },
+    { id: "w4", type: "word", question: "announce", answer: "〜を発表する、告知する\nThe company announced a new product today.\n会社は本日、新製品を発表した。" },
+    { id: "w5", type: "word", question: "apologize", answer: "謝る、お詫びする\nHe apologized to her for being late.\n彼は遅刻したことを彼女に謝った。" },
+    { id: "w6", type: "word", question: "avoid", answer: "〜を避ける、回避する\nYou should avoid making hasty decisions.\n焦って決定を下すのは避けるべきだ。" },
+    { id: "w7", type: "word", question: "behavior", answer: "ふるまい、行動、態度\nHis behavior at the school was excellent.\n学校での彼の態度は極めて立派だった。" },
+    { id: "w8", type: "word", question: "benefit", answer: "利益、恩恵、〜の利益になる\nRegular exercise benefits our physical health.\n定期的な運動は身体の健康にプラスになる。" },
+    { id: "w9", type: "word", question: "complain", answer: "不平を言う、苦情を言う\nThey complained about the noisy neighbors.\n彼らは近所の騒音について不満を言った。" },
+    { id: "w10", type: "word", question: "convenient", answer: "都合が良い、便利な\nIs tomorrow convenient for our meeting?\n明日は打ち合わせをするのに都合が良いですか？\n[対義語] inconvenient" },
+    { id: "w11", type: "word", question: "decrease", answer: "減少する、〜を減らす\nThe population of this village is decreasing.\nこの村の人口は減少している。\n[対義語] increase" },
+    { id: "w12", type: "word", question: "delay", answer: "〜を遅らせる、延期する\nThe flight was delayed due to bad weather.\n悪天候のためフライトが遅れた。" },
+    { id: "w13", type: "word", question: "demand", answer: "〜を要求する、需要\nThere is a high demand for organic vegetables.\n有機野菜に対する高い需要がある。\n[対義語] supply" },
+    { id: "w14", type: "word", question: "encourage", answer: "〜を勇気づける、励ます\nMy teacher encouraged me to keep writing.\n先生は私に書き続けるよう励ましてくれた。\n[対義語] discourage" },
+    { id: "w15", type: "word", question: "environment", answer: "環境\nWe must do more to protect the environment.\n私たちは環境を守るためにもっと行動すべきだ。" },
+    { id: "w16", type: "word", question: "frequently", answer: "頻繁に、しばしば\nHe frequently visits the local library.\n彼は頻繁に地元の図書館を訪れる。" },
+    { id: "w17", type: "word", question: "government", answer: "政府、政治\nThe government plans to lower income taxes.\n政府は所得税を引き下げる計画をしている。" },
+    { id: "w18", type: "word", question: "gradually", answer: "徐々に、だんだんと\nThe weather is gradually getting warmer.\n気温は徐々に暖かくなってきている。" },
+    { id: "w19", type: "word", question: "ignore", answer: "〜を無視する、知らないふりをする\nShe ignored my advice and made a mistake.\n彼女は私の助言を無視して失敗した。" },
+    { id: "w20", type: "word", question: "improve", answer: "〜を改善する、上達させる\nI want to improve my English speaking skills.\n英語の英会話力を向上させたい。" },
+    { id: "w21", type: "word", question: "increase", answer: "増加する、〜を増やす\nSales of smart watches increased last year.\n昨年スマートウォッチの売上が増加した。\n[対義語] decrease" },
+    { id: "w22", type: "word", question: "industry", answer: "産業、工業、勤勉\nThis region is known for its car industry.\nこの地域は自動車産業で知られている。" },
+    { id: "w23", type: "word", question: "influence", answer: "〜に影響を及ぼす、影響（力）\nHer words had a great influence on my life.\n彼女の言葉は私の人生に大きな影響を与えた。" },
+    { id: "w24", type: "word", question: "opportunity", answer: "機会、チャンス\nDon't miss the opportunity to travel abroad.\n旅行する機会を逃さないようにしなさい。" },
+    { id: "w25", type: "word", question: "prevent", answer: "〜を防ぐ、妨げる\nVaccines help prevent various diseases.\nワクチンは様々な病気を防ぐのに役立つ。" },
+    { id: "w26", type: "word", question: "reduce", answer: "〜を減らす、縮小する\nWe need to reduce plastic waste at home.\n私たちはプラスチックゴミを減らす必要がある。\n[対義語] increase" },
+    { id: "w27", type: "word", question: "require", answer: "〜を必要とする、要求する\nThis course requires high level concentration.\nこの講義は高度な集中力を必要とする。" },
+    { id: "w28", type: "word", question: "similar", answer: "似ている、同様の\nYour phone is very similar to mine.\nあなたの携帯電話は私のものとよく似ている。\n[対義語] different" },
+    { id: "w29", type: "word", question: "technology", answer: "科学技術、テクノロジー\nModern technology makes our lives much easier.\n現代技術は我々の生活をずっと便利にする。" },
+    { id: "w30", type: "word", question: "waste", answer: "〜を無駄にする、浪費\nDon't waste your precious time on video games.\n貴重な時間をビデオゲームで無駄にしないで。" },
+    { id: "w31", type: "word", question: "accept", answer: "〜を受け入れる、承諾する\nThey accepted our invitation to the party.\n彼らは私たちのパーティーへの招待を受けてくれた。\n[対義語] refuse" },
+    { id: "w32", type: "word", question: "affect", answer: "〜に影響を与える、作用する\nSmoking seriously affects your health.\n喫煙は健康に深刻な影響を与える。" },
+    { id: "w33", type: "word", question: "agree", answer: "賛成する、意見が一致する\nI completely agree with your opinion.\n私はあなたの意見に全面的に賛成します。\n[対義語] disagree" },
+    { id: "w34", type: "word", question: "appear", answer: "現れる、〜のように見える\nA rainbow appeared in the sky after the rain.\n雨のあと、空に虹が現れた。\n[対義語] disappear" },
+    { id: "w35", type: "word", question: "attend", answer: "〜に出席する、通う\nMany students attended the lecture today.\n多くの学生が今日の講義に出席した。" },
+    { id: "w36", type: "word", question: "cancel", answer: "〜を中止する、取り消す\nThey had to cancel the outdoor concert.\n彼らは野外コンサートを中止しなければならなかった。" },
+    { id: "w37", type: "word", question: "century", answer: "1世紀、100年間\nThis castle was built in the 15th century.\nこの城は15世紀に建てられた。" },
+    { id: "w38", type: "word", question: "climate", answer: "気候\nGlobal warming is changing the world climate.\n地球温暖化が世界の気候を変えつつある。" },
+    { id: "w39", type: "word", question: "compare", answer: "〜を比較する、比べる\nIf you compare these two bags, this is better.\nこれら2つのバッグを比較すると、こっちが良い。" },
+    { id: "w40", type: "word", question: "confirm", answer: "〜を確認する、裏付ける\nPlease call us to confirm your reservation.\n予約を確認するために私たちに電話をください。" },
+    { id: "w41", type: "word", question: "consume", answer: "〜を消費する、使い果たす\nThis car consumes less fuel than older models.\nこの車は古いモデルより燃料消費が少ない。" },
+    { id: "w42", type: "word", question: "damage", answer: "〜に損害を与える、被害\nThe typhoon caused heavy damage to the city.\n台風はその都市に甚大な損害をもたらした。" },
+    { id: "w43", type: "word", question: "decide", answer: "〜を決心する、決定する\nShe decided to study French next year.\n彼女はフランス語を学ぶことに決めた。" },
+    { id: "w44", type: "word", question: "deliver", answer: "〜を配達する、届ける\nThey will deliver the package tomorrow morning.\n彼らは明日その荷物を配達する予定だ。" },
+    { id: "w45", type: "word", question: "discover", answer: "〜を発見する、知る\nScientists discovered a new planet last month.\n科学者たちは先月、新しい惑星を発見した。" },
+    { id: "w46", type: "word", question: "divide", answer: "〜を分割する、分ける\nThe teacher divided the class into four groups.\n先生はクラスを4つのグループに分けた。" },
+    { id: "w47", type: "word", question: "educate", answer: "〜を教育する、指導する\nSchools should educate children about safety.\n学校は子供たちに安全について教育すべきだ。" },
+    { id: "w48", type: "word", question: "expect", answer: "〜を予期する、期待する\nWe expect that he will win the final match.\n私たちは彼が決勝戦で勝つと期待している。" },
+    { id: "w49", type: "word", question: "explain", answer: "〜を説明する、明らかにする\nCould you explain the rules of this game again?\nこのゲームのルールをもう一度説明してもらえますか？" },
+    { id: "w50", type: "word", question: "express", answer: "〜を表現する、示す\nIt is sometimes hard to express our feelings.\n感情を表現することは時に難しい。" }
 ];
 
 // 論理解像度
 const VIEW_WIDTH = 480;
 const VIEW_HEIGHT = 850;
 
-// 動的レイアウト計算用（英単語専用＆間隔を詰めるようにチューニング）
+// 動的レイアウト計算用（豊富な3〜4行情報の改修に合わせてカード高を220へ少し引き上げ）
 let layout = {
     scale: 1,
     height: VIEW_HEIGHT,
     safeAreaTop: 15,
     safeAreaBottom: 15,
-    headerBottom: 135,  // ヘッダーの高さを少し削って上に詰める
-    cardCenterY: 285,   // カード位置をより上部に詰める
-    cardH: 185,         // カードの高さを適正化
-    startY: 440,        // 選択肢の開始地点を上に詰め、全体の間隔を縮小
+    headerBottom: 130,  // ほんの少し上に
+    cardCenterY: 290,   
+    cardH: 220,         // 情報表示を充実させるため高さを220に調整
+    startY: 445,        // ボタンと干渉しないよう極わずかに下に配置
     btnY: 710,   
     resultY: 575 
 };
@@ -778,7 +778,7 @@ function updateLayout() {
     layout.safeAreaTop = hasNotch ? 45 : 15;
     layout.safeAreaBottom = hasNotch ? 35 : 15;
     
-    layout.headerBottom = layout.safeAreaTop + 110; // ヘッダー高をスリムに
+    layout.headerBottom = layout.safeAreaTop + 110; 
     
     const btnH = 54;
     const spacing = 9;
@@ -788,15 +788,15 @@ function updateLayout() {
     layout.btnY = layout.height - layout.safeAreaBottom - 15 - 65; 
     layout.resultY = layout.btnY - 15 - 110; 
     
-    // 間隔を最適に詰めた位置
+    // 改行レイアウトを崩さないよう中心座標を再調整
     if (!app.isAnswered) {
         const availableSpace = layout.startY - layout.headerBottom;
-        layout.cardCenterY = layout.headerBottom + availableSpace / 2 - 10;
-        layout.cardH = Math.min(200, availableSpace - 20);
+        layout.cardCenterY = layout.headerBottom + availableSpace / 2 - 8;
+        layout.cardH = Math.min(220, availableSpace - 16);
     } else {
         const availableSpace = layout.resultY - layout.headerBottom;
-        layout.cardCenterY = layout.headerBottom + availableSpace / 2 - 10;
-        layout.cardH = Math.min(200, availableSpace - 20);
+        layout.cardCenterY = layout.headerBottom + availableSpace / 2 - 8;
+        layout.cardH = Math.min(220, availableSpace - 16);
     }
     return true;
 }
@@ -1029,7 +1029,6 @@ function drawHeader() {
 
     ctx.fillStyle = '#4b5563';
     ctx.font = '11px Helvetica, sans-serif';
-    // CSVから読み込まれた単語数が app.stats.total に動的にバインドされ表示されます
     ctx.fillText(`MASTERED: ${app.stats.mastered} / ${app.stats.total} words`, 32, top + 98);
 
     ctx.textAlign = 'right';
@@ -1120,34 +1119,53 @@ function drawCard() {
         ctx.fillStyle = '#ffffff';
         ctx.textAlign = 'center';
 
-        const topTextY = -cardH/2 + (cardH > 180 ? 60 : 45);
-        ctx.font = 'bold 15px Helvetica, sans-serif';
+        const topTextY = -cardH/2 + 55;
+        ctx.font = 'bold 16px Helvetica, sans-serif';
         ctx.fillStyle = accentColor;
         ctx.fillText(app.currentItem.question, 0, topTextY);
 
         ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
         ctx.lineWidth = 1;
         ctx.beginPath();
-        const lineY = topTextY + 14;
+        const lineY = topTextY + 12;
         ctx.moveTo(-cardW/2 + 30, lineY);
         ctx.lineTo(cardW/2 - 30, lineY);
         ctx.stroke();
 
-        ctx.fillStyle = '#f3f4f6';
         const lines = app.currentItem.answer.split('\n');
-        let startY = lineY + (cardH > 180 ? 26 : 18);
+        let startY = lineY + 22;
         
-        lines.forEach((line) => {
-            if (line.startsWith('[') || line.startsWith('(')) {
-                ctx.fillStyle = '#9ca3af';
-                ctx.font = '12px "Hiragino Kaku Gothic ProN", Meiryo, sans-serif';
-                wrapText(ctx, line, 0, startY, cardW - 40, 18);
-                startY += (cardH > 180 ? 26 : 20);
-            } else {
+        lines.forEach((line, index) => {
+            const trimmedLine = line.trim();
+            if (!trimmedLine) return;
+
+            // 対義語・類義語の検出
+            if (trimmedLine.startsWith('[') || trimmedLine.startsWith('(')) {
+                ctx.fillStyle = '#00E5FF'; // 青みのアクセント
+                ctx.font = 'bold 11px "Hiragino Kaku Gothic ProN", Meiryo, sans-serif';
+                wrapText(ctx, trimmedLine, 0, startY, cardW - 45, 16);
+                startY += 18;
+            } 
+            // 2行目・3行目の例文情報（1行目は日本語解説なので、index > 0かつアルファベットを含む場合を例文と判定）
+            else if (index > 0 && !!trimmedLine.match(/[a-zA-Z]/)) {
+                ctx.fillStyle = '#e5e7eb'; // 英語例文は少し明るめ
+                ctx.font = 'italic 12px Helvetica, Arial, sans-serif';
+                wrapText(ctx, trimmedLine, 0, startY, cardW - 45, 17);
+                startY += 20;
+            } 
+            // 例文の日本語訳（アルファベットを含まない2行目以降）
+            else if (index > 0) {
+                ctx.fillStyle = '#9ca3af'; // 日本語訳は落ち着いたグレー
+                ctx.font = '11px "Hiragino Kaku Gothic ProN", Meiryo, sans-serif';
+                wrapText(ctx, trimmedLine, 0, startY, cardW - 45, 16);
+                startY += 19;
+            } 
+            // 1行目の主日本語解説
+            else {
                 ctx.fillStyle = '#ffffff';
-                ctx.font = 'bold 15px "Hiragino Kaku Gothic ProN", Meiryo, sans-serif';
-                wrapText(ctx, line, 0, startY, cardW - 40, 22);
-                startY += (cardH > 180 ? 30 : 24);
+                ctx.font = 'bold 14px "Hiragino Kaku Gothic ProN", Meiryo, sans-serif';
+                wrapText(ctx, trimmedLine, 0, startY, cardW - 45, 20);
+                startY += 24;
             }
         });
     }
