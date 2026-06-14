@@ -1475,19 +1475,29 @@ function drawInteractiveArea() {
             const comboNote = app.comboCount >= 2 ? ` (${app.comboCount} Combo!!)` : '';
             ctx.fillText(`正 解 ！${comboNote}`, VIEW_WIDTH / 2, resultY + 65);
         } else {
+            // 不正解のテキスト表示を修正
             ctx.fillStyle = '#ff3366';
             ctx.font = 'bold 24px "Hiragino Kaku Gothic ProN", sans-serif';
-            ctx.fillText('不 正 解', VIEW_WIDTH / 2, resultY + 45);
+            ctx.fillText('不 正 解', VIEW_WIDTH / 2, resultY + 35);
 
-            ctx.fillStyle = '#ffffff';
-            const correctOne = app.choices.find(c => c.isCorrect);
+            // 選択した答えの表示
+            ctx.fillStyle = '#9ca3af'; // 控えめなグレー
+            if (app.direction === 'en_to_ja') {
+                ctx.font = 'bold 13px "Hiragino Kaku Gothic ProN", sans-serif';
+            } else {
+                ctx.font = 'bold 12px Helvetica, sans-serif';
+            }
+            ctx.fillText(`選択: ${app.selectedChoice.text}`, VIEW_WIDTH / 2, resultY + 65);
+
+            // 正しい正解の表示
+            ctx.fillStyle = '#ffffff'; // 白色
             if (app.direction === 'en_to_ja') {
                 ctx.font = 'bold 14px "Hiragino Kaku Gothic ProN", sans-serif';
-                ctx.fillText(`正解: ${correctOne.text}`, VIEW_WIDTH / 2, resultY + 80);
             } else {
                 ctx.font = 'bold 13px Helvetica, sans-serif';
-                ctx.fillText(`正解: ${correctOne.text}`, VIEW_WIDTH / 2, resultY + 80);
             }
+            const correctOne = app.choices.find(c => c.isCorrect);
+            ctx.fillText(`正解: ${correctOne.text}`, VIEW_WIDTH / 2, resultY + 90);
         }
 
         const btnY = layout.btnY;
