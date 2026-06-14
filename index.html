@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>EIKEN Level Pre-2 Smart Learner Pro</title>
+    <title>英単語コンテスト Smart Learner Pro</title>
     <!-- プレミアムアイコン用 FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -241,9 +241,9 @@
             <p class="modal-desc">
                 Excelやスプレッドシートから、以下のフォーマットでデータを貼り付けて追加できます。<br>
                 <b>形式 (カンマまたはタブ区切り):</b><br>
-                <code>単語/英語, 日本語解説, タイプ(wordまたはgrammar)</code>
+                <code>単語/英語, 日本語解説</code>
             </p>
-            <textarea id="importArea" placeholder="例:&#10;abandon,〜をあきらめる、捨てる,word&#10;I am used to getting up early.,私は早起きすることに慣れている。,grammar"></textarea>
+            <textarea id="importArea" placeholder="例:&#10;abandon,〜をあきらめる、捨てる&#10;accomplish,〜を成し遂げる、達成する"></textarea>
             <div class="modal-actions">
                 <button class="btn-modal-action btn-secondary" onclick="exportData()">バックアップ出力</button>
                 <button class="btn-modal-action btn-primary" onclick="importData()">インポート追加</button>
@@ -256,10 +256,9 @@
 
 <script>
 // ==========================================
-// 【初期学習データ設定：英検準2級用（全75件）】
+// 【初期学習データ設定：英単語コンテスト（フォールバック用）】
 // ==========================================
 const INITIAL_DATA_SOURCE = [
-    // --- 単語（Word）: 50件 ---
     { id: "w1", type: "word", question: "achieve", answer: "〜を達成する、成し遂げる\n[類義語] accomplish" },
     { id: "w2", type: "word", question: "admire", answer: "〜に感嘆する、〜を称賛する\n[例文] I admire his courage." },
     { id: "w3", type: "word", question: "allow", answer: "〜を許可する、許す\n[熟語] allow A to do (Aが〜するのを許可する)" },
@@ -309,52 +308,25 @@ const INITIAL_DATA_SOURCE = [
     { id: "w47", type: "word", question: "educate", answer: "〜を教育する、指導する" },
     { id: "w48", type: "word", question: "expect", answer: "〜を予期する、期待する" },
     { id: "w49", type: "word", question: "explain", answer: "〜を説明する、明らかにする" },
-    { id: "w50", type: "word", question: "express", answer: "〜を表現する、急行" },
-
-    // --- 文法・重要例文（Grammar）: 25件 ---
-    { id: "g1", type: "grammar", question: "If I were a bird, I would fly to you.", answer: "仮定法過去：現在のことに対する妄想\n「もし私が鳥なら、君のもとへ飛んでいくのに」" },
-    { id: "g2", type: "grammar", question: "The book written in English is easy.", answer: "分詞の後置修飾：過去分詞\n「英語で書かれたその本は簡単です」" },
-    { id: "g3", type: "grammar", question: "I have been reading this book for two hours.", answer: "現在完了進行形：ずっと〜し続けている\n「私は2時間ずっとこの本を読み続けています」" },
-    { id: "g4", type: "grammar", question: "This is the city where I was born.", answer: "関係副詞：場所を表す先行詞修飾\n「ここは私が生まれた街です」" },
-    { id: "g5", type: "grammar", question: "He is rich enough to buy the car.", answer: "形容詞 + enough to do：〜するのに十分…だ\n「彼はその車を買うのに十分なお金持ちだ」" },
-    { id: "g6", type: "grammar", question: "You don't have to pay for the ticket.", answer: "don't have to：〜する必要はない\n「あなたはチケット代を支払う必要はありません」" },
-    { id: "g7", type: "grammar", question: "We look forward to seeing you.", answer: "look forward to -ing：〜するのを心待ちにする\n「あなたにお会いできるのを楽しみにしております」" },
-    { id: "g8", type: "grammar", question: "I saw a boy playing soccer in the park.", answer: "知覚動詞 + 目的語 + -ing：Oが〜しているのを見る\n「私は男の子が公園でサッカーをしているのを見た」" },
-    { id: "g9", type: "grammar", question: "This computer is as expensive as that one.", answer: "同等比較：as ... as 〜 (〜と同じくらい…)\n「このコンピュータはあのコンピュータと同じくらい高い」" },
-    { id: "g10", type: "grammar", question: "English is spoken all over the world.", answer: "受動態（受け身）：be動詞 + 過去分詞\n「英語は世界中で話されています」" },
-    { id: "g11", type: "grammar", question: "I asked him to help me with my homework.", answer: "ask A to do：Aに〜するように頼む\n「私は彼に宿題を手伝ってくれるよう頼んだ」" },
-    { id: "g12", type: "grammar", question: "It is difficult for me to understand his lecture.", answer: "It is ... for A to do：Aにとって〜することは…だ\n「私にとって彼の講義を理解することは難しい」" },
-    { id: "g13", type: "grammar", question: "The movie made me cry.", answer: "使役動詞 make + O + 原形不定詞：Oを〜させる\n「その映画は私を泣かせた（泣くようにさせた）」" },
-    { id: "g14", type: "grammar", question: "Would you mind closing the window?", answer: "Would you mind -ing?：〜していただけますか\n「窓を閉めていただけますでしょうか？」" },
-    { id: "g15", type: "grammar", question: "She decided not to go to the party.", answer: "不定詞の否定：not to do\n「彼女はそのパーティーに行かないことに決めた」" },
-    { id: "g16", type: "grammar", question: "He used to play tennis after school.", answer: "used to do：かつてはよく〜したものだ（現在はしていない）\n「彼は放課後よくテニスをしたものだった」" },
-    { id: "g17", type: "grammar", question: "Instead of going out, we watched Netflix.", answer: "instead of -ing：〜する代わりに\n「外出する代わりに、私たちはネットフリックスを見た」" },
-    { id: "g18", type: "grammar", question: "The news was so surprising that I couldn't speak.", answer: "so ... that 〜：とても…なので〜だ\n「そのニュースはとても驚くべきものだったので、私は言葉が出なかった」" },
-    { id: "g19", type: "grammar", question: "I want to know how to solve this problem.", answer: "疑問詞 + to do：どのように〜すべきか / 〜の仕方\n「私はこの問題の解き方を知りたい」" },
-    { id: "g20", type: "grammar", question: "This is the most exciting game I've ever played.", answer: "最上級 + have ever 過去分詞：これまでで最も…な〜\n「これは私が今までにプレイした中で最もエキサイティングなゲームだ」" },
-    { id: "g21", type: "grammar", question: "You had better see a doctor.", answer: "had better + 動詞の原形：〜した方がよい\n「あなたは医者に診てもらった方がよい（そうしないとマズい）」" },
-    { id: "g22", type: "grammar", question: "I haven't finished my homework yet.", answer: "現在完了（完了用法）否定：まだ〜していない\n「私はまだ宿題を終えていません」" },
-    { id: "g23", type: "grammar", question: "He is lazy, while his sister is very hard-working.", answer: "接続詞 while：〜である一方で（対比）\n「彼は怠け者だが、一方でお姉さんはてきぱき働く（勤勉だ）」" },
-    { id: "g24", type: "grammar", question: "We have to protect the planet by recycling.", answer: "by + -ing：〜することによって（手段）\n「私たちはリサイクルすることによって地球を守らなければならない」" },
-    { id: "g25", type: "grammar", question: "Although it was raining, they played baseball.", answer: "接続詞 although：〜だけれども\n「雨が降っていたけれど、彼らは野球をした」" }
+    { id: "w50", type: "word", question: "express", answer: "〜を表現する、急行" }
 ];
 
 // 論理解像度
 const VIEW_WIDTH = 480;
 const VIEW_HEIGHT = 850;
 
-// 動的レイアウト計算用
+// 動的レイアウト計算用（英単語専用＆間隔を詰めるようにチューニング）
 let layout = {
     scale: 1,
     height: VIEW_HEIGHT,
     safeAreaTop: 15,
     safeAreaBottom: 15,
-    headerBottom: 155,
-    cardCenterY: 342,
-    cardH: 220,
-    startY: 529, 
-    btnY: 750,   
-    resultY: 615 
+    headerBottom: 135,  // ヘッダーの高さを少し削って上に詰める
+    cardCenterY: 285,   // カード位置をより上部に詰める (元: 342)
+    cardH: 185,         // カードの高さを適正化 (元: 220)
+    startY: 440,        // 選択肢の開始地点を上に詰め、全体の間隔を縮小
+    btnY: 710,   
+    resultY: 575 
 };
 
 let isInitialized = false;
@@ -423,33 +395,59 @@ class AppState {
         this.particles = [];    
         this.learningRate = 0;  
         this.targetLearningRate = 0; 
+
+        // コンボ機能用ステート
+        this.comboCount = 0;
+        this.comboTextScale = 0;
+        this.comboTextAlpha = 0;
         
         this.stats = {
             total: 0,
             mastered: 0,
-            words: 0,
-            grammars: 0,
             streakMax: 3
         };
-
-        this.init();
     }
 
-    init() {
-        const savedData = localStorage.getItem('eiken_pre2_progress_v3');
+    async init() {
+        // 1. まずCSVデータの取得を試みる
+        let dataSource = [];
+        try {
+            const response = await fetch('words.csv');
+            if (response.ok) {
+                const csvText = await response.text();
+                dataSource = this.parseCSV(csvText);
+                showToast("CSVデータを読み込みました");
+            } else {
+                dataSource = INITIAL_DATA_SOURCE;
+            }
+        } catch (e) {
+            // エラー時はローカルの初期ソースを使用
+            dataSource = INITIAL_DATA_SOURCE;
+        }
+
+        if (dataSource.length === 0) {
+            dataSource = INITIAL_DATA_SOURCE;
+        }
+
+        // 2. ローカルストレージの進捗読み込み
+        const savedData = localStorage.getItem('eiken_pre2_progress_v4');
         if (savedData) {
             try {
                 const parsed = JSON.parse(savedData);
-                this.items = parsed.map(item => ({
-                    ...item,
-                    correctStreakEnJa: Math.max(0, parseInt(item.correctStreakEnJa) || 0),
-                    correctStreakJaEn: Math.max(0, parseInt(item.correctStreakJaEn) || 0)
-                }));
+                // CSVまたはデフォルトにあるキーだけ、進捗を結合して適用
+                this.items = dataSource.map(dItem => {
+                    const matched = parsed.find(p => p.question === dItem.question);
+                    return {
+                        ...dItem,
+                        correctStreakEnJa: matched ? Math.max(0, parseInt(matched.correctStreakEnJa) || 0) : 0,
+                        correctStreakJaEn: matched ? Math.max(0, parseInt(matched.correctStreakJaEn) || 0) : 0
+                    };
+                });
             } catch (e) {
-                this.loadDefaultData();
+                this.loadDefaultData(dataSource);
             }
         } else {
-            this.loadDefaultData();
+            this.loadDefaultData(dataSource);
         }
 
         this.calculateStats();
@@ -457,8 +455,33 @@ class AppState {
         this.pickNextItem(true);
     }
 
-    loadDefaultData() {
-        this.items = INITIAL_DATA_SOURCE.map(item => ({
+    parseCSV(text) {
+        const lines = text.split(/\r?\n/);
+        const result = [];
+        let index = 1;
+        for (let line of lines) {
+            line = line.trim();
+            if (!line) continue;
+            // カンマ、またはタブ区切りで分割
+            const parts = line.split(/[\t,]/);
+            if (parts.length >= 2) {
+                const q = parts[0].replace(/^"|"$/g, '').trim();
+                const a = parts[1].replace(/^"|"$/g, '').trim();
+                if (q && a) {
+                    result.push({
+                        id: `csv_w_${index++}`,
+                        type: "word",
+                        question: q,
+                        answer: a
+                    });
+                }
+            }
+        }
+        return result;
+    }
+
+    loadDefaultData(source) {
+        this.items = source.map(item => ({
             ...item,
             correctStreakEnJa: 0,
             correctStreakJaEn: 0
@@ -466,7 +489,7 @@ class AppState {
     }
 
     save() {
-        localStorage.setItem('eiken_pre2_progress_v3', JSON.stringify(this.items));
+        localStorage.setItem('eiken_pre2_progress_v4', JSON.stringify(this.items));
     }
 
     reset() {
@@ -474,6 +497,7 @@ class AppState {
             item.correctStreakEnJa = 0;
             item.correctStreakJaEn = 0;
         });
+        this.comboCount = 0;
         this.save();
         this.calculateStats();
         this.isFlipped = false;
@@ -489,9 +513,6 @@ class AppState {
             item.correctStreakEnJa >= this.stats.streakMax && 
             item.correctStreakJaEn >= this.stats.streakMax
         ).length;
-        
-        this.stats.words = this.items.filter(item => item.type === 'word').length;
-        this.stats.grammars = this.items.filter(item => item.type === 'grammar').length;
         
         let totalProgressPoints = 0;
         this.items.forEach(item => {
@@ -544,7 +565,7 @@ class AppState {
         }
 
         const needEnJa = this.currentItem.correctStreakEnJa < this.stats.streakMax;
-        const needJaEn = this.currentItem.correctStreakJaEn < this.stats.streakMax;
+        const needJaEn = this.currentItem.correctStreakJaEn < this.stats.stats;
 
         if (needEnJa && !needJaEn) {
             this.direction = 'en_to_ja';
@@ -560,10 +581,7 @@ class AppState {
             const correctText = this.getShortAnswer(this.currentItem);
             this.choices.push({ text: correctText, isCorrect: true, id: this.currentItem.id });
 
-            let candidates = this.items.filter(item => item.id !== this.currentItem.id && item.type === this.currentItem.type);
-            if (candidates.length < 4) {
-                candidates = this.items.filter(item => item.id !== this.currentItem.id);
-            }
+            let candidates = this.items.filter(item => item.id !== this.currentItem.id);
             candidates.sort(() => Math.random() - 0.5);
 
             for (let i = 0; i < Math.min(4, candidates.length); i++) {
@@ -577,10 +595,7 @@ class AppState {
             const correctText = this.currentItem.question;
             this.choices.push({ text: correctText, isCorrect: true, id: this.currentItem.id });
 
-            let candidates = this.items.filter(item => item.id !== this.currentItem.id && item.type === this.currentItem.type);
-            if (candidates.length < 4) {
-                candidates = this.items.filter(item => item.id !== this.currentItem.id);
-            }
+            let candidates = this.items.filter(item => item.id !== this.currentItem.id);
             candidates.sort(() => Math.random() - 0.5);
 
             for (let i = 0; i < Math.min(4, candidates.length); i++) {
@@ -617,14 +632,29 @@ class AppState {
             } else {
                 this.currentItem.correctStreakJaEn += 1;
             }
-            createConfetti(VIEW_WIDTH / 2, layout.cardCenterY, '#00FF66', 25);
+            
+            this.comboCount += 1;
+            
+            // コンボに応じたエフェクト調整 (1〜5段階)
+            const power = Math.min(5, this.comboCount);
+            const particleCount = 15 + power * 15; // コンボが高いほど大量に！
+            const speedMultiplier = 1 + power * 0.3; // コンボが高いほど勢いよく！
+            
+            createConfetti(VIEW_WIDTH / 2, layout.cardCenterY, '#00FF66', particleCount, speedMultiplier);
+
+            // コンボテキスト演出開始
+            if (this.comboCount >= 2) {
+                this.comboTextScale = 0.4;
+                this.comboTextAlpha = 1.0;
+            }
         } else {
             if (this.direction === 'en_to_ja') {
                 this.currentItem.correctStreakEnJa = 0;
             } else {
                 this.currentItem.correctStreakJaEn = 0;
             }
-            createConfetti(VIEW_WIDTH / 2, layout.cardCenterY, '#ff3366', 20);
+            this.comboCount = 0; // コンボリセット
+            createConfetti(VIEW_WIDTH / 2, layout.cardCenterY, '#ff3366', 20, 1.0);
         }
 
         this.save();
@@ -704,7 +734,7 @@ function resizeCanvas() {
     ctx.scale(dpr, dpr);
 }
 
-// Y座標・セーフエリアをデバイスごとに最適調整（エラー防止機能付き）
+// Y座標・セーフエリアをデバイスごとに最適調整
 function updateLayout() {
     const container = document.getElementById('container');
     const rect = container.getBoundingClientRect();
@@ -713,7 +743,6 @@ function updateLayout() {
     const scale = rect.width / VIEW_WIDTH;
     const computedHeight = rect.height / scale;
 
-    // 非 finite 値（NaN / Infinity）の場合は処理を中断
     if (isNaN(scale) || !isFinite(scale) || isNaN(computedHeight) || !isFinite(computedHeight)) {
         return false;
     }
@@ -727,7 +756,7 @@ function updateLayout() {
     layout.safeAreaTop = hasNotch ? 45 : 15;
     layout.safeAreaBottom = hasNotch ? 35 : 15;
     
-    layout.headerBottom = layout.safeAreaTop + 140;
+    layout.headerBottom = layout.safeAreaTop + 110; // さらにヘッダー高をスリムに
     
     const btnH = 54;
     const spacing = 9;
@@ -737,21 +766,23 @@ function updateLayout() {
     layout.btnY = layout.height - layout.safeAreaBottom - 15 - 65; 
     layout.resultY = layout.btnY - 15 - 110; 
     
+    // 間隔を最適に詰めた位置
     if (!app.isAnswered) {
         const availableSpace = layout.startY - layout.headerBottom;
-        layout.cardCenterY = layout.headerBottom + availableSpace / 2;
-        layout.cardH = Math.min(220, availableSpace - 20);
+        layout.cardCenterY = layout.headerBottom + availableSpace / 2 - 10;
+        layout.cardH = Math.min(200, availableSpace - 20);
     } else {
         const availableSpace = layout.resultY - layout.headerBottom;
-        layout.cardCenterY = layout.headerBottom + availableSpace / 2;
-        layout.cardH = Math.min(220, availableSpace - 20);
+        layout.cardCenterY = layout.headerBottom + availableSpace / 2 - 10;
+        layout.cardH = Math.min(200, availableSpace - 20);
     }
     return true;
 }
 
 window.addEventListener('resize', resizeCanvas);
-window.addEventListener('load', () => {
+window.addEventListener('load', async () => {
     resizeCanvas();
+    await app.init();
     gameLoop();
 });
 
@@ -773,16 +804,16 @@ function getRelativeCoords(event) {
 // 【アニメーション & パーティクル】
 // ==========================================
 class Particle {
-    constructor(x, y, color) {
+    constructor(x, y, color, speedMultiplier = 1) {
         this.x = x;
         this.y = y;
         this.color = color;
-        this.size = Math.random() * 4 + 2;
-        this.speedX = (Math.random() - 0.5) * 8;
-        this.speedY = (Math.random() - 0.8) * 10 - 2;
-        this.gravity = 0.25;
+        this.size = Math.random() * 5 + 2;
+        this.speedX = (Math.random() - 0.5) * 10 * speedMultiplier;
+        this.speedY = (Math.random() - 0.8) * 12 * speedMultiplier - 2;
+        this.gravity = 0.22;
         this.alpha = 1;
-        this.life = Math.random() * 20 + 20;
+        this.life = Math.random() * 25 + 25;
     }
 
     update() {
@@ -797,7 +828,7 @@ class Particle {
         context.save();
         context.globalAlpha = this.alpha;
         context.fillStyle = this.color;
-        context.shadowBlur = 8;
+        context.shadowBlur = 10;
         context.shadowColor = this.color;
         context.beginPath();
         context.arc(this.x, this.y, this.size, 0, Math.PI * 2);
@@ -806,9 +837,9 @@ class Particle {
     }
 }
 
-function createConfetti(x, y, color, count = 20) {
+function createConfetti(x, y, color, count = 20, speedMultiplier = 1) {
     for (let i = 0; i < count; i++) {
-        app.particles.push(new Particle(x, y, color));
+        app.particles.push(new Particle(x, y, color, speedMultiplier));
     }
 }
 
@@ -882,6 +913,7 @@ function drawApp() {
     drawHeader();
     drawCard();
     drawInteractiveArea();
+    drawComboAnimation();
     updateAndDrawParticles();
     
     ctx.restore();
@@ -928,11 +960,11 @@ function drawHeader() {
     
     ctx.fillStyle = '#00FF66';
     ctx.font = 'bold 11px "Courier New", monospace';
-    ctx.fillText('EIKEN LEVEL PRE-2 : MASTER SYSTEM PRO', 30, top + 15);
+    ctx.fillText('VOCABULARY CONTEST : SMART LEARNER PRO', 30, top + 15);
 
     ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 21px Helvetica, Arial, sans-serif';
-    ctx.fillText('LEARNING RATE', 30, top + 65);
+    ctx.font = 'bold 20px Helvetica, Arial, sans-serif';
+    ctx.fillText('学習進捗率', 30, top + 55);
 
     const diff = app.targetLearningRate - app.learningRate;
     app.learningRate += diff * 0.1;
@@ -940,12 +972,12 @@ function drawHeader() {
 
     ctx.textAlign = 'right';
     ctx.fillStyle = '#00E5FF';
-    ctx.font = 'italic bold 30px "Courier New", monospace';
-    ctx.fillText(`${displayRate}%`, VIEW_WIDTH - 30, top + 65);
+    ctx.font = 'italic bold 28px "Courier New", monospace';
+    ctx.fillText(`${displayRate}%`, VIEW_WIDTH - 30, top + 55);
     ctx.textAlign = 'left';
 
     const barX = 30;
-    const barY = top + 85;
+    const barY = top + 72;
     const barW = VIEW_WIDTH - 60;
     const barH = 10;
 
@@ -974,11 +1006,18 @@ function drawHeader() {
     }
 
     ctx.fillStyle = '#4b5563';
-    ctx.font = '12px Helvetica, sans-serif';
-    ctx.fillText(`MASTERED: ${app.stats.mastered} / ${app.stats.total} items`, 32, top + 115);
+    ctx.font = '11px Helvetica, sans-serif';
+    ctx.fillText(`MASTERED: ${app.stats.mastered} / ${app.stats.total} words`, 32, top + 98);
 
     ctx.textAlign = 'right';
-    ctx.fillText(`WORDS: ${app.stats.words}  GRAMMAR: ${app.stats.grammars}`, VIEW_WIDTH - 32, top + 115);
+    if (app.comboCount >= 1) {
+        ctx.fillStyle = '#00FF66';
+        ctx.font = 'bold 11px Helvetica, sans-serif';
+        ctx.fillText(`CURRENT COMBO: ${app.comboCount}`, VIEW_WIDTH - 32, top + 98);
+    } else {
+        ctx.fillStyle = '#4b5563';
+        ctx.fillText(`TOTAL: ${app.stats.total} words`, VIEW_WIDTH - 32, top + 98);
+    }
     ctx.textAlign = 'left';
 }
 
@@ -1008,7 +1047,7 @@ function drawCard() {
     }
     ctx.fillStyle = cardGrad;
 
-    const accentColor = app.currentItem.type === 'word' ? '#00FF66' : '#00E5FF';
+    const accentColor = '#00FF66';
     ctx.strokeStyle = accentColor;
     ctx.lineWidth = 2;
 
@@ -1028,9 +1067,9 @@ function drawCard() {
 
     ctx.fillStyle = accentColor;
     ctx.font = 'bold 11px "Courier New", monospace';
-    const tagText = app.currentItem.type.toUpperCase();
+    const tagText = "WORD";
     const dirText = app.direction === 'en_to_ja' ? 'EN ➔ JA' : 'JA ➔ EN';
-    ctx.fillText(`[ ${tagText} ]  ${dirText}`, -cardW/2 + 20, -cardH/2 + 30);
+    ctx.fillText(`[ ${tagText} ]  ${dirText}`, -cardW/2 + 20, -cardH/2 + 28);
 
     ctx.textAlign = 'right';
     const streakEnJa = app.currentItem.correctStreakEnJa || 0;
@@ -1038,33 +1077,27 @@ function drawCard() {
     
     ctx.fillStyle = '#9ca3af';
     ctx.font = '11px Helvetica, sans-serif';
-    ctx.fillText(`英日:${'★'.repeat(streakEnJa)}${'☆'.repeat(3 - streakEnJa)}  日英:${'★'.repeat(streakJaEn)}${'☆'.repeat(3 - streakJaEn)}`, cardW/2 - 20, -cardH/2 + 30);
+    ctx.fillText(`英日:${'★'.repeat(streakEnJa)}${'☆'.repeat(3 - streakEnJa)}  日英:${'★'.repeat(streakJaEn)}${'☆'.repeat(3 - streakJaEn)}`, cardW/2 - 20, -cardH/2 + 28);
     ctx.textAlign = 'left';
 
     if (!app.isFlipped) {
         ctx.fillStyle = '#ffffff';
         if (app.direction === 'en_to_ja') {
             const text = app.currentItem.question;
-            if (app.currentItem.type === 'grammar') {
-                ctx.font = 'bold 17px Helvetica, Arial, sans-serif';
-                ctx.textAlign = 'center';
-                wrapText(ctx, text, 0, -10, cardW - 40, 24);
-            } else {
-                ctx.font = 'bold 34px Helvetica, Arial, sans-serif';
-                ctx.textAlign = 'center';
-                ctx.fillText(text, 0, 15);
-            }
+            ctx.font = 'bold 34px Helvetica, Arial, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(text, 0, 15);
         } else {
             const text = app.getShortAnswer(app.currentItem);
             ctx.font = 'bold 18px "Hiragino Kaku Gothic ProN", Meiryo, sans-serif';
             ctx.textAlign = 'center';
-            wrapText(ctx, text, 0, -10, cardW - 40, 26);
+            wrapText(ctx, text, 0, -5, cardW - 40, 26);
         }
     } else {
         ctx.fillStyle = '#ffffff';
         ctx.textAlign = 'center';
 
-        const topTextY = -cardH/2 + (cardH > 200 ? 65 : 45);
+        const topTextY = -cardH/2 + (cardH > 180 ? 60 : 45);
         ctx.font = 'bold 15px Helvetica, sans-serif';
         ctx.fillStyle = accentColor;
         ctx.fillText(app.currentItem.question, 0, topTextY);
@@ -1072,31 +1105,54 @@ function drawCard() {
         ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
         ctx.lineWidth = 1;
         ctx.beginPath();
-        const lineY = topTextY + 17;
+        const lineY = topTextY + 14;
         ctx.moveTo(-cardW/2 + 30, lineY);
         ctx.lineTo(cardW/2 - 30, lineY);
         ctx.stroke();
 
         ctx.fillStyle = '#f3f4f6';
         const lines = app.currentItem.answer.split('\n');
-        let startY = lineY + (cardH > 200 ? 30 : 20);
+        let startY = lineY + (cardH > 180 ? 26 : 18);
         
         lines.forEach((line) => {
             if (line.startsWith('[') || line.startsWith('(')) {
                 ctx.fillStyle = '#9ca3af';
                 ctx.font = '12px "Hiragino Kaku Gothic ProN", Meiryo, sans-serif';
                 wrapText(ctx, line, 0, startY, cardW - 40, 18);
-                startY += (cardH > 200 ? 28 : 22);
+                startY += (cardH > 180 ? 26 : 20);
             } else {
                 ctx.fillStyle = '#ffffff';
                 ctx.font = 'bold 15px "Hiragino Kaku Gothic ProN", Meiryo, sans-serif';
                 wrapText(ctx, line, 0, startY, cardW - 40, 22);
-                startY += (cardH > 200 ? 34 : 26);
+                startY += (cardH > 180 ? 30 : 24);
             }
         });
     }
 
     ctx.restore();
+}
+
+// コリジョン後等のコンボテキストの描画
+function drawComboAnimation() {
+    if (app.comboTextAlpha > 0) {
+        ctx.save();
+        ctx.textAlign = 'center';
+        ctx.fillStyle = `rgba(0, 255, 102, ${app.comboTextAlpha})`;
+        
+        const fontSize = Math.floor(26 * app.comboTextScale);
+        ctx.font = `italic bold ${fontSize}px "Courier New", monospace`;
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = '#00FF66';
+        
+        const textY = layout.cardCenterY - (layout.cardH / 2) - 25;
+        ctx.fillText(`x${app.comboCount} Combo!!`, VIEW_WIDTH / 2, textY);
+        
+        ctx.restore();
+
+        // アニメーション更新
+        app.comboTextScale += (1.0 - app.comboTextScale) * 0.15;
+        app.comboTextAlpha -= 0.015;
+    }
 }
 
 function drawInteractiveArea() {
@@ -1164,11 +1220,14 @@ function drawInteractiveArea() {
         if (app.selectedChoice.isCorrect) {
             ctx.fillStyle = '#00FF66';
             ctx.font = 'bold 24px "Hiragino Kaku Gothic ProN", sans-serif';
-            ctx.fillText('正 解 ！', VIEW_WIDTH / 2, resultY + 45);
+            
+            // コンボ数を正解タイトル横に表示！
+            const comboNote = app.comboCount >= 2 ? ` (${app.comboCount}連打!)` : '';
+            ctx.fillText(`正 解 ！${comboNote}`, VIEW_WIDTH / 2, resultY + 45);
 
             ctx.fillStyle = '#ffffff';
             ctx.font = '14px "Hiragino Kaku Gothic ProN", sans-serif';
-            ctx.fillText('正しいペアをマスターしています！', VIEW_WIDTH / 2, resultY + 80);
+            ctx.fillText('正しい単語の組み合わせです！', VIEW_WIDTH / 2, resultY + 80);
         } else {
             ctx.fillStyle = '#ff3366';
             ctx.font = 'bold 24px "Hiragino Kaku Gothic ProN", sans-serif';
@@ -1265,7 +1324,7 @@ function importData() {
             if (Array.isArray(parsed)) {
                 app.items = parsed.map((item, idx) => ({
                     id: item.id || `custom_${Date.now()}_${idx}`,
-                    type: item.type === 'grammar' ? 'grammar' : 'word',
+                    type: 'word',
                     question: item.question || 'Empty',
                     answer: item.answer || '解説なし',
                     correctStreakEnJa: Math.max(0, parseInt(item.correctStreakEnJa) || 0),
@@ -1283,10 +1342,9 @@ function importData() {
                 if (parts.length >= 2) {
                     const question = parts[0].trim();
                     const answer = parts[1].trim();
-                    const type = (parts[2] && parts[2].trim() === 'grammar') ? 'grammar' : 'word';
                     newItems.push({
                         id: `custom_${Date.now()}_${idx}`,
-                        type: type,
+                        type: 'word',
                         question: question,
                         answer: answer,
                         correctStreakEnJa: 0,
