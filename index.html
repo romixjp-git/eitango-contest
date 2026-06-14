@@ -409,7 +409,7 @@ class AppState {
     }
 
     async init() {
-        // 1. まずCSVデータの取得を試みる（ファイル名を単数形の word.csv に修正）
+        // 1. まずCSVデータの取得を試みる（ファイル名: word.csv）
         let dataSource = [];
         try {
             const response = await fetch('word.csv');
@@ -456,7 +456,7 @@ class AppState {
         this.pickNextItem(true);
     }
 
-    // クォーテーションやカンマが入れ子になったCSV行を適切に処理するロジックに強化
+    // クォーテーションやカンマが入れ子になったCSV行を適切に処理
     parseCSV(text) {
         const lines = text.split(/\r?\n/);
         const result = [];
@@ -483,8 +483,13 @@ class AppState {
 
             if (parts.length >= 2) {
                 const q = parts[0].replace(/^"|"$/g, '').trim();
-                const a = parts[1].replace(/^"|"$/g, '').trim();
+                let a = parts[1].replace(/^"|"$/g, '').trim();
+                
                 if (q && a) {
+                    // CSV内での「\n」のテキスト（円記号やバックスラッシュなど）を実際の改行コードに変換
+                    a = a.replace(/\\n/g, '\n').replace(/\\r/g, '\r');
+                    a = a.replace(/￥n/g, '\n').replace(/￥r/g, '\r');
+                    
                     result.push({
                         id: `csv_w_${index++}`,
                         type: "word",
@@ -1337,14 +1342,19 @@ function importData() {
         if (text.startsWith('[')) {
             const parsed = JSON.parse(text);
             if (Array.isArray(parsed)) {
-                app.items = parsed.map((item, idx) => ({
-                    id: item.id || `custom_${Date.now()}_${idx}`,
-                    type: 'word',
-                    question: item.question || 'Empty',
-                    answer: item.answer || '解説なし',
-                    correctStreakEnJa: Math.max(0, parseInt(item.correctStreakEnJa) || 0),
-                    correctStreakJaEn: Math.max(0, parseInt(item.correctStreakJaEn) || 0)
-                }));
+                app.items = parsed.map((item, idx) => {
+                    let ans = item.answer || '解説なし';
+                    ans = ans.replace(/\\n/g, '\n').replace(/\\r/g, '\r');
+                    ans = ans.replace(/￥n/g, '\n').replace(/￥r/g, '\r');
+                    return {
+                        id: item.id || `custom_${Date.now()}_${idx}`,
+                        type: 'word',
+                        question: item.question || 'Empty',
+                        answer: ans,
+                        correctStreakEnJa: Math.max(0, parseInt(item.correctStreakEnJa) || 0),
+                        correctStreakJaEn: Math.max(0, parseInt(item.correctStreakJaEn) || 0)
+                    };
+                });
                 showToast(`JSONから ${app.items.length} 件を取り込みました`);
             } else {
                 throw new Error("Invalid structure");
@@ -1356,7 +1366,11 @@ function importData() {
                 const parts = line.split(/[\t,]/);
                 if (parts.length >= 2) {
                     const question = parts[0].trim();
-                    const answer = parts[1].trim();
+                    let answer = parts[1].trim();
+                    // 手動インポートでも改行コードへの置換をサポート
+                    answer = answer.replace(/\\n/g, '\n').replace(/\\r/g, '\r');
+                    answer = answer.replace(/￥n/g, '\n').replace(/￥r/g, '\r');
+                    
                     newItems.push({
                         id: `custom_${Date.now()}_${idx}`,
                         type: 'word',
