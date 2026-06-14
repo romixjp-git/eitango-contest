@@ -1,50 +1,412 @@
-analyze,〜を分析する\nWe need to analyze the test results.\n私たちはテスト結果を分析する必要がある。\n[名詞] analysis（分析）
-approach,〜に近づく、手法\nThey tried a new approach to learning.\n彼らは学習への新しいアプローチを試みた。
-assume,〜と仮定する、思い込む\nDon't assume that he is always right.\n彼が常に正しいと思い込んではいけない。\n[名詞] assumption（仮定）
-attract,〜を引きつける、魅了する\nThe museum attracts many tourists.\nその美術館は多くの観光客を引きつけている。\n[名詞] attraction（引きつけること・観光名所）
-blame,〜を非難する、〜のせいにする\nDo not blame others for your mistake.\n自分の失敗を他人のせいにしてはいけない。\n[対義語] praise（褒める）
-broadcast,〜を放送する、番組\nThe game was broadcast live worldwide.\nその試合は世界中に生中継された。\n[名詞] broadcaster（放送局・アナウンサー）
-charity,慈善（活動）、義援金\nShe donated money to a local charity.\n彼女は地元の慈善団体にお金を寄付した。\n[形容詞] charitable（慈善の・慈悲深い）
-chemical,化学の、化学物質\nThis product contains no harmful chemicals.\nこの製品には有害な化学物質は含まれていません。\n[名詞] chemistry（化学）
-commercial,商業的な、コマーシャル\nChristmas has become very commercial.\nクリスマスは非常に商業化してきた。\n[名詞] commerce（商業）
-concentrate,集中する\nI cannot concentrate on my studies here.\nここでは勉強に集中することができない。\n[名詞] concentration（集中）
-conclude,〜と結論づける\nThe report concluded that action is needed.\n報告書は対策が必要だと結論づけた。\n[名詞] conclusion（結論）
-contribute,〜に貢献する、寄付する\nEveryone can contribute to the project.\n誰でもそのプロジェクトに貢献することができる。\n[名詞] contribution（貢献・寄付）
-criticize,〜を批判する、非難する\nIt is easy to criticize others.\n他人を批判するのは簡単だ。\n[名詞] criticism（批判）
-definition,定義\nWhat is the definition of this word?\nこの単語の定義は何ですか。\n[動詞] define（定義する）
-describe,〜を描写する、特徴を述べる\nPlease describe your school life.\nあなたの学校生活について説明してください。\n[名詞] description（描写・説明）
-desire,強く望む、願望\nThey have a strong desire to win.\n彼らには勝ちたいという強い願望がある。\n[形容詞] desirable（望ましい）
-disappear,消える、見えなくなる\nThe sun disappeared behind the clouds.\n太陽が雲の後に隠れて消えた。\n[対義語] appear（現れる）
-economic,経済の、経済学の\nThe country is facing economic problems.\nその国は経済的な問題に直面している。\n[名詞] economy（経済）
-emphasize,〜を強調する、重視する\nThe teacher emphasized the importance of review.\n先生は復習の重要性を強調した。\n[名詞] emphasis（強調）
-enormous,巨大な、莫大な\nBuilding the stadium cost an enormous amount of money.\nそのスタジアムの建設には莫大な費用がかかった。\n[対義語] tiny（ごく小さい）
-estimate,〜を見積もる、推定する\nExperts estimate the damage at millions of dollars.\n専門家は被害を数百万ドルと見積もっている。\n[名詞] estimation（見積もり・評価）
-exhausted,疲れ果てた\nHe was completely exhausted after the marathon.\n彼はマラソンの後、完全に疲れ果てていた。\n[名詞] exhaustion（疲弊・極度の疲労）
-expand,〜を拡大する、広がる\nThe company plans to expand its business.\nその会社は事業を拡大することを計画している。\n[名詞] expansion（拡大・拡張）
-financial,財政的な、金融の\nThey received financial support from the bank.\n彼らは銀行から財政的支援を受けた。\n[名詞] finance（財政・金融）
-forecast,（天気の）予報、予測\nThe weather forecast predicts rain tomorrow.\n天気予報は明日の雨を予測している。\n[名詞] forecaster（天気予報士）
-frightened,怯えた、怖がっている\nThe little girl was frightened by the dark.\nその小さな女の子は暗闇を怖がっていた。\n[動詞] frighten（怖がらせる）
-generous,寛大な、気前の良い\nHe is generous with his time and money.\n彼は時間とお金に寛大だ。\n[対義語] stingy（けちな）
-guarantee,〜を保証する、保証\nWe guarantee the quality of our products.\n私たちは製品の品質を保証します。\n[名詞] guarantor
-hesitate,躊躇する、ためらう\nDo not hesitate to ask questions.\n質問するのをためらわないでください。\n[名詞] hesitation（躊躇・ためらい）
-imitation,模倣、まね、偽物\nThis bag is a cheap imitation.\nこのバッグは安い模造品だ。\n[対義語] genuine（本物の）
-independent,独立した\nShe wants to be independent of her parents.\n彼女は親から独立したいと思っている。\n[対義語] dependent（依存した）
-ingredient,（料理などの）材料、成分\nMix all the ingredients in a large bowl.\n大きなボウルにすべての材料を混ぜ合わせてください。\n[名詞] mixture（混合物）
-innocent,無実の、無邪気な\nThe court declared that he was innocent.\n裁判所は彼が無実であると宣言した。\n[対義語] guilty（有罪の）
-investigate,〜を調査する、捜査する\nThe police are investigating the cause of the accident.\n警察はその事故の原因を調査している。\n[名詞] investigation（調査）
-laboratory,実験室、研究所\nScientists are working in the laboratory.\n科学者たちが実験室で働いている。\n[類義語] lab（研究所・ラボ）
-maintain,〜を維持する、主張する\nIt is important to maintain good health.\n健康を維持することは重要だ。\n[対義語] abandon（捨てる・放棄する）
-manufacture,〜を製造する、製造\nThe company manufactures smartphones in Japan.\nその会社はスマートフォンを日本で製造している。\n[名詞] manufacturer（製造業者・メーカー）
-miserable,惨めな、とても不幸な\nThe rainy weather made everyone feel miserable.\n雨天のせいでみんな惨めな気分になった。\n[対義語] cheerful（陽気な・心地よい）
-negotiate,交渉する\nWe need to negotiate a new contract.\n私たちは新しい契約を交渉する必要がある。\n[名詞] negotiation（交渉）
-obvious,明白な、明らかな\nThere is no obvious solution to this problem.\nこの問題に対する明白な解決策はない。\n[対義語] obscure（曖昧な・不明瞭な）
-passenger,乗客、旅客\nAll passengers must wear seat belts.\nすべての乗客はシートベルトを着用しなければならない。\n[類義語] traveler（旅行者・旅客）
-persuade,〜を説得する\nI managed to persuade him to join us.\n私はなんとか彼を私たちの仲間に加わるよう説得した。\n[名詞] persuasion（説得）
-precious,貴重な、高価な\nTime is more precious than money.\n時間は金よりも貴重だ。\n[対義語] worthless（価値のない）
-predict,〜を予測する、予言する\nIt is difficult to predict the future.\n未来を予測することは難しい。\n[名詞] prediction（予測）
-punish,〜を罰する\nThe children were punished for breaking the window.\n子供たちは窓を割ったことで罰せられた。\n[名詞] punishment（罰）
-reasonable,（価格が）手頃な、理性的な\nThe price of the computer was reasonable.\nそのコンピュータの価格は手頃だった。\n[対義語] unreasonable（不当な・高すぎる）
-recommend,〜を勧める、推薦する\nWhich dish do you recommend?\nどの料理をお勧めしますか。\n[名詞] recommendation（推薦）
-regulation,規則、規制\nYou must follow the school regulations.\n学校の規則に従わなければならない。\n[動詞] regulate（規制する）
-relative,親戚、相対的な\nAll my relatives gathered for the New Year.\n正月には私の親戚が全員集まった。\n[対義語] absolute（絶対的な）
-represent,〜を代表する、表す\nHe was chosen to represent Japan in the tournament.\n彼は大会で日本を代表する選手に選ばれた。\n[名詞] representative（代表者）
+232,abandon,～を捨てる、放棄する,They abandoned the plan.,彼らはその計画を断念した。,【対義語】maintain（維持する）
+233,ability,能力,She has the ability to solve problems.,彼女には問題を解決する能力がある。,
+66,able,～できる,He is able to swim.,彼は泳ぐことができる。,【対義語】unable（～できない）
+71,abnormal,異常な,The test result was abnormal.,検査結果は異常だった。,【対義語】normal（正常な）
+345,aboard,～に乗って,All passengers are aboard.,乗客は全員乗っている。,
+439,abruptly,突然に,The meeting ended abruptly.,会議は突然終わった。,
+164,absolute,絶対的な,He has absolute confidence.,彼は絶対的な自信を持っている。,【対義語】relative（相対的な）
+164,absolutely,絶対に,I absolutely agree with you.,私は完全に同意する。,
+270,absorb,吸収する,Plants absorb water.,植物は水を吸収する。,
+174,absurd,ばかげた,That idea sounds absurd.,その考えはばかげている。,【対義語】reasonable（合理的な）
+390,abundance,豊富,The region has an abundance of water.,その地域には水が豊富にある。,
+390,abundant,豊富な,Food is abundant here.,ここには食料が豊富にある。,【対義語】scarce（不足している）
+226,abuse,乱用する、虐待する,Do not abuse your authority.,権限を乱用してはいけない。,
+265,academic,学問の、学術的な,She wrote an academic paper.,彼女は学術論文を書いた。,
+265,academically,学問的に,He is academically gifted.,彼は学業面で優秀だ。,
+265,academy,学校、学院,She attends a music academy.,彼女は音楽学院に通っている。,
+379,accelerate,加速する,The car accelerated quickly.,その車は急加速した。,【対義語】decelerate（減速する）
+418,accent,なまり、アクセント,She speaks English with a British accent.,彼女はイギリス訛りで英語を話す。,
+305,accept,受け入れる,She accepted the offer.,彼女は申し出を受け入れた。,【対義語】reject（拒否する）
+305,acceptable,受け入れられる,The result is acceptable.,その結果は受け入れ可能だ。,【対義語】unacceptable（受け入れられない）
+305,acceptance,受容、受け入れ,His acceptance of the proposal surprised us.,彼が提案を受け入れたことに驚いた。,
+380,access,利用する、利用権,You can access the website anytime.,いつでもそのサイトを利用できる。,
+400,accessible,利用しやすい,The station is easily accessible.,その駅は利用しやすい。,【対義語】inaccessible（利用しにくい）
+369,accidental,偶然の,It was an accidental mistake.,それは偶然のミスだった。,【対義語】intentional（故意の）
+369,accidentally,偶然に,I accidentally deleted the file.,私は誤ってファイルを削除した。,
+414,accommodate,収容する、対応する,The hotel can accommodate 200 guests.,そのホテルは200人収容できる。,
+414,accommodation,宿泊施設、収容,We booked accommodation near the station.,私たちは駅近くの宿を予約した。,
+415,accompany,同行する,I accompanied my friend.,私は友人に同行した。,
+379,accomplish,達成する,She accomplished her goal.,彼女は目標を達成した。,【対義語】fail（失敗する）
+379,accomplishment,達成、成果,Graduating was a major accomplishment.,卒業は大きな成果だった。,
+70,accord,一致する,His actions accord with his words.,彼の行動は言葉と一致している。,
+70,accordance,一致,The work was done in accordance with the rules.,その仕事は規則に従って行われた。,
+70,accordingly,それに応じて,Please act accordingly.,それに応じて行動してください。,
+70,according to,～によると,"According to the report, sales increased.",報告によると売上は増加した。,
+21,account,説明、口座,I opened a bank account.,銀行口座を開設した。,
+426,accumulate,蓄積する,Knowledge accumulates over time.,知識は時間とともに蓄積する。,
+426,accumulation,蓄積,The accumulation of dust was noticeable.,ほこりの蓄積が目立った。,
+129,accuracy,正確さ,Accuracy is important in science.,科学では正確さが重要だ。,
+129,accurate,正確な,The information is accurate.,その情報は正確だ。,【対義語】inaccurate（不正確な）
+129,accurately,正確に,He described the event accurately.,彼はその出来事を正確に説明した。,
+256,accuse,非難する、告発する,They accused him of theft.,彼らは彼を窃盗で告発した。,
+288,accustom,慣れさせる,You should accustom yourself to the environment.,その環境に慣れるべきだ。,
+116,ache,痛む,My legs ache after running.,走った後は足が痛む。,
+283,achieve,達成する,He achieved success.,彼は成功を収めた。,
+283,achievement,達成、業績,Winning the prize was a great achievement.,受賞は大きな業績だった。,
+114,acid,酸,Lemon juice contains acid.,レモン汁には酸が含まれている。,
+264,acknowledge,認める,He acknowledged his mistake.,彼は自分のミスを認めた。,【対義語】deny（否定する）
+244,acquaintance,知人,He is an acquaintance of mine.,彼は私の知人だ。,
+155,acquire,習得する、獲得する,She acquired new skills.,彼女は新しい技能を身につけた。,
+155,acquisition,取得、獲得,The acquisition of knowledge takes time.,知識の習得には時間がかかる。,
+401,acre,エーカー,The farm covers 50 acres.,その農場は50エーカーある。,
+49,act,行動する,You need to act now.,今行動する必要がある。,
+49,action,行動,Action is better than words.,行動は言葉に勝る。,
+236,activate,活性化する,The button activates the system.,そのボタンでシステムが起動する。,【対義語】deactivate（停止する）
+236,active,活発な,She is active in sports.,彼女はスポーツで活発だ。,【対義語】inactive（不活発な）
+236,activist,活動家,He is an environmental activist.,彼は環境活動家だ。,
+59,actor,俳優,The actor appeared on TV.,その俳優はテレビに出演した。,
+59,actress,女優,The actress won an award.,その女優は賞を受賞した。,
+214,actual,実際の,The actual cost was higher.,実際の費用はもっと高かった。,
+116,acute,深刻な、鋭い,The country faces an acute shortage.,その国は深刻な不足に直面している。,
+251,ad,広告,I saw the ad online.,その広告をネットで見た。,
+159,adapt,適応する,Animals adapt to change.,動物は変化に適応する。,
+159,adaptation,適応、改作,The movie is an adaptation of a novel.,その映画は小説の映画化作品だ。,
+123,add,加える,Add some salt to the soup.,スープに塩を加えなさい。,【対義語】remove（取り除く）
+40,addict,依存者,He is a game addict.,彼はゲーム依存者だ。,
+40,addiction,依存,Internet addiction is a serious issue.,ネット依存は深刻な問題だ。,
+84,addition,追加,"In addition, we need more time.",さらに時間が必要だ。,
+84,additional,追加の,Additional information is available.,追加情報があります。,
+84,additionally,さらに,"Additionally, the cost is low.",さらに費用も安い。,
+240,address,住所、対処する,Please write your address here.,ここに住所を書いてください。,
+390,adequate,十分な,The salary is adequate.,その給料は十分だ。,【対義語】inadequate（不十分な）
+159,adjust,調整する,Adjust the chair height.,椅子の高さを調整してください。,
+159,adjustment,調整,The adjustment took only a minute.,調整は1分で終わった。,
+350,administer,管理する、投与する,The nurse administered the medicine.,看護師が薬を投与した。,
+350,administration,管理、行政,The administration announced a new policy.,行政は新政策を発表した。,
+350,administrative,管理上の,She handles administrative work.,彼女は事務業務を担当している。,
+350,administrator,管理者,Contact the system administrator.,システム管理者に連絡してください。,
+422,admirable,立派な,His attitude is admirable.,彼の態度は立派だ。,
+423,admiration,賞賛,She expressed admiration for him.,彼女は彼への賞賛を表した。,
+422,admire,賞賛する,I admire her courage.,私は彼女の勇気を賞賛する。,
+264,admission,入場、入学、認めること,Admission is free today.,今日は入場無料だ。,
+264,admit,認める,He admitted his mistake.,彼は自分のミスを認めた。,【対義語】deny（否定する）
+71,adolescence,青年期、思春期,Adolescence can be a difficult time.,思春期は難しい時期になりうる。,
+71,adolescent,青年の、思春期の,The program supports adolescents.,そのプログラムは若者を支援している。,
+276,adopt,採用する、養子にする,They adopted a new system.,彼らは新制度を採用した。,【対義語】reject（拒否する）
+276,adoption,採用、養子縁組,The adoption of the policy was successful.,その方針の採用は成功した。,
+219,adore,とても好きである、崇拝する,Children adore the character.,子供たちはそのキャラクターが大好きだ。,
+71,adult,大人,Adults need enough sleep.,大人にも十分な睡眠が必要だ。,【対義語】child（子供）
+219,advance,前進する、進歩する,Technology advances rapidly.,技術は急速に進歩する。,
+219,advanced,高度な、先進的な,She is taking an advanced course.,彼女は上級コースを受講している。,
+379,advantage,利点,This plan has many advantages.,この計画には多くの利点がある。,【対義語】disadvantage（欠点）
+426,advent,到来,The advent of the Internet changed society.,インターネットの到来は社会を変えた。,
+187,adventure,冒険,We went on an adventure.,私たちは冒険に出かけた。,
+250,advertise,宣伝する,They advertise online.,彼らはオンラインで宣伝している。,
+250,advertisement,広告,I saw the advertisement yesterday.,私は昨日その広告を見た。,
+312,advice,助言,Thank you for your advice.,助言をありがとう。,
+312,advise,助言する,I advise you to rest.,休むことを勧めます。,
+252,advocate,支持する、提唱する,She advocates education reform.,彼女は教育改革を提唱している。,
+391,aesthetic,美的な,The building has aesthetic value.,その建物には美的価値がある。,
+114,affect,影響を与える,Weather affects crops.,天候は作物に影響を与える。,
+114,affection,愛情,She showed affection to her family.,彼女は家族に愛情を示した。,
+35,afford,余裕がある,I can't afford a new car.,新車を買う余裕がない。,
+423,affordable,手頃な,This hotel is affordable.,このホテルは手頃な価格だ。,【対義語】expensive（高価な）
+418,afraid,恐れて,I'm afraid of dogs.,私は犬が怖い。,
+411,afterward(s),その後で,We went home afterward.,その後私たちは帰宅した。,
+390,agency,機関、代理店,He works for a travel agency.,彼は旅行代理店で働いている。,
+401,agenda,議題,What's on today's agenda?,今日の議題は何ですか。,
+390,agent,代理人、担当者,The agent negotiated the deal.,代理人が契約交渉を行った。,
+185,aging,老化,Aging is a natural process.,老化は自然な過程だ。,
+86,agree,同意する,I agree with you.,私はあなたに同意する。,【対義語】disagree（反対する）
+86,agreement,同意、協定,We reached an agreement.,私たちは合意に達した。,
+80,agricultural,農業の,Agricultural products are important.,農産物は重要だ。,
+80,agriculture,農業,Agriculture supports society.,農業は社会を支えている。,
+193,ahead,前方に、先に,Go straight ahead.,まっすぐ前へ進みなさい。,
+433,AI,人工知能,AI is changing society.,AIは社会を変えている。,
+248,aid,援助,The country received aid.,その国は援助を受けた。,
+225,aim,目指す、目的,We aim to win the game.,私たちは試合に勝つことを目指している。,
+127,aircraft,航空機,The aircraft landed safely.,航空機は安全に着陸した。,
+106,alarm,警報,The alarm went off suddenly.,警報が突然鳴った。,
+40,alcohol,アルコール,Alcohol is prohibited here.,ここでは飲酒が禁止されている。,
+40,alcoholic,アルコール依存の,He is an alcoholic.,彼はアルコール依存症だ。,
+278,alert,警戒している,Stay alert at night.,夜は警戒していなさい。,
+375,algorithm,アルゴリズム,This algorithm is efficient.,このアルゴリズムは効率的だ。,
+167,alien,異星人、異質な,The movie features an alien.,その映画には異星人が登場する。,
+56,alike,似ている,The two brothers look alike.,その二人の兄弟はよく似ている。,
+316,allege,主張する,The company alleged unfair treatment.,その会社は不当な扱いを受けたと主張した。,
+140,allergic,アレルギーのある,I'm allergic to cats.,私は猫アレルギーだ。,
+140,allergy,アレルギー,She has a food allergy.,彼女は食物アレルギーを持っている。,
+291,alliance,同盟,The two countries formed an alliance.,その二国は同盟を結んだ。,
+264,allow,許可する,My parents allowed me to go out.,両親は私の外出を許可した。,【対義語】forbid（禁止する）
+264,allowance,手当、お小遣い,I get a monthly allowance.,私は毎月お小遣いをもらう。,
+291,ally,同盟国、味方,Japan is an ally of the U.S.,日本はアメリカの同盟国だ。,【対義語】enemy（敵）
+39,alone,一人で,She lives alone.,彼女は一人で暮らしている。,
+193,aloud,声に出して,Read the passage aloud.,その文章を音読しなさい。,
+146,alter,変える,We need to alter the plan.,私たちは計画を変更する必要がある。,
+146,alternate,交互の,The players took alternate turns.,選手たちは交互に順番を取った。,
+146,alternative,代替の,We need an alternative solution.,私たちは代替案が必要だ。,
+148,although,～だけれども,"Although it was raining, we went out.",雨が降っていたが私たちは出かけた。,
+316,altitude,高度,The plane reached a high altitude.,飛行機は高高度に達した。,
+64,altogether,完全に、全部で,The situation changed altogether.,状況は完全に変わった。,
+55,amaze,驚かせる,The news amazed everyone.,そのニュースは皆を驚かせた。,
+55,amazing,驚くべき,The view was amazing.,その景色は素晴らしかった。,
+378,ambition,野心、志,His ambition is to become a doctor.,彼の夢は医者になることだ。,
+232,amend,修正する,The law was amended.,その法律は改正された。,
+232,amendment,修正、改正,The amendment was approved.,その改正案は承認された。,
+38,amount,量,The amount of rain increased.,雨量が増えた。,
+401,ample,十分な,There is ample space here.,ここには十分な空間がある。,【対義語】insufficient（不十分な）
+401,amplify,拡大する,The microphone amplifies sound.,マイクは音を増幅する。,
+346,amusement,娯楽、楽しみ,The park provides amusement for children.,その公園は子供たちに娯楽を提供する。,
+191,analogy,類似,The teacher used an analogy.,先生はたとえ話を使った。,
+323,analysis,分析,The analysis revealed the problem.,分析によって問題が明らかになった。,
+323,analyst,分析家,The analyst examined the data.,分析家はデータを調査した。,
+323,analytic,分析的な,She has an analytic mind.,彼女は分析的な思考を持っている。,
+323,analyze,分析する,We need to analyze the results.,私たちは結果を分析する必要がある。,
+323,anatomy,解剖学、構造,She studies human anatomy.,彼女は人体解剖学を学んでいる。,
+91,anger,怒り,He couldn't control his anger.,彼は怒りを抑えられなかった。,
+208,angle,角度,The angle is 90 degrees.,その角度は90度だ。,
+91,angry,怒った,She was angry with him.,彼女は彼に怒っていた。,【対義語】calm（冷静な）
+126,announce,発表する,The company announced a new product.,その会社は新製品を発表した。,
+311,annual,毎年の、年1回の,The annual meeting was held in Tokyo.,年次総会は東京で開催された。,
+311,annually,毎年,The event is held annually.,そのイベントは毎年開催される。,
+362,anonymous,匿名の,An anonymous donor gave money.,匿名の寄付者がお金を寄付した。,
+331,Antarctica,南極大陸,Many scientists work in Antarctica.,多くの科学者が南極で働いている。,
+120,antibiotic,抗生物質,The doctor prescribed an antibiotic.,医師は抗生物質を処方した。,
+273,anticipate,予期する、期待する,We anticipate heavy traffic.,交通渋滞が予想される。,
+273,anticipation,期待、予想,There was great anticipation before the game.,試合前には大きな期待があった。,
+140,antique,骨董品の、骨董品,This shop sells antiques.,この店は骨董品を売っている。,
+96,anxious,心配している、不安な,She was anxious about the exam.,彼女は試験を心配していた。,【対義語】confident（自信のある）
+291,anytime,いつでも,You can call me anytime.,いつでも電話してください。,
+397,apart,離れて,The two houses stand apart.,その二軒の家は離れて建っている。,【対義語】together（一緒に）
+30,ape,類人猿,The ape climbed the tree.,その類人猿は木に登った。,
+299,apparent,明らかな,The reason was apparent.,理由は明らかだった。,【対義語】hidden（隠された）
+299,apparently,どうやら、見たところ,"Apparently, he forgot the meeting.",どうやら彼は会議を忘れたようだ。,
+263,appeal,訴える、魅力,The idea appeals to young people.,その考えは若者に魅力的だ。,
+158,appear,現れる,The sun appeared from behind the clouds.,太陽が雲の後ろから現れた。,【対義語】disappear（消える）
+158,appearance,外見、出現,Her appearance surprised everyone.,彼女の登場は皆を驚かせた。,
+115,appetite,食欲,I lost my appetite.,私は食欲を失った。,
+221,applause,拍手,The speech received loud applause.,その演説は大きな拍手を受けた。,
+147,appliance,器具、家電製品,This store sells kitchen appliances.,この店はキッチン家電を販売している。,
+154,applicant,応募者,There were many applicants for the job.,その仕事には多くの応募者がいた。,
+154,application,応募、申請、応用,Please submit your application.,申請書を提出してください。,
+154,apply,応募する、適用する,She applied for the position.,彼女はその職に応募した。,
+272,appoint,任命する,He was appointed manager.,彼は部長に任命された。,
+272,appointment,予約、任命,I have a doctor's appointment.,私は病院の予約がある。,
+146,appreciate,感謝する、正しく理解する,I appreciate your help.,ご支援に感謝します。,
+146,appreciation,感謝,His appreciation was sincere.,彼の感謝は心からのものだった。,
+276,approach,近づく、取り組み方,We need a new approach.,新しいアプローチが必要だ。,
+97,appropriate,適切な,Wear appropriate clothing.,適切な服装をしてください。,【対義語】inappropriate（不適切な）
+97,appropriately,適切に,Please behave appropriately.,適切に行動してください。,
+229,approval,承認,The plan received approval.,その計画は承認を得た。,
+229,approve,承認する,The committee approved the proposal.,委員会は提案を承認した。,【対義語】reject（拒否する）
+138,approximately,およそ,The trip takes approximately two hours.,その旅行にはおよそ2時間かかる。,
+328,archaeological,考古学の,They found archaeological evidence.,彼らは考古学的証拠を発見した。,
+328,archaeologist,考古学者,The archaeologist studied the ruins.,その考古学者は遺跡を調査した。,
+328,archaeology,考古学,Archaeology reveals ancient history.,考古学は古代の歴史を明らかにする。,
+153,architectural,建築の,The city is famous for its architectural style.,その都市は建築様式で有名だ。,
+153,architecture,建築、建築学,The architecture is impressive.,その建築は印象的だ。,
+140,archive,記録保管所、保存する,The documents were placed in an archive.,その文書は保管庫に保存された。,
+31,area,地域、分野,This area is very quiet.,この地域はとても静かだ。,
+256,argue,議論する、主張する,They argued about politics.,彼らは政治について議論した。,
+256,argument,議論、口論,We had an argument yesterday.,私たちは昨日口論した。,
+338,arise,生じる、起こる,Problems often arise unexpectedly.,問題はしばしば突然発生する。,
+129,army,軍隊,He joined the army.,彼は軍隊に入隊した。,
+78,arrange,整える、手配する,I arranged a meeting.,私は会議を手配した。,
+78,arrangement,手配、配置,The arrangement was completed.,手配は完了した。,
+334,array,配列、並び,A wide array of products is available.,幅広い製品が利用できる。,
+363,arrest,逮捕する,The police arrested the suspect.,警察は容疑者を逮捕した。,
+341,arrival,到着,Our arrival was delayed.,私たちの到着は遅れた。,
+340,arrive,到着する,We arrived at the station.,私たちは駅に到着した。,【対義語】depart（出発する）
+208,arrow,矢,The arrow hit the target.,矢は的に当たった。,
+236,article,記事、品物,I read an interesting article.,私は興味深い記事を読んだ。,
+396,artisan,職人,The artisan made the vase by hand.,その職人は手作業で花瓶を作った。,
+391,artistic,芸術的な,She has artistic talent.,彼女には芸術的才能がある。,
+270,ash,灰,The fire turned the wood to ash.,火は木を灰にした。,
+116,asleep,眠って,The baby is asleep.,赤ちゃんは眠っている。,【対義語】awake（目を覚ましている）
+244,aspect,側面,We discussed every aspect of the issue.,私たちはその問題のあらゆる側面を議論した。,
+385,aspiration,熱望、志,He has aspirations to become a doctor.,彼には医者になりたいという志がある。,
+385,aspire,熱望する,She aspires to be a scientist.,彼女は科学者になることを目指している。,
+372,assemble,組み立てる、集める,Students assembled in the hall.,生徒たちは講堂に集まった。,
+372,assembly,集会、組み立て,The school assembly begins at nine.,全校集会は9時に始まる。,
+256,assert,主張する,He asserted his innocence.,彼は無実を主張した。,
+265,assess,評価する,We need to assess the risk.,私たちはリスクを評価する必要がある。,
+265,assessment,評価,The assessment was fair.,その評価は公正だった。,
+278,assign,割り当てる,The teacher assigned homework.,先生は宿題を出した。,
+248,assist,手伝う、支援する,She assisted the customer.,彼女は顧客を手伝った。,
+248,assistance,援助、支援,Thank you for your assistance.,ご支援ありがとうございます。,
+291,associate,関連付ける、仲間,I associate summer with the sea.,私は夏と海を結び付ける。,
+291,association,協会、関連,The association supports education.,その協会は教育を支援している。,
+178,assume,仮定する、思い込む,Don't assume you are always right.,自分が常に正しいと思い込んではいけない。,
+178,assumption,仮定,The assumption proved wrong.,その仮定は誤りだと判明した。,
+126,asteroid,小惑星,Scientists discovered a new asteroid.,科学者たちは新しい小惑星を発見した。,
+58,astonish,驚かせる,The result astonished everyone.,その結果は皆を驚かせた。,
+213,astronomer,天文学者,The astronomer observed the stars.,その天文学者は星を観測した。,
+213,astronomical,天文学の、非常に大きな,The project cost an astronomical amount.,その計画には莫大な費用がかかった。,
+213,astronomy,天文学,She studies astronomy.,彼女は天文学を学んでいる。,
+289,atmosphere,大気、雰囲気,The restaurant has a nice atmosphere.,そのレストランは良い雰囲気だ。,
+289,atmospheric,大気の,atmospheric pressure,大気圧の,
+241,attach,取り付ける,Please attach the file.,ファイルを添付してください。,【対義語】detach（取り外す）
+237,attack,攻撃する、攻撃,The army launched an attack.,軍は攻撃を開始した。,
+378,attain,達成する,He attained his goal.,彼は目標を達成した。,
+378,attainment,達成,The attainment of success requires effort.,成功の達成には努力が必要だ。,
+367,attempt,試みる、試み,She attempted to solve the problem.,彼女はその問題を解こうとした。,
+423,attend,出席する,I attended the meeting.,私は会議に出席した。,
+423,attendance,出席、出席者,Attendance was high today.,今日は出席率が高かった。,
+423,attendant,係員、付き添い,The attendant helped the passengers.,係員は乗客を手伝った。,
+191,attention,注意,Pay attention to the teacher.,先生の話に注意しなさい。,
+423,attentive,注意深い,The nurse was attentive.,その看護師は注意深かった。,【対義語】inattentive（不注意な）
+107,attract,引き付ける,The museum attracts many tourists.,その博物館は多くの観光客を引き付ける。,
+107,attraction,魅力、呼び物,The castle is a major attraction.,その城は主要な観光名所だ。,
+107,attractive,魅力的な,She has an attractive smile.,彼女は魅力的な笑顔をしている。,【対義語】unattractive（魅力のない）
+358,attribute,属性、～のせいだとする,Hard work is an important attribute.,努力は重要な資質だ。,
+357,authentic,本物の、真正の,This restaurant serves authentic Italian food.,この店は本格的なイタリア料理を出す。,【対義語】fake（偽物の）
+357,authenticity,真正性,The authenticity of the painting was confirmed.,その絵画の真正性が確認された。,
+422,authority,権威、権限,She has authority over the team.,彼女はチームに対する権限を持っている。,
+422,authorize,許可する,The manager authorized the payment.,部長が支払いを承認した。,
+218,autobiography,自伝,I read his autobiography.,私は彼の自伝を読んだ。,
+256,automate,自動化する,The factory automated the process.,その工場は工程を自動化した。,
+375,automation,自動化,Automation improves efficiency.,自動化は効率を向上させる。,
+345,automobile,自動車,The automobile industry is changing.,自動車産業は変化している。,
+107,availability,利用可能性,Check the availability before booking.,予約前に空き状況を確認してください。,
+107,available,利用可能な,The product is available online.,その商品はオンラインで購入できる。,【対義語】unavailable（利用できない）
+411,avenue,大通り、手段,We walked along the avenue.,私たちは大通りを歩いた。,
+85,average,平均、平均的な,The average score was high.,平均点は高かった。,
+127,aviation,航空,He works in aviation.,彼は航空業界で働いている。,
+134,avoid,避ける,Avoid making the same mistake.,同じ間違いを避けなさい。,
+134,avoidance,回避,Avoidance of risk is important.,リスク回避は重要だ。,
+279,aware,気付いている,I'm aware of the problem.,私はその問題を認識している。,【対義語】unaware（気付いていない）
+279,awareness,認識、意識,Environmental awareness is growing.,環境意識が高まっている。,
+62,awkward,気まずい、不器用な,It was an awkward situation.,それは気まずい状況だった。,
+171,axis,軸,The Earth rotates on its axis.,地球は地軸を中心に回転する。,
+100,bachelor,学士、独身男性,He is a bachelor.,彼は独身男性だ。,
+392,backpack,リュックサック,I carry a backpack to school.,私は学校にリュックサックを持っていく。,
+127,backward,後ろ向きの、後方へ,He took a step backward.,彼は一歩後ろへ下がった。,【対義語】forward（前方へ）
+411,backyard,裏庭,The children played in the backyard.,子供たちは裏庭で遊んだ。,
+73,bacteria,細菌,Bacteria can grow quickly.,細菌は急速に増殖することがある。,
+204,bake,焼く,She baked bread this morning.,彼女は今朝パンを焼いた。,
+238,balance,バランス、均衡,Good balance is important.,良いバランスは重要だ。,
+57,ballet,バレエ,She has practiced ballet for years.,彼女は何年もバレエを練習している。,
+137,ban,禁止する、禁止,The city banned smoking in the park.,市は公園での喫煙を禁止した。,【対義語】allow（許可する）
+155,bar,棒、酒場,We met at a small bar.,私たちは小さなバーで会った。,
+102,bare,裸の、むき出しの,He walked with bare feet.,彼は裸足で歩いた。,
+102,barely,かろうじて、ほとんど～ない,I could barely hear his voice.,私は彼の声がかろうじて聞こえた。,
+208,bargain,安い買い物、交渉する,This jacket was a bargain.,この上着はお買い得だった。,
+81,barn,納屋,The farmer kept tools in the barn.,農夫は納屋に道具を保管していた。,
+90,barrier,障壁、妨げ,Language can be a barrier.,言葉は障壁になりうる。,
+290,barter,物々交換する,They used to barter goods.,彼らはかつて品物を物々交換していた。,
+305,base,基礎、土台、基地,This decision has a solid base.,この決定には確かな根拠がある。,
+305,basement,地下室,The boxes are in the basement.,箱は地下室にある。,
+48,basic,基本的な,These are basic rules.,これらは基本的な規則だ。,【対義語】advanced（高度な）
+195,basically,基本的に,"Basically, I agree with you.",基本的にはあなたに賛成だ。,
+49,basis,基礎、根拠,Trust is the basis of friendship.,信頼は友情の基礎だ。,
+270,bathe,入浴する、水浴びする,She bathed the baby.,彼女は赤ちゃんを入浴させた。,
+295,beam,光線、梁,A beam of light entered the room.,一筋の光が部屋に入った。,
+175,bear,耐える、熊,I cannot bear the pain.,私はその痛みに耐えられない。,
+178,beard,あごひげ,He has a short beard.,彼には短いあごひげがある。,
+431,beast,獣、野獣,The story is about a wild beast.,その物語は野生の獣についてだ。,
+259,beat,打つ、打ち負かす,Our team beat them.,私たちのチームは彼らに勝った。,
+359,beauty,美、美しさ,We admired the beauty of nature.,私たちは自然の美しさに感動した。,
+411,beforehand,前もって,Please tell me beforehand.,前もって私に知らせてください。,
+294,beg,頼む、懇願する,He begged for help.,彼は助けを懇願した。,
+48,behave,振る舞う,Please behave well in class.,授業中はきちんと振る舞ってください。,
+48,behavior,行動、振る舞い,His behavior was polite.,彼の振る舞いは礼儀正しかった。,
+48,behavioral,行動の、行動に関する,The study focuses on behavioral change.,その研究は行動の変化に焦点を当てている。,
+72,belief,信念、信じること,She has a strong belief in justice.,彼女は正義に対する強い信念を持っている。,
+72,believe,信じる,I believe his story.,私は彼の話を信じている。,【対義語】doubt（疑う）
+322,bend,曲げる、曲がる,Bend your knees.,膝を曲げなさい。,
+200,beneficial,有益な,Exercise is beneficial to health.,運動は健康に有益だ。,【対義語】harmful（有害な）
+200,benefit,利益、恩恵、利益を得る,The new system benefits students.,新しい制度は学生に利益をもたらす。,
+140,beverage,飲み物,Water is the best beverage.,水は最良の飲み物だ。,
+54,bias,偏見、先入観,We should avoid bias.,私たちは偏見を避けるべきだ。,
+54,biased,偏った、偏見を持った,The report was biased.,その報告は偏っていた。,【対義語】unbiased（偏りのない）
+392,bible,聖書,She reads the Bible every day.,彼女は毎日聖書を読む。,
+419,bilingual,二言語を話す、二言語使用の,He is bilingual in Japanese and English.,彼は日本語と英語の二言語を話す。,
+419,bilingualism,二言語使用,Bilingualism is common in some countries.,二言語使用は一部の国では一般的だ。,
+175,bill,請求書、法案,I paid the bill.,私は請求書を支払った。,
+20,bind,縛る、結びつける,This rule binds all members.,この規則は全会員を拘束する。,
+227,biodiversity,生物多様性,We must protect biodiversity.,私たちは生物多様性を守らなければならない。,
+218,biography,伝記,I read a biography of the scientist.,私はその科学者の伝記を読んだ。,
+277,biological,生物学の、生物の,Biological research is important.,生物学の研究は重要だ。,
+277,biology,生物学,She studies biology at school.,彼女は学校で生物学を学んでいる。,
+24,birth,誕生,The birth of a child brought joy.,子供の誕生は喜びをもたらした。,
+91,bite,かむ、かみ傷,The dog bit his hand.,犬が彼の手をかんだ。,
+173,bizarre,奇妙な、風変わりな,It was a bizarre story.,それは奇妙な話だった。,
+257,blame,非難する、～のせいにする,Do not blame others for your mistake.,自分の失敗を他人のせいにしてはいけない。,【対義語】praise（ほめる）
+31,bleed,出血する,His nose began to bleed.,彼の鼻から血が出始めた。,
+212,block,妨げる、ふさぐ、区画,A fallen tree blocked the road.,倒れた木が道をふさいだ。,
+207,blog,ブログ,She writes a travel blog.,彼女は旅行ブログを書いている。,
+111,bloom,花が咲く,The flowers bloom in spring.,その花は春に咲く。,
+414,board,板、委員会、乗る,He is on the school board.,彼は学校委員会の一員だ。,
+252,boast,自慢する,He boasted about his success.,彼は自分の成功を自慢した。,
+59,bold,大胆な,She made a bold decision.,彼女は大胆な決断をした。,【対義語】timid（臆病な）
+206,bond,絆、結束,A strong bond developed between them.,彼らの間に強い絆が生まれた。,
+225,bone,骨,He broke a bone in his arm.,彼は腕の骨を折った。,
+167,boom,急成長、ブーム,The city experienced an economic boom.,その都市は経済的なブームを経験した。,
+190,boost,押し上げる、促進する,The campaign boosted sales.,そのキャンペーンは売上を押し上げた。,
+140,boot,ブーツ、長靴,She bought new boots.,彼女は新しいブーツを買った。,
+208,booth,小さな売店、ブース,We visited the information booth.,私たちは案内ブースを訪れた。,
+166,border,国境、境界,They crossed the border.,彼らは国境を越えた。,
+90,bounce,跳ねる,The ball bounced high.,ボールは高く跳ねた。,
+90,bound,～行きの、縛られた,This train is bound for Tokyo.,この電車は東京行きだ。,
+166,boundary,境界,The river forms a boundary.,その川は境界を形成している。,
+140,brake,ブレーキ,The driver hit the brake.,運転手はブレーキを踏んだ。,
+214,breakthrough,大きな進歩、突破口,The research led to a breakthrough.,その研究は大きな進歩につながった。,
+317,breast,胸,Birds have strong breast muscles.,鳥は強い胸の筋肉を持っている。,
+340,breathe,呼吸する,Breathe slowly and deeply.,ゆっくり深く呼吸しなさい。,
+330,breeze,そよ風,A cool breeze came from the sea.,涼しいそよ風が海から吹いてきた。,
+87,bribe,賄賂、賄賂を贈る,He refused to accept a bribe.,彼は賄賂を受け取ることを拒んだ。,
+403,bride,花嫁,The bride looked very happy.,花嫁はとても幸せそうだった。,
+353,brief,短い、簡潔な,Please give a brief answer.,簡潔に答えてください。,【対義語】lengthy（長い）
+353,briefly,簡潔に,He explained the plan briefly.,彼はその計画を簡潔に説明した。,
+295,bright,明るい、賢い,The room is bright.,その部屋は明るい。,【対義語】dark（暗い）
+295,brilliant,素晴らしい、才能のある,She had a brilliant idea.,彼女は素晴らしい考えを持っていた。,
+401,broad,広い、幅広い,He has broad knowledge.,彼は幅広い知識を持っている。,【対義語】narrow（狭い）
+401,broadcast,放送する、放送,The game was broadcast live.,その試合は生中継された。,
+401,broaden,広げる,Travel can broaden your mind.,旅行は視野を広げてくれる。,【対義語】narrow（狭める）
+401,broadly,広く、大まかに,The issue is broadly understood.,その問題は広く理解されている。,
+431,brutal,残忍な、厳しい,The attack was brutal.,その攻撃は残忍だった。,
+431,brute,野獣、野蛮な人,The brute used force.,その野蛮な男は力を使った。,
+340,bubble,泡,Bubbles rose in the water.,泡が水中に上がった。,
+85,budget,予算,We have a limited budget.,私たちには限られた予算がある。,
+153,build,建てる、作る,They will build a new bridge.,彼らは新しい橋を建設する。,【対義語】destroy（破壊する）
+212,bulk,大部分、大量,The bulk of the work is done.,仕事の大部分は終わった。,
+135,bullet,弾丸,The bullet hit the wall.,弾丸は壁に当たった。,
+241,bully,いじめる、いじめっ子,Do not bully younger students.,年下の生徒をいじめてはいけない。,
+135,bump,ぶつかる、こぶ,I bumped into the door.,私はドアにぶつかった。,
+334,bunch,束、集まり,She bought a bunch of flowers.,彼女は花束を買った。,
+273,burden,負担,The cost is a heavy burden.,その費用は重い負担だ。,
+115,burn,燃える、燃やす、やけどする,The paper burned quickly.,紙はすぐに燃えた。,
+439,burst,破裂する、突然起こる,The balloon burst.,風船が破裂した。,
+419,bury,埋める,They buried the box in the garden.,彼らは箱を庭に埋めた。,
+74,bush,茂み,A rabbit hid in the bush.,ウサギが茂みに隠れた。,
+134,cabin,小屋、船室、客室,We stayed in a small cabin.,私たちは小さな小屋に泊まった。,
+122,cabinet,戸棚、内閣,The documents are in the cabinet.,書類は戸棚の中にある。,
+375,cable,ケーブル、電線,Connect the cable to the computer.,ケーブルをコンピューターにつないでください。,
+140,caffeine,カフェイン,Coffee contains caffeine.,コーヒーにはカフェインが含まれている。,
+426,calculation,計算,His calculation was correct.,彼の計算は正しかった。,
+224,calm,落ち着いた、落ち着かせる,Stay calm in an emergency.,緊急時には落ち着いていなさい。,【対義語】anxious（不安な）
+224,calmly,落ち着いて,She answered calmly.,彼女は落ち着いて答えた。,
+248,campaign,運動、キャンペーン,The campaign raised awareness.,そのキャンペーンは意識を高めた。,
+58,cancel,取り消す、中止する,They canceled the meeting.,彼らは会議を中止した。,
+248,candidate,候補者,She is a candidate for mayor.,彼女は市長候補だ。,
+331,canyon,峡谷,We visited a deep canyon.,私たちは深い峡谷を訪れた。,
+233,capable,能力がある,She is capable of solving the problem.,彼女はその問題を解決する能力がある。,【対義語】incapable（能力がない）
+233,capacity,能力、収容力,The hall has a capacity of 500 people.,そのホールは500人を収容できる。,
+161,capital,首都、資本,Tokyo is the capital of Japan.,東京は日本の首都だ。,
+160,captive,捕らわれた、捕虜,The animals were kept captive.,その動物たちは捕らわれていた。,【対義語】free（自由な）
+160,capture,捕らえる、獲得する,The police captured the thief.,警察は泥棒を捕まえた。,【対義語】release（解放する）
+433,carbohydrate,炭水化物,Rice is rich in carbohydrates.,米は炭水化物が豊富だ。,
+270,carbon,炭素,Carbon is found in all living things.,炭素はすべての生物に含まれている。,
+270,carbon dioxide,二酸化炭素,Plants absorb carbon dioxide.,植物は二酸化炭素を吸収する。,
+403,career,職業、経歴,She wants a career in medicine.,彼女は医療の仕事に就きたいと思っている。,
+40,careful,注意深い,Be careful when you cross the street.,道を渡るときは注意しなさい。,【対義語】careless（不注意な）
+40,carefully,注意深く,Read the instructions carefully.,説明を注意深く読みなさい。,
+40,careless,不注意な,It was a careless mistake.,それは不注意なミスだった。,【対義語】careful（注意深い）
+136,cargo,貨物,The ship carried heavy cargo.,その船は重い貨物を運んだ。,
+106,carriage,馬車、客車,The carriage moved slowly.,馬車はゆっくり進んだ。,
+106,carry,運ぶ,Please carry this box.,この箱を運んでください。,
+322,carve,彫る,He carved a statue from wood.,彼は木から像を彫った。,
+317,case,場合、事例、容器,This is a difficult case.,これは難しい事例だ。,
+238,cast,投げる、配役する,The director cast her in the movie.,監督は彼女をその映画に配役した。,
+170,casual,気軽な、普段着の,He wore casual clothes.,彼は普段着を着ていた。,【対義語】formal（正式な）
+170,casualty,死傷者,The accident caused many casualties.,その事故で多くの死傷者が出た。,
+390,catalyst,触媒、きっかけ,The speech became a catalyst for change.,その演説は変化のきっかけとなった。,
+148,categorize,分類する,We categorize books by subject.,私たちは本を分野別に分類する。,
+148,category,部門、分類,This word belongs to another category.,この単語は別の分類に属する。,
+21,cause,原因、引き起こす,What caused the accident?,何がその事故を引き起こしたのですか。,
+127,ceiling,天井,The ceiling is very high.,天井はとても高い。,
+221,celebrate,祝う,We celebrated her birthday.,私たちは彼女の誕生日を祝った。,
+221,celebration,祝い、祝賀,The celebration lasted all night.,祝賀は一晩中続いた。,
+250,celebrity,有名人,He became a celebrity.,彼は有名人になった。,
+48,cell,細胞、独房,The human body has many cells.,人体には多くの細胞がある。,
+48,cellular,細胞の,Cellular activity changes with temperature.,細胞活動は温度によって変化する。,
