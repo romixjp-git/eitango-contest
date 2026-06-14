@@ -322,8 +322,8 @@ let layout = {
     safeAreaTop: 15,
     safeAreaBottom: 15,
     headerBottom: 135,  // ヘッダーの高さを少し削って上に詰める
-    cardCenterY: 285,   // カード位置をより上部に詰める (元: 342)
-    cardH: 185,         // カードの高さを適正化 (元: 220)
+    cardCenterY: 285,   // カード位置をより上部に詰める
+    cardH: 185,         // カードの高さを適正化
     startY: 440,        // 選択肢の開始地点を上に詰め、全体の間隔を縮小
     btnY: 710,   
     resultY: 575 
@@ -409,21 +409,20 @@ class AppState {
     }
 
     async init() {
-        // 1. まずCSVデータの取得を試みる
+        // 1. まずCSVデータの取得を試みる（ファイル名を単数形の word.csv に修正）
         let dataSource = [];
         try {
-            const response = await fetch('words.csv');
+            const response = await fetch('word.csv');
             if (response.ok) {
                 let csvText = await response.text();
-                // UTF-8 BOM（\uFEFF）を念のためクリア
+                // UTF-8 BOM（\uFEFF）をクリア
                 csvText = csvText.replace(/^\uFEFF/, '');
                 dataSource = this.parseCSV(csvText);
-                showToast("CSVデータを読み込みました");
+                showToast(`CSVデータを読み込みました (${dataSource.length}語)`);
             } else {
                 dataSource = INITIAL_DATA_SOURCE;
             }
         } catch (e) {
-            // エラー時はローカルの初期ソースを使用
             dataSource = INITIAL_DATA_SOURCE;
         }
 
@@ -436,7 +435,7 @@ class AppState {
         if (savedData) {
             try {
                 const parsed = JSON.parse(savedData);
-                // CSVまたはデフォルトにあるキーだけ、進捗を結合して適用
+                // CSVにあるキーに対し、進捗を結合して適用
                 this.items = dataSource.map(dItem => {
                     const matched = parsed.find(p => p.question === dItem.question);
                     return {
@@ -457,6 +456,7 @@ class AppState {
         this.pickNextItem(true);
     }
 
+    // クォーテーションやカンマが入れ子になったCSV行を適切に処理するロジックに強化
     parseCSV(text) {
         const lines = text.split(/\r?\n/);
         const result = [];
@@ -464,8 +464,23 @@ class AppState {
         for (let line of lines) {
             line = line.trim();
             if (!line) continue;
-            // カンマ、またはタブ区切りで分割
-            const parts = line.split(/[\t,]/);
+            
+            let parts = [];
+            let current = '';
+            let inQuotes = false;
+            for (let i = 0; i < line.length; i++) {
+                const char = line[i];
+                if (char === '"') {
+                    inQuotes = !inQuotes;
+                } else if ((char === ',' || char === '\t') && !inQuotes) {
+                    parts.push(current.trim());
+                    current = '';
+                } else {
+                    current += char;
+                }
+            }
+            parts.push(current.trim());
+
             if (parts.length >= 2) {
                 const q = parts[0].replace(/^"|"$/g, '').trim();
                 const a = parts[1].replace(/^"|"$/g, '').trim();
@@ -567,7 +582,6 @@ class AppState {
         }
 
         const needEnJa = this.currentItem.correctStreakEnJa < this.stats.streakMax;
-        // 日英判定バグ(this.stats.stats -> this.stats.streakMax)を解決して正しい日英トグルを実現
         const needJaEn = this.currentItem.correctStreakJaEn < this.stats.streakMax;
 
         if (needEnJa && !needJaEn) {
@@ -759,7 +773,7 @@ function updateLayout() {
     layout.safeAreaTop = hasNotch ? 45 : 15;
     layout.safeAreaBottom = hasNotch ? 35 : 15;
     
-    layout.headerBottom = layout.safeAreaTop + 110; // さらにヘッダー高をスリムに
+    layout.headerBottom = layout.safeAreaTop + 110; // ヘッダー高をスリムに
     
     const btnH = 54;
     const spacing = 9;
