@@ -71,131 +71,176 @@
             background: rgba(31, 41, 55, 0.85);
             border: 1px solid #374151;
             color: #9ca3af;
-            font-size: 11px;
-            padding: 6px 12px;
-            border-radius: 6px;
+            font-size: 14px;
+            padding: 8px 12px;
+            border-radius: 8px;
             cursor: pointer;
             transition: all 0.2s;
             display: flex;
             align-items: center;
-            gap: 4px;
+            justify-content: center;
         }
         .btn-ui:hover, .btn-ui:active {
             border-color: #00FF66;
             color: #00FF66;
             background: rgba(0, 255, 102, 0.1);
         }
-        .btn-reset-danger:hover, .btn-reset-danger:active {
-            border-color: #ff3366;
-            color: #ff3366;
-            background: rgba(255, 51, 102, 0.1);
-        }
-        /* インポート＆エクスポートモーダル */
-        #modal {
+
+        /* スライドインサイドメニュー */
+        .side-menu {
             position: absolute;
             top: 0;
-            left: 0;
-            width: 100%;
+            right: -290px; /* 初期状態は隠す */
+            width: 290px;
             height: 100%;
-            background: rgba(5, 7, 10, 0.9);
-            z-index: 20;
+            background: #0d1117;
+            border-left: 1px solid #1f2937;
+            z-index: 40;
+            transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: calc(20px + env(safe-area-inset-top, 0px)) 20px calc(20px + env(safe-area-inset-bottom, 0px)) 20px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
+            gap: 20px;
+            overflow: hidden;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.6);
         }
-        #modal.active {
-            opacity: 1;
-            pointer-events: auto;
+        .side-menu.active {
+            right: 0;
         }
-        .modal-content {
-            background: #111622;
-            border: 1px solid #374151;
-            border-radius: 16px;
-            width: 100%;
-            max-width: 400px;
-            max-height: 90%;
-            overflow-y: auto;
-            padding: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        .modal-title {
-            color: #00E5FF;
-            font-size: 16px;
-            font-weight: bold;
-            margin: 0;
-            border-bottom: 1px solid #1f2937;
-            padding-bottom: 10px;
+        .menu-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 1px solid #1f2937;
+            padding-bottom: 12px;
         }
-        .modal-close {
+        .menu-header h3 {
+            margin: 0;
+            color: #00E5FF;
+            font-size: 15px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .menu-close {
             color: #9ca3af;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 24px;
+            line-height: 1;
+            padding: 4px;
         }
-        .modal-close:hover {
+        .menu-close:hover {
             color: #ff3366;
         }
-        .modal-desc {
-            color: #9ca3af;
-            font-size: 11px;
-            line-height: 1.4;
-        }
-        textarea {
-            width: 100%;
-            height: 150px;
-            background: #080a0f;
-            border: 1px solid #1f2937;
-            border-radius: 8px;
-            color: #ffffff;
-            font-family: monospace;
-            font-size: 11px;
-            padding: 10px;
-            resize: none;
-            outline: none;
-        }
-        textarea:focus {
-            border-color: #00E5FF;
-        }
-        .modal-actions {
+        .menu-scroll-content {
+            flex: 1;
+            overflow-y: auto;
             display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding-right: 2px;
+        }
+        .menu-section {
+            display: flex;
+            flex-direction: column;
             gap: 10px;
         }
-        .btn-modal-action {
-            flex: 1;
+        .menu-section h4 {
+            margin: 0;
+            color: #9ca3af;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 6px;
+        }
+        .btn-menu-action {
+            width: 100%;
             padding: 10px;
             border-radius: 8px;
             font-weight: bold;
             font-size: 12px;
             cursor: pointer;
-            border: none;
+            border: 1px solid #374151;
+            background: #111622;
+            color: #ffffff;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .btn-menu-action:hover {
+            border-color: #00FF66;
+            color: #00FF66;
+            background: rgba(0, 255, 102, 0.05);
+        }
+        .btn-reset-danger {
+            border-color: #ff3366;
+            color: #ff3366;
+            background: rgba(255, 51, 102, 0.03);
+        }
+        .btn-reset-danger:hover, .btn-reset-danger:active {
+            border-color: #ff3366;
+            color: #ffffff;
+            background: #ff3366;
+        }
+        
+        /* 範囲選択リスト */
+        .range-actions {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 4px;
+        }
+        .btn-mini {
+            flex: 1;
+            background: #1f2937;
+            border: 1px solid #374151;
+            color: #9ca3af;
+            font-size: 10px;
+            padding: 6px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
             transition: all 0.2s;
         }
-        .btn-primary {
-            background: #00FF66;
-            color: #05070a;
+        .btn-mini:hover {
+            border-color: #00E5FF;
+            color: #00E5FF;
         }
-        .btn-primary:hover {
-            background: #33ff88;
-            box-shadow: 0 0 10px rgba(0,255,102,0.4);
+        .range-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            max-height: 480px;
+            overflow-y: auto;
+            padding-right: 4px;
         }
-        .btn-secondary {
-            background: #1f2937;
+        .range-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             color: #ffffff;
-            border: 1px solid #374151;
+            font-size: 12px;
+            cursor: pointer;
+            background: #161b22;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid #21262d;
+            transition: all 0.2s;
         }
-        .btn-secondary:hover {
-            background: #374151;
+        .range-item:hover {
+            border-color: #30363d;
+            background: #21262d;
         }
+        .range-item input[type="checkbox"] {
+            cursor: pointer;
+            accent-color: #00FF66;
+            width: 16px;
+            height: 16px;
+        }
+
         /* インゲームトースト通知 */
         #toast {
             position: absolute;
@@ -224,29 +269,37 @@
 
 <div id="container">
     <div class="header-buttons">
-        <button class="btn-ui" onclick="openModal()"><i class="fa-solid fa-file-import"></i> 拡張・保存</button>
-        <button class="btn-ui btn-reset-danger" onclick="resetProgress()"><i class="fa-solid fa-rotate-right"></i> リセット</button>
+        <!-- ハンバーガーメニューボタン -->
+        <button class="btn-ui" onclick="toggleMenu(event)"><i class="fa-solid fa-bars"></i></button>
     </div>
     
     <canvas id="gameCanvas"></canvas>
     <div id="ui-overlay"></div>
 
-    <!-- 拡張インポート/エクスポートモーダル -->
-    <div id="modal">
-        <div class="modal-content">
-            <h3 class="modal-title">
-                <span><i class="fa-solid fa-database"></i> 単語帳の拡張・保存</span>
-                <span class="modal-close" onclick="closeModal()">&times;</span>
-            </h3>
-            <p class="modal-desc">
-                Excelやスプレッドシートから、以下のフォーマットでデータを貼り付けて追加できます。<br>
-                <b>形式 (カンマまたはタブ区切り、改行コード\nで複数情報登録可):</b><br>
-                <code>ページ番号, 単語/英語, 日本語意味\n英語例文\n例文日本語訳\n[対義語]単語</code>
-            </p>
-            <textarea id="importArea" placeholder="例:&#10;232,abandon,〜をあきらめる、捨てる\nHe decided to abandon the plan.\n彼はその計画をあきらめることに決めた。\n[対義語] maintain&#10;233,accomplish,〜を成し遂げる、達成する\nWe accomplished our mission.\n私たちは任務を成し遂げた。"></textarea>
-            <div class="modal-actions">
-                <button class="btn-modal-action btn-secondary" onclick="exportData()">バックアップ出力</button>
-                <button class="btn-modal-action btn-primary" onclick="importData()">インポート追加</button>
+    <!-- 設定サイドメニュー -->
+    <div id="sideMenu" class="side-menu" onclick="event.stopPropagation()">
+        <div class="menu-header">
+            <h3><i class="fa-solid fa-sliders"></i> 出題設定</h3>
+            <span class="menu-close" onclick="toggleMenu(event)">&times;</span>
+        </div>
+        
+        <div class="menu-scroll-content">
+            <!-- 出題範囲設定（100件区切り） -->
+            <div class="menu-section">
+                <h4>出題範囲（100件ごと）</h4>
+                <div class="range-actions">
+                    <button class="btn-mini" onclick="selectAllRanges(true)">全選択</button>
+                    <button class="btn-mini" onclick="selectAllRanges(false)">全解除</button>
+                </div>
+                <div id="rangeContainer" class="range-list">
+                    <!-- CSVロード後に動的生成 -->
+                </div>
+            </div>
+
+            <!-- 進捗データクリア -->
+            <div class="menu-section" style="margin-top: auto; padding-top: 15px;">
+                <h4>データ管理</h4>
+                <button class="btn-menu-action btn-reset-danger" onclick="resetProgressWithConfirm()"><i class="fa-solid fa-rotate-right"></i> 学習進捗をリセット</button>
             </div>
         </div>
     </div>
@@ -260,7 +313,7 @@
 // ==========================================
 const INITIAL_DATA_SOURCE = [
     { id: "w1", type: "word", page: "232", question: "achieve", answer: "〜を達成する、成し遂げる\nShe achieved her goal of becoming a doctor.\n彼女は医師になるという目標を達成した。" },
-    { id: "w2", type: "word", page: "233", question: "admire", answer: "〜に感嘆する、〜を称賛する\nI admire his courage to speak the truth.\n私は真実を話す彼の勇気に感心する。" },
+    { id: "w2", type: "word", page: "233", question: "admire", answer: "〜に感嘆する、〜を称賛する\nI admire his courage to speak the truth.\n私は真実を話す彼の勇기에感心する。" },
     { id: "w3", type: "word", page: "66", question: "allow", answer: "〜を許可する、許す\nMy parents allowed me to study abroad.\n両親は私が留学することを許してくれた。" },
     { id: "w4", type: "word", page: "66", question: "announce", answer: "〜を発表する、告知する\nThe company announced a new product today.\n会社は本日、新製品を発表した。" },
     { id: "w5", type: "word", page: "71", question: "apologize", answer: "謝る、お詫びする\nHe apologized to her for being late.\n彼は遅刻したことを彼女に謝った。" },
@@ -285,7 +338,7 @@ const INITIAL_DATA_SOURCE = [
 const VIEW_WIDTH = 480;
 const VIEW_HEIGHT = 850;
 
-// 動的レイアウト計算用（豊富な情報の改修に合わせてカード高を220へ少し引き上げ）
+// 動的レイアウト計算用
 let layout = {
     scale: 1,
     height: VIEW_HEIGHT,
@@ -349,7 +402,10 @@ function drawButtonText(context, text, startX, centerY, maxWidth, baseLineHeight
 // ==========================================
 class AppState {
     constructor() {
-        this.items = [];
+        this.rawDataSource = []; // すべてのロード済み単語データ
+        this.items = [];         // 現在のアクティブな単語リスト
+        this.enabledRanges = []; // 100件グループごとのON/OFFステート
+        
         this.currentItem = null;
         this.direction = 'en_to_ja'; 
         this.choices = [];      
@@ -378,55 +434,36 @@ class AppState {
         };
     }
 
-    async init() {
-        // 1. まずCSVデータの取得を試みる（ファイル名: word.csv）
-        let dataSource = [];
+    // 初期化を同期的に行い、フリーズを防止
+    initSync() {
+        // ロード中はまずフォールバック用のデフォルトデータでゲームを即座に動かせるようにする
+        this.rawDataSource = INITIAL_DATA_SOURCE;
+        this.buildRangeSelector();
+        this.applyRangeFilter(true);
+    }
+
+    // バックグラウンドで非ブロッキングかつ安全にCSVを非同期フェッチして更新
+    async fetchCSVBackground() {
         try {
             const response = await fetch('word.csv');
             if (response.ok) {
                 let csvText = await response.text();
-                // UTF-8 BOM（\uFEFF）をクリア
-                csvText = csvText.replace(/^\uFEFF/, '');
-                dataSource = this.parseCSV(csvText);
-                showToast(`CSVデータを読み込みました (${dataSource.length}語)`);
-            } else {
-                dataSource = INITIAL_DATA_SOURCE;
+                csvText = csvText.replace(/^\uFEFF/, ''); // UTF-8 BOMをクリア
+                const parsedData = this.parseCSV(csvText);
+                if (parsedData && parsedData.length > 0) {
+                    this.rawDataSource = parsedData;
+                    // チェックボックスとフィルタを最新データに置き換えてシームレスに同期
+                    this.buildRangeSelector();
+                    this.applyRangeFilter(false);
+                    showToast(`単語リストを読み込みました (${this.rawDataSource.length}語)`);
+                }
             }
         } catch (e) {
-            dataSource = INITIAL_DATA_SOURCE;
+            // 通信エラーや未配置の際もフォールバックでゲームは動き続けます
         }
-
-        if (dataSource.length === 0) {
-            dataSource = INITIAL_DATA_SOURCE;
-        }
-
-        // 2. ローカルストレージの進捗読み込み
-        const savedData = localStorage.getItem('eiken_pre2_progress_v4');
-        if (savedData) {
-            try {
-                const parsed = JSON.parse(savedData);
-                // CSVにあるキーに対し、進捗を結合して適用
-                this.items = dataSource.map(dItem => {
-                    const matched = parsed.find(p => p.question === dItem.question);
-                    return {
-                        ...dItem,
-                        correctStreakEnJa: matched ? Math.max(0, parseInt(matched.correctStreakEnJa) || 0) : 0,
-                        correctStreakJaEn: matched ? Math.max(0, parseInt(matched.correctStreakJaEn) || 0) : 0
-                    };
-                });
-            } catch (e) {
-                this.loadDefaultData(dataSource);
-            }
-        } else {
-            this.loadDefaultData(dataSource);
-        }
-
-        this.calculateStats();
-        this.learningRate = this.targetLearningRate;
-        this.pickNextItem(true);
     }
 
-    // ページ番号付き新CSV形式(Page, Word, Meaning, EngExample, JapExample, Antonym/Extra)のパース対応
+    // ページ番号付き新CSV形式のパース対応
     parseCSV(text) {
         const lines = text.split(/\r?\n/);
         const result = [];
@@ -451,7 +488,6 @@ class AppState {
             }
             parts.push(current.trim());
 
-            // 1列目: ページ番号, 2列目: 単語英語, 3列目: 日本語意味, 4列目: 英語例文, 5列目: 日本語訳, 6列目: 対義語(任意)
             if (parts.length >= 3) {
                 const page = parts[0].replace(/^"|"$/g, '').trim();
                 const q = parts[1].replace(/^"|"$/g, '').trim();
@@ -467,7 +503,6 @@ class AppState {
                 const antonym = parts[5] ? parts[5].replace(/^"|"$/g, '').trim() : '';
                 
                 if (q && meaning) {
-                    // 表示解説用に意味、例文、訳、対義語を統合して保持
                     let answerLines = [meaning];
                     if (engExample) answerLines.push(engExample);
                     if (japExample) answerLines.push(japExample);
@@ -475,14 +510,14 @@ class AppState {
 
                     let a = answerLines.join('\n');
                     
-                    // 改行コードへの変換処理
+                    // 改行コードの置換
                     a = a.replace(/\\n/g, '\n').replace(/\\r/g, '\r');
                     a = a.replace(/￥n/g, '\n').replace(/￥r/g, '\r');
                     
                     result.push({
                         id: `csv_w_${index++}`,
                         type: "word",
-                        page: page, // 1列目のページ番号を保持
+                        page: page,
                         question: q,
                         answer: a
                     });
@@ -490,6 +525,122 @@ class AppState {
             }
         }
         return result;
+    }
+
+    // 100件ごとの範囲リストをUIに構築
+    buildRangeSelector() {
+        const totalWords = this.rawDataSource.length;
+        const rangeSize = 100;
+        const numRanges = Math.ceil(totalWords / rangeSize);
+        
+        let savedRanges = null;
+        const saved = localStorage.getItem('eitango_enabled_ranges');
+        if (saved) {
+            try {
+                savedRanges = JSON.parse(saved);
+            } catch(e) {}
+        }
+
+        this.enabledRanges = [];
+        for (let i = 0; i < numRanges; i++) {
+            const isEnabled = savedRanges ? !!savedRanges[i] : true;
+            this.enabledRanges.push(isEnabled);
+        }
+
+        const container = document.getElementById('rangeContainer');
+        container.innerHTML = '';
+
+        for (let i = 0; i < numRanges; i++) {
+            const start = i * rangeSize + 1;
+            const end = Math.min((i + 1) * rangeSize, totalWords);
+            
+            const item = document.createElement('label');
+            item.className = 'range-item';
+            
+            // チェックボックスおよびラベル自体のタップが外に伝搬してメニューが閉じるのを防止
+            item.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+            
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.checked = this.enabledRanges[i];
+            checkbox.dataset.index = i;
+            checkbox.addEventListener('change', (e) => {
+                e.stopPropagation();
+                this.toggleRange(i, e.target.checked);
+            });
+
+            const text = document.createTextNode(` No.${start} - ${end}`);
+            item.appendChild(checkbox);
+            item.appendChild(text);
+            container.appendChild(item);
+        }
+    }
+
+    toggleRange(index, checked) {
+        this.enabledRanges[index] = checked;
+        localStorage.setItem('eitango_enabled_ranges', JSON.stringify(this.enabledRanges));
+        this.applyRangeFilter(false);
+    }
+
+    selectAllRanges(checked) {
+        this.enabledRanges = this.enabledRanges.map(() => checked);
+        localStorage.setItem('eitango_enabled_ranges', JSON.stringify(this.enabledRanges));
+        
+        const checkboxes = document.querySelectorAll('#rangeContainer input[type="checkbox"]');
+        checkboxes.forEach(cb => cb.checked = checked);
+        
+        this.applyRangeFilter(false);
+    }
+
+    // 出題範囲チェックボックスの設定に基づいてアクティブリストを構築
+    applyRangeFilter(isInitial = false) {
+        const rangeSize = 100;
+        let filtered = [];
+
+        this.rawDataSource.forEach((item, idx) => {
+            const rangeIndex = Math.floor(idx / rangeSize);
+            if (this.enabledRanges[rangeIndex]) {
+                filtered.push(item);
+            }
+        });
+
+        // どこも選ばれていない場合は安全のために最初の範囲を強制ON
+        if (filtered.length === 0 && this.rawDataSource.length > 0) {
+            this.enabledRanges[0] = true;
+            localStorage.setItem('eitango_enabled_ranges', JSON.stringify(this.enabledRanges));
+            const firstCheckbox = document.querySelector('#rangeContainer input[type="checkbox"]');
+            if (firstCheckbox) firstCheckbox.checked = true;
+            
+            filtered = this.rawDataSource.slice(0, Math.min(rangeSize, this.rawDataSource.length));
+            showToast("出題範囲は最低1グループ選択してください");
+        }
+
+        // ローカルストレージの進捗読み込み
+        const savedData = localStorage.getItem('eiken_pre2_progress_v4');
+        let parsed = [];
+        if (savedData) {
+            try {
+                parsed = JSON.parse(savedData);
+            } catch (e) {}
+        }
+
+        // フィルタされたリストに適合する進捗データをマップ
+        this.items = filtered.map(dItem => {
+            const matched = parsed.find(p => p.question === dItem.question);
+            return {
+                ...dItem,
+                correctStreakEnJa: matched ? Math.max(0, parseInt(matched.correctStreakEnJa) || 0) : 0,
+                correctStreakJaEn: matched ? Math.max(0, parseInt(matched.correctStreakJaEn) || 0) : 0
+            };
+        });
+
+        this.calculateStats();
+        if (isInitial) {
+            this.learningRate = this.targetLearningRate;
+        }
+        this.pickNextItem(true);
     }
 
     loadDefaultData(source) {
@@ -501,16 +652,48 @@ class AppState {
     }
 
     save() {
-        localStorage.setItem('eiken_pre2_progress_v4', JSON.stringify(this.items));
+        const savedData = localStorage.getItem('eiken_pre2_progress_v4');
+        let progressList = [];
+        if (savedData) {
+            try {
+                progressList = JSON.parse(savedData);
+            } catch (e) {}
+        }
+
+        this.items.forEach(item => {
+            const idx = progressList.findIndex(p => p.question === item.question);
+            if (idx >= 0) {
+                progressList[idx] = {
+                    question: item.question,
+                    correctStreakEnJa: item.correctStreakEnJa,
+                    correctStreakJaEn: item.correctStreakJaEn
+                };
+            } else {
+                progressList.push({
+                    question: item.question,
+                    correctStreakEnJa: item.correctStreakEnJa,
+                    correctStreakJaEn: item.correctStreakJaEn
+                });
+            }
+        });
+
+        localStorage.setItem('eiken_pre2_progress_v4', JSON.stringify(progressList));
     }
 
     reset() {
+        const clearedProgress = this.rawDataSource.map(item => ({
+            question: item.question,
+            correctStreakEnJa: 0,
+            correctStreakJaEn: 0
+        }));
+        localStorage.setItem('eiken_pre2_progress_v4', JSON.stringify(clearedProgress));
+
         this.items.forEach(item => {
             item.correctStreakEnJa = 0;
             item.correctStreakJaEn = 0;
         });
+
         this.comboCount = 0;
-        this.save();
         this.calculateStats();
         this.isFlipped = false;
         this.flipProgress = 0;
@@ -649,12 +832,11 @@ class AppState {
             
             // コンボに応じたエフェクト調整 (1〜5段階)
             const power = Math.min(5, this.comboCount);
-            const particleCount = 15 + power * 15; // コンボが高いほど大量に！
-            const speedMultiplier = 1 + power * 0.3; // コンボが高いほど勢いよく！
+            const particleCount = 15 + power * 15; 
+            const speedMultiplier = 1 + power * 0.3; 
             
             createConfetti(VIEW_WIDTH / 2, layout.cardCenterY, '#00FF66', particleCount, speedMultiplier);
 
-            // コンボテキスト演出開始
             if (this.comboCount >= 2) {
                 this.comboTextScale = 0.4;
                 this.comboTextAlpha = 1.0;
@@ -665,7 +847,7 @@ class AppState {
             } else {
                 this.currentItem.correctStreakJaEn = 0;
             }
-            this.comboCount = 0; // コンボリセット
+            this.comboCount = 0; 
             createConfetti(VIEW_WIDTH / 2, layout.cardCenterY, '#ff3366', 20, 1.0);
         }
 
@@ -778,7 +960,6 @@ function updateLayout() {
     layout.btnY = layout.height - layout.safeAreaBottom - 15 - 65; 
     layout.resultY = layout.btnY - 15 - 110; 
     
-    // 改行レイアウトを崩さないよう中心座標を再調整
     if (!app.isAnswered) {
         const availableSpace = layout.startY - layout.headerBottom;
         layout.cardCenterY = layout.headerBottom + availableSpace / 2 - 8;
@@ -792,10 +973,13 @@ function updateLayout() {
 }
 
 window.addEventListener('resize', resizeCanvas);
-window.addEventListener('load', async () => {
+window.addEventListener('load', () => {
     resizeCanvas();
-    await app.init();
+    // 1. 同期的にゲームを即開始可能な状態にする
+    app.initSync();
     gameLoop();
+    // 2. バックグラウンドでword.csvを非ブロッキングフェッチ
+    app.fetchCSVBackground();
 });
 
 function getRelativeCoords(event) {
@@ -858,7 +1042,16 @@ function createConfetti(x, y, color, count = 20, speedMultiplier = 1) {
 // ==========================================
 // 【インタラクション制御】
 // ==========================================
+let isTouchProcessing = false; // 二重発火および競合防止フラグ
+
 function handleInteraction(coords) {
+    // もしスライドメニューが開いている場合は、メニューを閉じることを優先
+    const menu = document.getElementById('sideMenu');
+    if (menu.classList.contains('active')) {
+        menu.classList.remove('active');
+        return; // メニューを閉じるタップ時は回答判定をスキップ
+    }
+
     if (app.isTransitioning || !isInitialized) return;
 
     const { x, y } = coords;
@@ -890,19 +1083,20 @@ function handleInteraction(coords) {
     }
 }
 
-function resetProgress() {
-    showToast("学習状況をリセットしました");
-    app.reset();
-    createConfetti(VIEW_WIDTH / 2, layout.cardCenterY, '#ff3366', 30);
-}
-
+// touchstartとmousedownの二重発火を完全に防止
 canvas.addEventListener('touchstart', (e) => {
     e.preventDefault();
+    isTouchProcessing = true;
     const coords = getRelativeCoords(e);
     handleInteraction(coords);
 }, { passive: false });
 
 canvas.addEventListener('mousedown', (e) => {
+    if (isTouchProcessing) {
+        // すでにタッチで処理した場合は無視してフラグをリセット
+        isTouchProcessing = false;
+        return;
+    }
     const coords = getRelativeCoords(e);
     handleInteraction(coords);
 });
@@ -1019,7 +1213,6 @@ function drawHeader() {
 
     ctx.fillStyle = '#4b5563';
     ctx.font = '11px Helvetica, sans-serif';
-    // CSVから読み込まれた単語数が app.stats.total に動的にバインドされ表示されます
     ctx.fillText(`MASTERED: ${app.stats.mastered} / ${app.stats.total} words`, 32, top + 98);
 
     ctx.textAlign = 'right';
@@ -1130,28 +1323,24 @@ function drawCard() {
             const trimmedLine = line.trim();
             if (!trimmedLine) return;
 
-            // 対義語・類義語の検出 (【】や [ ] に対応)
             if (trimmedLine.startsWith('[') || trimmedLine.startsWith('(') || trimmedLine.startsWith('【')) {
-                ctx.fillStyle = '#00E5FF'; // 青みのアクセント
+                ctx.fillStyle = '#00E5FF'; 
                 ctx.font = 'bold 11px "Hiragino Kaku Gothic ProN", Meiryo, sans-serif';
                 wrapText(ctx, trimmedLine, 0, startY, cardW - 45, 16);
                 startY += 18;
             } 
-            // 2行目・3行目の例文情報（1行目は日本語解説。アルファベットを含む場合を英文と判定）
             else if (index > 0 && !!trimmedLine.match(/[a-zA-Z]/)) {
-                ctx.fillStyle = '#e5e7eb'; // 英語例文
+                ctx.fillStyle = '#e5e7eb'; 
                 ctx.font = 'italic 12px Helvetica, Arial, sans-serif';
                 wrapText(ctx, trimmedLine, 0, startY, cardW - 45, 17);
                 startY += 20;
             } 
-            // 例文の日本語訳（アルファベットを含まない2行目以降）
             else if (index > 0) {
-                ctx.fillStyle = '#9ca3af'; // 日本語訳
+                ctx.fillStyle = '#9ca3af'; 
                 ctx.font = '11px "Hiragino Kaku Gothic ProN", Meiryo, sans-serif';
                 wrapText(ctx, trimmedLine, 0, startY, cardW - 45, 16);
                 startY += 19;
             } 
-            // 1行目の主日本語解説
             else {
                 ctx.fillStyle = '#ffffff';
                 ctx.font = 'bold 14px "Hiragino Kaku Gothic ProN", Meiryo, sans-serif';
@@ -1164,7 +1353,6 @@ function drawCard() {
     ctx.restore();
 }
 
-// コリジョン後等のコンボテキストの描画
 function drawComboAnimation() {
     if (app.comboTextAlpha > 0) {
         ctx.save();
@@ -1181,7 +1369,6 @@ function drawComboAnimation() {
         
         ctx.restore();
 
-        // アニメーション更新
         app.comboTextScale += (1.0 - app.comboTextScale) * 0.15;
         app.comboTextAlpha -= 0.015;
     }
@@ -1253,7 +1440,6 @@ function drawInteractiveArea() {
             ctx.fillStyle = '#00FF66';
             ctx.font = 'bold 24px "Hiragino Kaku Gothic ProN", sans-serif';
             
-            // コンボ数を正解タイトル横に英語で表示
             const comboNote = app.comboCount >= 2 ? ` (${app.comboCount} Combo!!)` : '';
             ctx.fillText(`正 解 ！${comboNote}`, VIEW_WIDTH / 2, resultY + 65);
         } else {
@@ -1311,15 +1497,14 @@ function updateAndDrawParticles() {
 }
 
 // ==========================================
-// 【モーダル & 拡張システム】
+// 【メニュー & システム操作】
 // ==========================================
-function openModal() {
-    document.getElementById('modal').classList.add('active');
-    document.getElementById('importArea').value = "";
-}
-
-function closeModal() {
-    document.getElementById('modal').classList.remove('active');
+function toggleMenu(event) {
+    if (event) {
+        event.stopPropagation();
+    }
+    const menu = document.getElementById('sideMenu');
+    menu.classList.toggle('active');
 }
 
 function showToast(message) {
@@ -1331,109 +1516,13 @@ function showToast(message) {
     }, 2000);
 }
 
-function exportData() {
-    const dataStr = JSON.stringify(app.items, null, 2);
-    document.getElementById('importArea').value = dataStr;
-    document.getElementById('importArea').select();
-    document.execCommand('copy');
-    showToast("進捗JSONをコピーしました！保管してください");
-}
-
-function importData() {
-    const text = document.getElementById('importArea').value.trim();
-    if (!text) {
-        showToast("入力欄が空です");
-        return;
-    }
-
-    try {
-        if (text.startsWith('[')) {
-            const parsed = JSON.parse(text);
-            if (Array.isArray(parsed)) {
-                app.items = parsed.map((item, idx) => {
-                    let ans = item.answer || '解説なし';
-                    ans = ans.replace(/\\n/g, '\n').replace(/\\r/g, '\r');
-                    ans = ans.replace(/￥n/g, '\n').replace(/￥r/g, '\r');
-                    return {
-                        id: item.id || `custom_${Date.now()}_${idx}`,
-                        type: 'word',
-                        page: item.page || '', // ページ番号のロードをサポート
-                        question: item.question || 'Empty',
-                        answer: ans,
-                        correctStreakEnJa: Math.max(0, parseInt(item.correctStreakEnJa) || 0),
-                        correctStreakJaEn: Math.max(0, parseInt(item.correctStreakJaEn) || 0)
-                    };
-                });
-                showToast(`JSONから ${app.items.length} 件を取り込みました`);
-            } else {
-                throw new Error("Invalid structure");
-            }
-        } else {
-            const lines = text.split('\n');
-            const newItems = [];
-            lines.forEach((line, idx) => {
-                const parts = line.split(/[\t,]/);
-                // ページ番号を含む新しいCSV形式 (少なくとも3列：Page, Word, Meaning)
-                if (parts.length >= 3) {
-                    const page = parts[0].trim();
-                    const question = parts[1].trim();
-                    const meaning = parts[2].trim();
-                    const engExample = parts[3] ? parts[3].trim() : '';
-                    const japExample = parts[4] ? parts[4].trim() : '';
-                    const antonym = parts[5] ? parts[5].trim() : '';
-
-                    let answerLines = [meaning];
-                    if (engExample) answerLines.push(engExample);
-                    if (japExample) answerLines.push(japExample);
-                    if (antonym) answerLines.push(antonym);
-
-                    let answer = answerLines.join('\n');
-                    answer = answer.replace(/\\n/g, '\n').replace(/\\r/g, '\r');
-                    answer = answer.replace(/￥n/g, '\n').replace(/￥r/g, '\r');
-
-                    newItems.push({
-                        id: `custom_${Date.now()}_${idx}`,
-                        type: 'word',
-                        page: page,
-                        question: question,
-                        answer: answer,
-                        correctStreakEnJa: 0,
-                        correctStreakJaEn: 0
-                    });
-                } else if (parts.length === 2) {
-                    // 以前の2列フォーマットにも下位互換性を確保
-                    const question = parts[0].trim();
-                    let answer = parts[1].trim();
-                    answer = answer.replace(/\\n/g, '\n').replace(/\\r/g, '\r');
-                    answer = answer.replace(/￥n/g, '\n').replace(/￥r/g, '\r');
-                    
-                    newItems.push({
-                        id: `custom_${Date.now()}_${idx}`,
-                        type: 'word',
-                        page: '',
-                        question: question,
-                        answer: answer,
-                        correctStreakEnJa: 0,
-                        correctStreakJaEn: 0
-                    });
-                }
-            });
-
-            if (newItems.length > 0) {
-                app.items = [...app.items, ...newItems];
-                showToast(`${newItems.length} 件を追加しました！`);
-            } else {
-                showToast("有効なデータが見つかりませんでした");
-                return;
-            }
-        }
-
-        app.save();
-        app.calculateStats();
-        app.pickNextItem(true);
-        closeModal();
-    } catch (e) {
-        showToast("形式エラー：正しく読み込めませんでした");
+function resetProgressWithConfirm() {
+    if (confirm("これまでの学習進捗率（★の数）がすべて0にリセットされます。本当によろしいですか？")) {
+        app.reset();
+        showToast("すべての学習状況をリセットしました");
+        createConfetti(VIEW_WIDTH / 2, layout.cardCenterY, '#ff3366', 30);
+        const menu = document.getElementById('sideMenu');
+        menu.classList.remove('active');
     }
 }
 
@@ -1479,6 +1568,15 @@ function gameLoop() {
     drawApp();
     requestAnimationFrame(gameLoop);
 }
+
+// コンテナ外（メニュー外）をクリックしたときにスライドメニューを閉じるイベント（PCおよびスマホバブリング対策）
+document.addEventListener('click', (e) => {
+    const menu = document.getElementById('sideMenu');
+    // メニュー自体をクリックしていない場合のみ閉じる
+    if (menu && menu.classList.contains('active') && !menu.contains(e.target)) {
+        menu.classList.remove('active');
+    }
+});
 </script>
 
 </body>
